@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jackson-annotations-2.11.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/hiric/lib/jackson-annotations-2.11.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/hiric/lib/jackson-databind-2.11.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/hiric/lib/jackson-core-2.11.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
