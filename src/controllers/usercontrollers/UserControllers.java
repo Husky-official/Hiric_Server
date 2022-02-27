@@ -8,12 +8,16 @@ public class UserControllers {
 
         String response = "";
 
-        switch (action){
-            case "login":
+        switch (action) {
+            case "login" -> {
                 response = new UserActions().login(request);
-                return  response;
-            default:
-                System.out.println("Unknown action");
+                return response;
+            }
+            case "register" -> {
+                response = Register.register(request);
+                return response;
+            }
+            default -> System.out.println("Unknown action");
         }
 
         return "";
