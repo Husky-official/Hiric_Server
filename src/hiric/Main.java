@@ -1,6 +1,7 @@
 package hiric;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import hiric.controllers.usercontrollers.UserControllers;
 import hiric.dbconnection.DbConnectionVariables;
 
 import java.io.DataInputStream;
@@ -24,6 +25,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
+
         ServerSocket server = null;
 
         try{
@@ -87,23 +89,14 @@ public class Main {
                     ObjectMapper objectMapper = new ObjectMapper();
                     JsonNode jsonNode = objectMapper.readTree(requestBody);
 
-
                     String url = jsonNode.get("url").asText();
-                    String action = jsonNode.get("action").asText();
 
-                    JsonNode userData = jsonNode.get("object");
-                    Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
-
-                    String userId = iterator.next().toString();
-                    String userName = iterator.next().toString();
-
-                    System.out.println(url);
-
+                    //System.out.println(jsonNode);
 
                     switch (url){
                         case "/users":
                             out.flush();
-                            out.writeUTF("hey you!!");
+                            out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
                             break;
                         default:
@@ -112,7 +105,7 @@ public class Main {
                 }
             }catch (Exception e){
                 e.printStackTrace();
-                System.out.println("eee" +e.getMessage());
+                System.out.println("Error ===> " +e.getMessage());
             }
         }
     }

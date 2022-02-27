@@ -21,7 +21,7 @@ public class OnlineDbConnection {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, username, password);
-            System.out.println("connection");
+//            System.out.println("connection");
 
             return connection;
         } catch (SQLException e) {
