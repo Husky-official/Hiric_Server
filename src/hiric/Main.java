@@ -2,6 +2,7 @@ package hiric;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import hiric.controllers.usercontrollers.UserControllers;
+import hiric.controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import hiric.dbconnection.DbConnectionVariables;
 
 import java.io.DataInputStream;
@@ -99,6 +100,10 @@ public class Main {
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
                             break;
+                        case "/jobPost":
+                            out.flush();
+                            out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            out.flush();
                         default:
                             System.out.println("something went wrong");
                     }
