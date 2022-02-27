@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="jackson-databind-2.11.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/lib/jackson-databind-2.11.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/jackson-annotations-2.11.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/jackson-core-2.11.2.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jar_files/mysql-connector-java-8.0.28.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jar_files/protobuf-java-3.11.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,4 +1,4 @@
-package hiric.models;
+package models;
 
 import java.util.List;
 

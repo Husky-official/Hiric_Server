@@ -1,9 +1,9 @@
-package hiric.controllers.usercontrollers;
+package controllers.usercontrollers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hiric.dbconnection.OnlineDbConnection;
-import hiric.models.ResponseStatus;
+import dbconnection.OnlineDbConnection;
+import models.ResponseStatus;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

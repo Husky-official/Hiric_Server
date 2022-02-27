@@ -1,17 +1,15 @@
-package hiric;
-
 import com.fasterxml.jackson.databind.JsonNode;
-import hiric.controllers.usercontrollers.UserControllers;
-import hiric.dbconnection.DbConnectionVariables;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import controllers.usercontrollers.UserControllers;
+import dbconnection.DbConnectionVariables;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Iterator;
-import java.util.Map;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class Main {
     public void startServer() throws Exception{

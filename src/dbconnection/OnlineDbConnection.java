@@ -1,8 +1,13 @@
-package hiric.dbconnection;
+package dbconnection;
 
 import java.io.FileReader;
 import java.sql.*;
 import java.util.Properties;
+
+/**
+*@author: DABAGIRE Valens
+ * @description : Provide the class to enable us to connect to online database
+* */
 
 public class OnlineDbConnection {
     public Connection getConnection() throws Exception {
