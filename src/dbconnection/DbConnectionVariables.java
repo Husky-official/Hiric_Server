@@ -1,8 +1,13 @@
-package hiric.dbconnection;
+package dbconnection;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
+
+/**
+ *@author: DABAGIRE Valens
+ * @description : Save DB connection variables in a properties file
+ * */
 
 public class DbConnectionVariables {
     private String databaseUrl;

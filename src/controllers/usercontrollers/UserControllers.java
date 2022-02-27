@@ -1,4 +1,4 @@
-package hiric.controllers.usercontrollers;
+package controllers.usercontrollers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

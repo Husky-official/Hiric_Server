@@ -1,6 +1,11 @@
-package hiric.models;
+package models;
 
 import java.io.Serializable;
+
+/**
+ *@author: DABAGIRE Valens
+ * @description : Format for request body (url, action, requestObject)
+ * */
 
 public class RequestBody implements Serializable {
     private String url; // /users

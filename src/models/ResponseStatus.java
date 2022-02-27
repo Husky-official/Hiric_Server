@@ -1,6 +1,11 @@
-package hiric.models;
+package models;
 
 import java.io.Serializable;
+
+/**
+ *@author: DABAGIRE Valens
+ * @description : this is a class to manage the response from server
+ * */
 
 public class ResponseStatus implements Serializable {
     private Integer status;
