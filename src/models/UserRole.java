@@ -1,2 +1,6 @@
-package models;public enum UserRole {
+package models;
+/*@author Anglebert*/
+
+public enum UserRole {
+    ADMIN , STANDARD , GUEST
 }
