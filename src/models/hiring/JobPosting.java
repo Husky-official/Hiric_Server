@@ -1,9 +1,4 @@
-package hiric.models.hiring;
-
-import hiric.dbconnection.OnlineDbConnection;
-
-import java.util.Date;
-import java.sql.*;
+package models.hiring;
 
 public class JobPosting {
     private String jobId;
