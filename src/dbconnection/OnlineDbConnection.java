@@ -15,7 +15,7 @@ public class OnlineDbConnection {
         Connection connection = null;
 
         //read db connection properties from file
-        FileReader reader = new FileReader("dbConfig.properties");
+        FileReader reader = new FileReader("../dbConfig.properties");
         Properties storedProperties = new Properties();
         storedProperties.load(reader);
 

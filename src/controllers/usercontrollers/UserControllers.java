@@ -2,6 +2,8 @@ package controllers.usercontrollers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import static controllers.usercontrollers.Register.register;
+
 public class UserControllers {
     public String mainMethod(JsonNode request) throws Exception{
         String action = request.get("action").asText();
@@ -14,7 +16,7 @@ public class UserControllers {
                 return response;
             }
             case "register" -> {
-                response = Register.register(request);
+                response = register(request);
                 return response;
             }
             default -> System.out.println("Unknown action");
