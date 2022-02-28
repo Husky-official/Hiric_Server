@@ -5,9 +5,9 @@ import java.sql.*;
 import java.util.Properties;
 
 /**
-*@author: DABAGIRE Valens
+ *@author: DABAGIRE Valens
  * @description : Provide the class to enable us to connect to online database
-* */
+ * */
 
 public class OnlineDbConnection {
     public Connection getConnection() throws Exception {
@@ -24,7 +24,7 @@ public class OnlineDbConnection {
             String username = storedProperties.getProperty("dbUsername");
             String password = storedProperties.getProperty("dbPassword");
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+           // Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, username, password);
 //            System.out.println("connection");
 
