@@ -1,3 +1,8 @@
+/*
+ @author: UWENAYO Alain Pacifique,
+ @description: GenericSQL is a generic SQL database interface.
+ @date:   2017-05-10
+ */
 CREATE TABLE users_table{
     user_id int auto_increment,
     first_name varchar(50) not null,
