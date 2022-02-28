@@ -15,16 +15,17 @@ import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.sql.*;
+import java.lang.String;
 
 public class InvoiceControllers {
-    public String mainMethod(JsonNode request) throws Exception{
+    public String mainMethod(JsonNode request) throws Exception {
         String action = request.get("action");
         String response = "";
-        switch (action){
+        switch (action) {
             case "generate":
                 response = new InvoiceActions().createAndStoreInvoiceInDB(request);
                 return response;
         }
+        return "";
     }
-
 }
