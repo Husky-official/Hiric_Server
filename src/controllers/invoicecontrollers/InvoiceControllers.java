@@ -25,6 +25,9 @@ public class InvoiceControllers {
             case "generate":
                 response = new InvoiceActions().createAndStoreInvoiceInDB(request);
                 return response;
+            case "print":
+                response: new InvoiceActions().getInvoiceDetails(request);
+                return response;
         }
         return "";
     }

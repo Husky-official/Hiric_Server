@@ -1,13 +1,9 @@
 <component name="libraryTable">
-  <library name="jackson-core-2.11.2">
+  <library name="jackson">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Downloads/jackson-core-2.11.2.jar!/" />
-<<<<<<< HEAD
-      <root url="jar://$USER_HOME$/Downloads/jackson-databind-2.11.2.jar!/" />
       <root url="jar://$USER_HOME$/Downloads/jackson-annotations-2.11.2.jar!/" />
-=======
-      <root url="jar://$USER_HOME$/Desktop/jackson-databind-2.11.2.jar!/" />
->>>>>>> ff696ed4cfcd7e70b21b70fcda237fa6e4181d8e
+      <root url="jar://$USER_HOME$/Downloads/jackson-core-2.11.2.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jackson-databind-2.11.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
