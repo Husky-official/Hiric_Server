@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import controllers.invoicecontrollers.InvoiceControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
 
@@ -97,6 +98,10 @@ public class Main {
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
                             break;
+                        case "/invoices":
+                            out.flush();
+                            out.writeUTF(new InvoiceControllers().mainMethod(jsonNode));
+                            out.flush();
                         default:
                             System.out.println("something went wrong");
                     }

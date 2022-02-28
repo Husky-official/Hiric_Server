@@ -60,5 +60,6 @@ public class OnlineDbConnection {
         OnlineDbConnection dbConnection = new OnlineDbConnection();
         System.out.println(dbConnection.getConnection());
         dbConnection.checkDbConnection(dbConnection.getConnection());
+
     }
 }
