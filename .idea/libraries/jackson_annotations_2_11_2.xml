@@ -4,8 +4,7 @@
       <root url="jar://$PROJECT_DIR$/src/hiric/lib/jackson-annotations-2.11.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/src/hiric/lib/jackson-databind-2.11.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/src/hiric/lib/jackson-core-2.11.2.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/jar_files/mysql-connector-java-8.0.28.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/jar_files/protobuf-java-3.11.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/hiric/lib/mysql-connector-java-5.1.44.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
