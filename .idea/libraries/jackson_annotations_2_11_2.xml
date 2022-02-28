@@ -4,6 +4,8 @@
       <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.11.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.11.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.11.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.44.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
