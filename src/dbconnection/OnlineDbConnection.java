@@ -14,20 +14,14 @@ public class OnlineDbConnection {
 
         Connection connection = null;
 
-        //read db connection properties from file
-        FileReader reader = new FileReader("../dbConfig.properties");
-        Properties storedProperties = new Properties();
-        storedProperties.load(reader);
-
         try {
-            String url = storedProperties.getProperty("dbUrl");
-            String username = storedProperties.getProperty("dbUsername");
-            String password = storedProperties.getProperty("dbPassword");
+            String url = "jdbc:mysql://localhost:3306/husky";
+            String username = "root";
+            String password = "mysql";
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, username, password);
-//            System.out.println("connection");
-
+            System.out.println("connection");
             return connection;
         } catch (SQLException e) {
             System.out.println("sql connection exception is occurring ... ");
