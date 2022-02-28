@@ -1,4 +1,4 @@
-package hiric.controllers.hiringcontrollers.jobpostingcontrollers;
+package controllers.hiringcontrollers.jobpostingcontrollers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 /*

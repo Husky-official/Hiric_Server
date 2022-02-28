@@ -1,14 +1,9 @@
 import com.fasterxml.jackson.databind.JsonNode;
-<<<<<<< HEAD:src/hiric/Main.java
-import hiric.controllers.usercontrollers.UserControllers;
-import hiric.controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
-import hiric.dbconnection.DbConnectionVariables;
-=======
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
->>>>>>> main:src/Main.java
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
