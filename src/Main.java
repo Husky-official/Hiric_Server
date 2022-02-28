@@ -2,13 +2,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import controllers.hiringcontrollers.jobapplicationcontrollers.JobApplicationController;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
-
-//import hiric.controllers.usercontrollers.UserControllers;
-import hiric.controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
-//import hiric.dbconnection.DbConnectionVariables;
-
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -89,13 +85,13 @@ public class Main {
                 while (!requestBody.equals("exit")){
 
                     requestBody = in.readUTF();
-
+//changing the normal user into json strings
                     ObjectMapper objectMapper = new ObjectMapper();
                     JsonNode jsonNode = objectMapper.readTree(requestBody);
 
                     String url = jsonNode.get("url").asText();
 
-                    //System.out.println(jsonNode);
+                    System.out.println(jsonNode);
 
                     switch (url){
                         case "/users":
@@ -106,6 +102,10 @@ public class Main {
                         case "/jobPost":
                             out.flush();
                            // out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            out.flush();
+                        case "/createApplication":
+                            out.flush();
+                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                             out.flush();
                         default:
                             System.out.println("something went wrong");

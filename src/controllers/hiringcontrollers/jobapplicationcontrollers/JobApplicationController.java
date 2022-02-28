@@ -1,8 +1,12 @@
 package controllers.hiringcontrollers.jobapplicationcontrollers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import controllers.usercontrollers.UserActions;
-public class jobApplicationController {
+/**
+ *@author: ITETERO Ariane
+ * @description : the action to take place is described here
+ * */
+
+public class JobApplicationController {
 
         public String mainMethod(JsonNode request) throws Exception{
             String action = request.get("action").asText();
@@ -11,7 +15,7 @@ public class jobApplicationController {
 
             switch (action){
                 case "createApplication":
-                    response = new UserActions().createApplication(request);
+                    response = new jobApplicationActions().createApplication(request);
                     return  response;
                 default:
                     System.out.println("Unknown action");
@@ -19,4 +23,5 @@ public class jobApplicationController {
 
             return "";
         }
-    }
+
+}

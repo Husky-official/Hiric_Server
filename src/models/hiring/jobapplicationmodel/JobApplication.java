@@ -1,6 +1,10 @@
 package models.hiring.jobapplicationmodel;
+
 public class JobApplication {
 
+    private Integer id;
+    private Integer userId;
+    private Integer jobId;
     private String currentAddress;
     private String positionAppliedFor;
     private String availableDate;
@@ -16,11 +20,14 @@ public class JobApplication {
     private String resume;
     private String certificate;
 
-    public JobApplication(){};
-    public JobApplication(String currentAddress, String positionAppliedFor, String availableDate, String salaryDesired, String
+    public void JobApplication(){};
+    public void JobApplication(int id,int jobId,int userId,String currentAddress, String positionAppliedFor, String availableDate, String salaryDesired, String
             paymentMethod, String prevEmpPhone, String prevEmpEmail, String
-                                  prevPosition, String reason, String referenceName, String referencePhone, String resume,
-                          String certificate){
+                                       prevPosition, String reason, String referenceName, String referencePhone, String resume,
+                               String certificate){
+        this.userId=userId;
+        this.id=id;
+        this.jobId=jobId;
         this.currentAddress=currentAddress;
         this.positionAppliedFor= positionAppliedFor;
         this.availableDate=availableDate;
@@ -147,6 +154,30 @@ public class JobApplication {
 
     public void setCertificate(String certificate) {
         this.certificate = certificate;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Integer jobId) {
+        this.jobId = jobId;
     }
 }
 

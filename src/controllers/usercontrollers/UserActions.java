@@ -52,7 +52,4 @@ public class UserActions {
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
-
-    public void createApplication(JsonNode request) {
-    }
 }
