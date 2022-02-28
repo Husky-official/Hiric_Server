@@ -1,5 +1,10 @@
 package models;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 
 /**
@@ -23,6 +28,8 @@ public class AdminDashboard {
     private int employersRecentlyAdded;
     private String employerEmail;
     private String employerDesiredPost;
+
+    public AdminDashboard(){}
 
     public String getAdminName() {
         return adminName;
@@ -134,5 +141,19 @@ public class AdminDashboard {
 
     public void setEmployerDesiredPost(String employerDesiredPost) {
         this.employerDesiredPost = employerDesiredPost;
+    }
+
+
+    public AdminDashboard(String adminName, Date dateToday, String messages, String notifications, String employerReviews,
+                          String employeeReviews, Date publishedDate, int employeesRecentlyAdded, int employersRecentlyAdded){
+        this.adminName = adminName;
+        this.dateToday = dateToday;
+        this.messages = messages;
+        this.notifications = notifications;
+        this.employerReviews = employerReviews;
+        this.employeeReviews = employeeReviews;
+        this.publishedDate = publishedDate;
+        this.employeesRecentlyAdded = employeesRecentlyAdded;
+        this.employersRecentlyAdded = employersRecentlyAdded;
     }
 }
