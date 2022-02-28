@@ -1,3 +1,8 @@
+/*
+@author: UWENAYO Alain Pacifique
+@description: Register controller
+@date:   25/04/2020
+ */
 package controllers.usercontrollers;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -67,7 +72,7 @@ public class Register {
         return new ObjectMapper().writeValueAsString(new ResponseStatus(200, "User registered successfully", "register"));
         }catch (Exception e){
             e.printStackTrace();
-            return new ObjectMapper().writeValueAsString(new ResponseStatus(400, "User already exists", "register"));
+            return new ObjectMapper().writeValueAsString(new ResponseStatus(400, "Error", "register"));
         }
     }
 }
