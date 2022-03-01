@@ -1,9 +1,7 @@
 package models.hiring;
 
-
 import java.util.Date;
 import java.sql.*;
-
 public class JobPosting {
     private String jobId;
     private String userId;
