@@ -2,12 +2,14 @@ package controllers.usercontrollers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -28,6 +30,7 @@ public class UserActions {
         String userId = iterator.next().toString().split("=")[1];
         int id = Integer.parseInt(userId);
         //System.out.println(userId);
+
         String userName = iterator.next().toString().split("=")[1];
         //System.out.println(userName);
 
