@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import controllers.jobs.JobControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
 
@@ -95,6 +96,11 @@ public class Main {
                         case "/users":
                             out.flush();
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
+                            out.flush();
+                            break;
+                        case "/jobs":
+                            out.flush();
+                            out.writeUTF(new JobControllers().mainMethod(jsonNode));
                             out.flush();
                             break;
                         default:
