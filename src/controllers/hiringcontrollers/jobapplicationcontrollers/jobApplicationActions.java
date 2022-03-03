@@ -9,16 +9,23 @@ import models.ResponseStatus;
  *@author: ITETERO Ariane
  * @description : The action to insert into database the job application details
  * */
+//actions the user has to first log in then chooses id according to job post
 
+
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Iterator;
 import java.util.Map;
 public class jobApplicationActions {
-
+//        Boolean prevEmployed=true;
         String createApplicationQuery = "Insert into job_applications(id, userId, jobId, currentAddress, positionAppliedFor," +
                 " availableDate, salaryDesired, paymentMethod, prevEmployer, prevEmpPhone, prevEmpEmail, prevPosition," +
                 " reason, referenceName, referencePhone, resume, certificate) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        String viewPostsQuery="Select * from jobPosts";
 
         public jobApplicationActions() throws Exception {}
 
@@ -40,11 +47,6 @@ public class jobApplicationActions {
             String availableDate= iterator.next().toString().split("=")[1];
             String salaryDesired = iterator.next().toString().split("=")[1];
             String paymentMethod = iterator.next().toString().split("=")[1];
-            String prevEmployer = iterator.next().toString().split("=")[1];
-            String prevEmpPhone = iterator.next().toString().split("=")[1];
-            String prevEmpEmail = iterator.next().toString().split("=")[1];
-            String prevPosition = iterator.next().toString().split("=")[1];
-            String reason = iterator.next().toString().split("=")[1];
             String referenceName = iterator.next().toString().split("=")[1];
             String referencePhone = iterator.next().toString().split("=")[1];
             String resume= iterator.next().toString().split("=")[1];
@@ -58,11 +60,6 @@ public class jobApplicationActions {
             preparedStatement.setString(6, availableDate);
             preparedStatement.setString(7, salaryDesired);
             preparedStatement.setString(8, paymentMethod);
-            preparedStatement.setString(9, prevEmployer);
-            preparedStatement.setString(10, prevEmpPhone);
-            preparedStatement.setString(11, prevEmpEmail);
-            preparedStatement.setString(12, prevPosition);
-            preparedStatement.setString(13, reason);
             preparedStatement.setString(14, referenceName);
             preparedStatement.setString(15, referencePhone);
             preparedStatement.setString(16, resume);
@@ -85,6 +82,19 @@ public class jobApplicationActions {
 
             return new ObjectMapper().writeValueAsString(responseStatus);
         }
+
+//        public String viewPosts(JsonNode requestData) throws  Exception {
+//        Connection newConnection=new OnlineDbConnection().getConnection();
+//        Statement statement=newConnection.createStatement();
+//        ResultSet myresult=statement.executeQuery(viewPostsQuery);
+//x
+//        }
+
+//        public String prevEmployedMethod(){
+//            if(prevEmployed==true){
+//
+//            }
+//        }
 
 }
 

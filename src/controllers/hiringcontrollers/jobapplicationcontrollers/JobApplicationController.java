@@ -17,6 +17,9 @@ public class JobApplicationController {
                 case "createApplication":
                     response = new jobApplicationActions().createApplication(request);
                     return  response;
+                case "showPosts":
+                    response=new jobApplicationActions().viewPosts(request);
+                    return response;
                 default:
                     System.out.println("Unknown action");
             }
