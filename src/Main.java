@@ -89,7 +89,7 @@ public class Main {
 
                     String url = jsonNode.get("url").asText();
 
-                    //System.out.println(jsonNode);
+                    System.out.println(jsonNode);
 
                     switch (url){
                         case "/users":

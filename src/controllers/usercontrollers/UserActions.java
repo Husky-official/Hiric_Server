@@ -25,23 +25,23 @@ public class UserActions {
         JsonNode userData = requestData.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
 
-        String userId = iterator.next().toString().split("=")[1];
+        String userId = iterator.next().toString().split("=")[1].split("\"")[1];
         int id = Integer.parseInt(userId);
-        //System.out.println(userId);
+        System.out.println(userId);
         String userName = iterator.next().toString().split("=")[1];
-        //System.out.println(userName);
+        System.out.println(userName);
 
         PreparedStatement preparedStatement = connection.prepareStatement(loginUserQuery);
         preparedStatement.setString(1, userName);
-        preparedStatement.setInt(2, id);
+        preparedStatement.setString(2, userId);
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
         ResponseStatus responseStatus = new ResponseStatus();
 
         if(!resultSet.next()){
-            responseStatus.setStatus(500);
-            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setStatus(404);
+            responseStatus.setMessage("Invalid email or password");
             responseStatus.setActionToDo("Something went wrong");
 
         }else {
