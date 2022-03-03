@@ -24,7 +24,7 @@ public class OnlineDbConnection {
             String username = storedProperties.getProperty("dbUsername");
             String password = storedProperties.getProperty("dbPassword");
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jd.jdbc.Driver");
             connection = DriverManager.getConnection(url, username, password);
 //            System.out.println("connection");
 
