@@ -1,8 +1,7 @@
-/*
- @author: UWENAYO Alain Pacifique,
- @description: GenericSQL is a generic SQL database interface.
- @date:   2017-05-10
- */
+/**
+*@author: UWENAYO ALAIN PACIFIQUE
+ * @description : create database statements for the application
+* */
  CREATE DATABASE IF NOT EXISTS `husky`;
  USE `husky`;
 CREATE TABLE users_table
@@ -39,4 +38,4 @@ CREATE TABLE test_tb
     PRIMARY KEY (id)
 );
 INSERT INTO roles_table (role) VALUES('standard'), ('admin');
-INSERT INTO account_types_table (account_type) VALUES ('employee'),('employer');
+INSERT INTO account_types_table (account_type) VALUES ('employer'),('employee');

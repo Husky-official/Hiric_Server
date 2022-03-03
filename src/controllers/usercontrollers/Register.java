@@ -1,7 +1,8 @@
-/*
+/**
 @author: UWENAYO Alain Pacifique
-@description: Register controller
+@description: Register controller to handle registration requests
 @date:   25/04/2020
+@version: 1.0
  */
 package controllers.usercontrollers;
 
