@@ -19,7 +19,7 @@ import java.lang.String;
 
 public class InvoiceControllers {
     public String mainMethod(JsonNode request) throws Exception {
-        String action = request.get("action");
+        String action = request.get("action").asText();
         String response = "";
         switch (action) {
             case "generate":

@@ -10,9 +10,7 @@
     <orderEntry type="library" name="jackson-annotations-2.11.21" level="project" />
     <orderEntry type="library" name="jackson-databind-2.11.2" level="project" />
     <orderEntry type="library" name="jackson-core-2.11.2" level="project" />
-<<<<<<< HEAD
-=======
+    <orderEntry type="library" name="jackson-annotations-2.11.2" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.44" level="project" />
->>>>>>> ff696ed4cfcd7e70b21b70fcda237fa6e4181d8e
   </component>
 </module>
