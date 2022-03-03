@@ -10,6 +10,9 @@ public class PayrollControllers{
             case "create":
                 response = new PayrollActions().createAndSavePayroll(request);
                 return response;
+            case "listJobs":
+                response = new PayrollActions().listOfJobsByEmployer(request);
+                return response;
         }
         return "";
     }

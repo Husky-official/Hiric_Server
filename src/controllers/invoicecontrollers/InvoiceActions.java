@@ -43,7 +43,7 @@ public class InvoiceActions {
         preparedStatement.setInt(3, userId);
         int rowsAffected = statement.executeUpdate(invoiceCreationQuery);
         ResponseStatus responseStatus = new ResponseStatus();
-        if((bool)rowsAffected){
+        if(rowsAffected == 1){
             responseStatus.setStatus(200);
             responseStatus.setMessage("Invoice Created Successfully");
             responseStatus.setActionToDo("Create invoice");

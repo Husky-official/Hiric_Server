@@ -1,6 +1,7 @@
 package controllers.billing;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
 
 import java.sql.Connection;
@@ -18,5 +19,15 @@ public class PayrollActions {
         JsonNode payrollData = request.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = payrollData.fields();
         PreparedStatement preparedStatement = connection.prepareStatement(savePayrollQuery);
+        return "";
+    }
+    public String listOfJobsByEmployer(JsonNode request) throws Exception{
+        Connection connection = new OblineDbConnection.getConnection();
+        String listAllJobsQuery = "Select * from jobPosts where userId = ?";
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode employerInformation = request.get("object");
+        String employerInfo = employerInformation.get("employerId").asText();
+        System.out.println(employerInfo);
+        return employerInfo;
     }
 }
