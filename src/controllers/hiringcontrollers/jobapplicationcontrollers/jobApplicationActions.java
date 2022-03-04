@@ -20,10 +20,8 @@ import java.sql.Statement;
 import java.util.Iterator;
 import java.util.Map;
 public class jobApplicationActions {
-//        Boolean prevEmployed=true;
-        String createApplicationQuery = "Insert into job_applications(id, userId, jobId, currentAddress, positionAppliedFor," +
-                " availableDate, salaryDesired, paymentMethod, prevEmployer, prevEmpPhone, prevEmpEmail, prevPosition," +
-                " reason, referenceName, referencePhone, resume, certificate) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String createApplicationQuery = "INSERT INTO jobApplication(jobPostId, userId, locationId, paymentMethod, referenceName, referencePhone, resume, certificate)" +
+        "VALUES(?,?,?,?,?,?,?,?)";
 
         String viewPostsQuery="Select * from jobPosts";
 
@@ -42,28 +40,20 @@ public class jobApplicationActions {
             int userIdd = Integer.parseInt(userId);
             String jobId = iterator.next().toString().split("=")[1];
             int idJob = Integer.parseInt(jobId);
-            String currentAddress = iterator.next().toString().split("=")[1];
-            String positionAppliedFor = iterator.next().toString().split("=")[1];
-            String availableDate= iterator.next().toString().split("=")[1];
-            String salaryDesired = iterator.next().toString().split("=")[1];
             String paymentMethod = iterator.next().toString().split("=")[1];
             String referenceName = iterator.next().toString().split("=")[1];
             String referencePhone = iterator.next().toString().split("=")[1];
             String resume= iterator.next().toString().split("=")[1];
             String certicate = iterator.next().toString().split("=")[1];
             PreparedStatement preparedStatement = connection.prepareStatement(createApplicationQuery);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, userIdd);
-            preparedStatement.setInt(3, idJob);
-            preparedStatement.setString(4, currentAddress);
-            preparedStatement.setString(5, positionAppliedFor);
-            preparedStatement.setString(6, availableDate);
-            preparedStatement.setString(7, salaryDesired);
-            preparedStatement.setString(8, paymentMethod);
-            preparedStatement.setString(14, referenceName);
-            preparedStatement.setString(15, referencePhone);
-            preparedStatement.setString(16, resume);
-            preparedStatement.setString(17, certicate);
+            preparedStatement.setInt(2, idJob);
+            preparedStatement.setInt(3, userIdd);
+            preparedStatement.setInt(4, id);
+            preparedStatement.setString(5, paymentMethod);
+            preparedStatement.setString(6, referenceName);
+            preparedStatement.setString(7, referencePhone);
+            preparedStatement.setString(8, resume);
+            preparedStatement.setString(9, certicate);
 
             int resultSet = preparedStatement.executeUpdate();
 
