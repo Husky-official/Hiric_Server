@@ -1,6 +1,8 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import controllers.billing.PaymentController;
+import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
 
@@ -91,14 +93,28 @@ public class Main {
 
                     System.out.println(jsonNode);
 
-                    switch (url){
-                        case "/users":
+                    switch (url) {
+                        case "/users" -> {
                             out.flush();
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
-                            break;
-                        default:
-                            System.out.println("something went wrong");
+                        }
+                        case "/payment" -> {
+                            out.flush();
+                            out.writeUTF(new PaymentController().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/jobPost" -> {
+                            out.flush();
+                            out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/group_messaging" -> {
+                            out.flush();
+                            out.writeUTF("New group");
+                            out.flush();
+                        }
+                        default -> System.out.println("something went wrong");
                     }
                 }
             }catch (Exception e){
