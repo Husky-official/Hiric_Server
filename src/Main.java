@@ -1,17 +1,17 @@
-package hiric;
-
 import com.fasterxml.jackson.databind.JsonNode;
-import hiric.controllers.usercontrollers.UserControllers;
-import hiric.dbconnection.DbConnectionVariables;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import controllers.billing.PaymentController;
+import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
+import controllers.usercontrollers.UserControllers;
+import dbconnection.DbConnectionVariables;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Iterator;
-import java.util.Map;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class Main {
     public void startServer() throws Exception{
@@ -91,16 +91,30 @@ public class Main {
 
                     String url = jsonNode.get("url").asText();
 
-                    //System.out.println(jsonNode);
+                    System.out.println(jsonNode);
 
-                    switch (url){
-                        case "/users":
+                    switch (url) {
+                        case "/users" -> {
                             out.flush();
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
-                            break;
-                        default:
-                            System.out.println("something went wrong");
+                        }
+                        case "/payment" -> {
+                            out.flush();
+                            out.writeUTF(new PaymentController().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/jobPost" -> {
+                            out.flush();
+                            out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/group_messaging" -> {
+                            out.flush();
+                            out.writeUTF("New group");
+                            out.flush();
+                        }
+                        default -> System.out.println("something went wrong");
                     }
                 }
             }catch (Exception e){
