@@ -8,6 +8,7 @@ import models.ResponseStatus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Iterator;
 import java.util.Map;
 public class UserActions {
@@ -17,8 +18,6 @@ public class UserActions {
         Our simple static class that demonstrates how to create and decode JWTs.
      */
     public String login(JsonNode requestData) throws Exception{
-       //query
-        String loginUserQuery = "SELECT * FROM testing WHERE email = ? AND password =?";
         //initialise  db connection
         Connection connection = new OnlineDbConnection().getConnection();
 
@@ -27,25 +26,25 @@ public class UserActions {
         //getting password
         String userPassword = iterator.next().toString().split("=")[1];
 //        System.out.println(userPassword);
-       //getting email
+//        System.out.println(userPassword.getClass().getSimpleName());
+        //getting email
         String email = iterator.next().toString().split("=")[1];
 //        System.out.println(email);
-        PreparedStatement preparedStatement = connection.prepareStatement(loginUserQuery);
-        preparedStatement.setString(1, email);
-        preparedStatement.setString(2, userPassword);
-        ResultSet resultSet = preparedStatement.executeQuery();
+//        System.out.println(email.getClass().getSimpleName());
+        //query
+        String loginUserQuery = "SELECT email,password FROM users_table WHERE email = "+email+" and password= "+userPassword+"";
+        PreparedStatement preparedstatement = connection.prepareStatement(loginUserQuery);
+        ResultSet resultSet = preparedstatement.executeQuery();
 //        System.out.println(resultSet);
         ResponseStatus responseStatus = new ResponseStatus();
-
-        if(!resultSet.next()){
-            responseStatus.setStatus(400);
-            responseStatus.setMessage("Invalid email or password");
-            responseStatus.setActionToDo("Something went wrong");
-
-        }else {
+        if(resultSet.next()){
             responseStatus.setStatus(200);
             responseStatus.setMessage("User logged in successfully");
             responseStatus.setActionToDo("Login");
+        }else {
+            responseStatus.setStatus(400);
+            responseStatus.setMessage("Invalid email or password");
+            responseStatus.setActionToDo("Something went wrong");
         }
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
