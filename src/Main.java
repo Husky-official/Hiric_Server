@@ -93,36 +93,42 @@ public class Main {
 
                     String url = jsonNode.get("url").asText();
 
-                    //System.out.println(jsonNode);
+                    System.out.println(jsonNode);
 
-                    switch (url){
-                        case "/users":
+                    switch (url) {
+                        case "/users" -> {
                             out.flush();
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
-                            break;
-                        case "/invoices":
+                        }
+                        case "/invoices" -> {
                             out.flush();
                             out.writeUTF(new InvoiceControllers().mainMethod(jsonNode));
-                        case "/payment":
+                        }
+                        case "/payment" -> {
                             out.flush();
                             out.writeUTF(new PaymentController().mainMethod(jsonNode));
                             out.flush();
-                            break;
-                        case "/payroll":
+                        }
+                        case "/payroll" -> {
                             out.flush();
                             out.writeUTF(new PayrollControllers().mainMethod(jsonNode));
                             out.flush();
-                            break;
-                        case "/jobPost":
+                        }
+                        case "/jobPost" -> {
                             out.flush();
                             out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
                             out.flush();
-                        default:
-                            System.out.println("something went wrong");
+                        }
+                        case "/group_messaging" -> {
+                            out.flush();
+                            out.writeUTF("New group");
+                            out.flush();
+                        }
+                        default -> System.out.println("something went wrong");
                     }
                 }
-            }catch (Exception e){
+        }catch (Exception e){
                 e.printStackTrace();
                 System.out.println("Error ===> " +e.getMessage());
             }

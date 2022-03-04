@@ -16,18 +16,22 @@ public class PayrollActions {
     public String createAndSavePayroll(JsonNode request) throws Exception{
         Connection connection = new OnlineDbConnection().getConnection();
         String savePayrollQuery = "INSERT INTO Payroll(userID, jobID, amount, currency, createdAt ,invoiceID) values(?,?,?,?,?,?)";
+
         JsonNode payrollData = request.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = payrollData.fields();
         PreparedStatement preparedStatement = connection.prepareStatement(savePayrollQuery);
         return "";
     }
     public String listOfJobsByEmployer(JsonNode request) throws Exception{
-        Connection connection = new OblineDbConnection.getConnection();
+
+        Connection connection = new OnlineDbConnection().getConnection();
         String listAllJobsQuery = "Select * from jobPosts where userId = ?";
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode employerInformation = request.get("object");
-        String employerInfo = employerInformation.get("employerId").asText();
-        System.out.println(employerInfo);
-        return employerInfo;
+        JsonNode payrollData = request.get("object");
+        Iterator<Map.Entry<String, JsonNode>> iterator = payrollData.fields();
+        iterator.next();
+
+        String employerId = iterator.next().toString().split("=")[1];
+        System.out.println(employerId);
+        return employerId;
     }
 }
