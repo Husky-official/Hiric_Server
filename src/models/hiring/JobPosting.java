@@ -11,6 +11,9 @@ public class JobPosting {
     private String duration;
     private int salary;
 
+    public JobPosting() {
+    }
+
     public String getJobId() {
         return jobId;
     }

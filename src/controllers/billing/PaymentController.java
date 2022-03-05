@@ -14,6 +14,9 @@ public class PaymentController {
             case "payment":
                 response = new PaymentActions().createPayment(request);
                 return  response;
+            case "payroll":
+                response = new PaymentActions().createPayment(request);
+                return  response;
             default:
                 ResponseStatus responseStatus = new ResponseStatus();
                 responseStatus.setStatus(500);
