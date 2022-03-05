@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *@author : BWIZA Cyndy Nina - Admin dashboard
- *@description: : getters and setters of the elements
+ *@description: : format of what will be displayed to the dashboard
  */
 
 public class AdminDashboard {
@@ -145,7 +145,9 @@ public class AdminDashboard {
 
 
     public AdminDashboard(String adminName, Date dateToday, String messages, String notifications, String employerReviews,
-                          String employeeReviews, Date publishedDate, int employeesRecentlyAdded, int employersRecentlyAdded){
+                          String employeeReviews, Date publishedDate, int employeesRecentlyAdded, int employersRecentlyAdded,
+                          String employeeEmail, String employeePost, String desiredSchedule, String employerEmail,
+                          String employerDesiredPost){
         this.adminName = adminName;
         this.dateToday = dateToday;
         this.messages = messages;
@@ -155,5 +157,10 @@ public class AdminDashboard {
         this.publishedDate = publishedDate;
         this.employeesRecentlyAdded = employeesRecentlyAdded;
         this.employersRecentlyAdded = employersRecentlyAdded;
+        this.desiredSchedule = desiredSchedule;
+        this.employeePost = employeePost;
+        this.employeeEmail = employeeEmail;
+        this.employerEmail = employerEmail;
+        this.employerDesiredPost = employerDesiredPost;
     }
 }

@@ -85,6 +85,16 @@ public class Payment implements Serializable {
         this.employerId = employerId;
     }
 
+    public Payment(Long jobId, Double originalAmount, String paymentMethod, Double reducedAmount, Date dateOfPayment, Long employeeId, Long employerId) {
+        this.jobId = jobId;
+        this.originalAmount = originalAmount;
+        this.paymentMethod = paymentMethod;
+        this.reducedAmount = reducedAmount;
+        this.dateOfPayment = dateOfPayment;
+        this.employeeId = employeeId;
+        this.employerId = employerId;
+    }
+
     public Payment(Long id, Long jobId, Double originalAmount, String paymentMethod, Double reducedAmount, Date dateOfPayment, Long employeeId, Long employerId) {
         this.id = id;
         this.jobId = jobId;

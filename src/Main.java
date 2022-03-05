@@ -1,6 +1,8 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import controllers.dashboard.DashboardControllers;
+import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
 
@@ -89,7 +91,7 @@ public class Main {
 
                     String url = jsonNode.get("url").asText();
 
-                    //System.out.println(jsonNode);
+                    System.out.println(jsonNode);
 
                     switch (url){
                         case "/users":
@@ -97,6 +99,13 @@ public class Main {
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
                             break;
+                        case "/jobPost":
+                            out.flush();
+                            out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            out.flush();
+                        case "/dashboard":
+                            out.flush();
+                            out.writeUTF(new DashboardControllers().mainMethod(jsonNode));
                         default:
                             System.out.println("something went wrong");
                     }
