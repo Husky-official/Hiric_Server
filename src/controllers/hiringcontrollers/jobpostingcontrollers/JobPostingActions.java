@@ -88,12 +88,11 @@ public class JobPostingActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
     public String getUserJobs(JsonNode requestData, int userId) throws Exception {
-        String getJobPostsQuery = "select * from JobPosts WHERE userId = "+userId;
+        String getJobPostsQuery = "select * from jobPosts INNER JOIN jobs ON jobPosts.jobId = jobs.id WHERE userId = "+userId;
         Connection connection = new OnlineDbConnection().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(getJobPostsQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
         ResponseStatus responseStatus = new ResponseStatus();
-
         if(!resultSet.next()){
             responseStatus.setStatus(500);
             responseStatus.setMessage("INTERNAL SERVER ERROR");
@@ -110,9 +109,9 @@ public class JobPostingActions {
                         resultSet.getInt("jobId"),
                         resultSet.getInt("userId"),
                         resultSet.getString("jobTitle"),
-                        resultSet.getString("jobDescription"),
-                        resultSet.getString("jobRequirements"),
-                        resultSet.getInt("location"),
+                        resultSet.getString("jobDesc"),
+                        "requirements",
+                        resultSet.getInt("locationId"),
                         resultSet.getString("startDate"),
                         resultSet.getString("duration"),
                         resultSet.getInt("salary"));
