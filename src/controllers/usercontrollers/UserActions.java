@@ -8,10 +8,8 @@ import models.ResponseStatus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Iterator;
 import java.util.Map;
-
 public class UserActions {
     public UserActions() throws Exception {}
 
@@ -19,14 +17,11 @@ public class UserActions {
         Our simple static class that demonstrates how to create and decode JWTs.
      */
     public String login(JsonNode requestData) throws Exception{
-       //query
-        String loginUserQuery = "SELECT * FROM users_table WHERE email = ? AND password =?";
         //initialise  db connection
         Connection connection = new OnlineDbConnection().getConnection();
 
         JsonNode userData = requestData.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
-
         //getting password
         String userPassword = iterator.next().toString().split("=")[1];
 //        System.out.println(userPassword);
@@ -54,14 +49,6 @@ public class UserActions {
             }
             PreparedStatement preparedstatement3 = connection.prepareStatement(tokenQuery);
             preparedstatement3.execute();
-
-        if(!resultSet.next()){
-            responseStatus.setStatus(404);
-            responseStatus.setMessage("Invalid email or password");
-            responseStatus.setMessage("No user with provided credentials");
-            responseStatus.setActionToDo("Something went wrong");
-
-        }else {
             responseStatus.setStatus(200);
             responseStatus.setMessage("User logged in successfully");
             responseStatus.setActionToDo("Login");
