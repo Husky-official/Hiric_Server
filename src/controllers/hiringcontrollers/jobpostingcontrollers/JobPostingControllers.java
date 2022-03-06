@@ -25,6 +25,7 @@ public class JobPostingControllers {
                 String[] url_parts = url.split("=");
                 int userId = Integer.parseInt(url_parts[1]);
                 response = new JobPostingActions().getUserJobs(request, userId);
+                return response;
         }
         return "";
     }
