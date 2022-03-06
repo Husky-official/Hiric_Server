@@ -2,6 +2,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controllers.billing.PaymentController;
+import controllers.groupmessaging.GroupControllers;
 import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
@@ -111,7 +112,7 @@ public class Main {
                         }
                         case "/group_messaging" -> {
                             out.flush();
-                            out.writeUTF("New group");
+                            out.writeUTF(new GroupControllers().mainMethod(jsonNode));
                             out.flush();
                         }
                         default -> System.out.println("something went wrong");
