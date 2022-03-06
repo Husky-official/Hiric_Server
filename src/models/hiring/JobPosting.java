@@ -4,7 +4,7 @@ public class JobPosting {
     private Integer jobId;
     private Integer userId;
     private String jobTitle;
-    private String jobDescription;
+    private String jobDesc;
     private String jobRequirements;
     private Integer location;
     private String startDate;
@@ -35,12 +35,12 @@ public class JobPosting {
         this.jobTitle = jobTitle;
     }
 
-    public String getJobDescription() {
-        return jobDescription;
+    public String getJobDesc() {
+        return jobDesc;
     }
 
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
+    public void setJobDesc(String jobDesc) {
+        this.jobDesc = jobDesc;
     }
 
     public String getJobRequirements() {
@@ -82,11 +82,11 @@ public class JobPosting {
     public void setSalary(int salary) {
         this.salary = salary;
     }
-    public JobPosting(Integer jobId, Integer userId, String jobTitle, String jobDescription, String jobRequirements, Integer location, String startDate, String duration, int salary) {
+    public JobPosting(Integer jobId, Integer userId, String jobTitle, String jobDesc, String jobRequirements, Integer location, String startDate, String duration, int salary) {
         this.jobId = jobId;
         this.userId = userId;
         this.jobTitle = jobTitle;
-        this.jobDescription = jobDescription;
+        this.jobDesc = jobDesc;
         this.jobRequirements = jobRequirements;
         this.location = location;
         this.startDate = startDate;
@@ -99,7 +99,7 @@ public class JobPosting {
                 "jobId=" + jobId +
                 "userId=" + userId +
                 ", jobTitle=" + jobTitle +
-                ", jobDescription='" + jobDescription + '\'' +
+                ", jobDesc='" + jobDesc + '\'' +
                 ", jobRequirements=" + jobRequirements +
                 ", location=" + location +
                 ", startDate=" + startDate +
