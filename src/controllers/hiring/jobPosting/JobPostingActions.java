@@ -32,13 +32,16 @@ public class JobPostingActions {
             responseStatus.setStatus(500);
             responseStatus.setMessage("INTERNAL SERVER ERROR");
             responseStatus.setActionToDo("Something went wrong");
-
         }else {
             responseStatus.setStatus(200);
             responseStatus.setMessage("Retrieved Jobs successfully!");
             responseStatus.setActionToDo("getJobs");
-            System.out.println("id: " + resultSet.getInt("id"));
-            System.out.println("jobTitle: " + resultSet.getString("jobTitle"));
+            Job job = new Job();
+            while(resultSet.next()) {
+                job.setId(resultSet.getInt("id"));
+                job.setJobTitle(resultSet.getString("jobTitle"));
+            }
+            responseStatus.setObject(job);
         }
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
