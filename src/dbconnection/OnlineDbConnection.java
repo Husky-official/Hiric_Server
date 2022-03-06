@@ -15,11 +15,11 @@ public class OnlineDbConnection {
         //read db connection properties from file
 
         try {
-            String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3";
+            String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3?useSSL=false";
             String username = "ZKZ7qI2OW3";
             String password = "pWgWkTztns";
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+//            Class.forName("com.mysql.cj.jdbc.Driver");
 //            Class.forName("com.mysql.jdbc.Driver");
 
             connection = DriverManager.getConnection(url, username, password);
