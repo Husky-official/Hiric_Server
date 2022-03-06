@@ -33,7 +33,7 @@ public class Register {
      */
     public static String register(JsonNode request) throws Exception {
         try{
-        String UserRegisterQuery = "INSERT INTO users(firstName,lastName,email,gender,password,role,DOB) VALUES (?,?,?,?,?,?,?)";
+        String UserRegisterQuery = "INSERT INTO users_table(firstName,lastName,email,gender,password,role,DOB) VALUES (?,?,?,?,?,?,?)";
         Connection connection = new OnlineDbConnection().getConnection();
         JsonNode userDetails = request.get("object");
         String firstName = userDetails.get("firstName").asText();
