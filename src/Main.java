@@ -2,7 +2,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controllers.billing.PaymentController;
-import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
+import controllers.hiring.jobPosting.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
 

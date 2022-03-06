@@ -1,29 +1,40 @@
 package models.hiring;
 
+import java.util.Date;
+
 public class JobPosting {
-    private String jobId;
-    private String userId;
+    private Integer id;
+    private Integer jobId;
+    private Integer userId;
     private String jobTitle;
-    private String jobDescription;
+    private String jobDesc;
     private String jobRequirements;
     private String location;
-    private String startDate;
+    private Date startDate;
     private String duration;
-    private int salary;
+    private Integer salary;
 
-    public String getJobId() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getJobId() {
         return jobId;
     }
 
-    public void setJobId(String jobId) {
+    public void setJobId(Integer jobId) {
         this.jobId = jobId;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -35,12 +46,12 @@ public class JobPosting {
         this.jobTitle = jobTitle;
     }
 
-    public String getJobDescription() {
-        return jobDescription;
+    public String getJobDesc() {
+        return jobDesc;
     }
 
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
+    public void setJobDesc(String jobDesc) {
+        this.jobDesc = jobDesc;
     }
 
     public String getJobRequirements() {
@@ -59,11 +70,11 @@ public class JobPosting {
         this.location = location;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
@@ -75,18 +86,22 @@ public class JobPosting {
         this.duration = duration;
     }
 
-    public int getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
-    public JobPosting(String jobId, String userId, String jobTitle, String jobDescription, String jobRequirements, String location, String startDate, String duration, int salary) {
+
+
+
+    public JobPosting(Integer id,Integer jobId, Integer userId, String jobTitle, String jobDesc, String jobRequirements, String location, Date startDate, String duration, Integer salary) {
+        this.id = id;
         this.jobId = jobId;
         this.userId = userId;
         this.jobTitle = jobTitle;
-        this.jobDescription = jobDescription;
+        this.jobDesc = jobDesc;
         this.jobRequirements = jobRequirements;
         this.location = location;
         this.startDate = startDate;
@@ -99,7 +114,7 @@ public class JobPosting {
                 "jobId=" + jobId +
                 "userId=" + userId +
                 ", jobTitle=" + jobTitle +
-                ", jobDescription='" + jobDescription + '\'' +
+                ", jobDescription='" + jobDesc + '\'' +
                 ", jobRequirements=" + jobRequirements +
                 ", location=" + location +
                 ", startDate=" + startDate +
