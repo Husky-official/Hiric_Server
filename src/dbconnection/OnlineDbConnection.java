@@ -25,11 +25,10 @@ public class OnlineDbConnection {
             String password = storedProperties.getProperty("dbPassword");
 
 
-//            Class.forName("com.mysql.cj.jdbc.Driver")
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+//            Class.forName("com.mysql.jdbc.Driver");
 
             connection = DriverManager.getConnection(url, username, password);
-            System.out.println("connection");
 
             return connection;
         } catch (SQLException e) {
