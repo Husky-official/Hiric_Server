@@ -10,46 +10,53 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.Map;
-
 public class UserActions {
-
-    String loginUserQuery = "SELECT * FROM test_tb WHERE user = ? AND id =?";
-
     public UserActions() throws Exception {}
 
+    /*
+        Our simple static class that demonstrates how to create and decode JWTs.
+     */
     public String login(JsonNode requestData) throws Exception{
-
         //initialise  db connection
         Connection connection = new OnlineDbConnection().getConnection();
 
         JsonNode userData = requestData.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
-
-        String userId = iterator.next().toString().split("=")[1];
-        int id = Integer.parseInt(userId);
-        //System.out.println(userId);
-        String userName = iterator.next().toString().split("=")[1];
-        //System.out.println(userName);
-
-        PreparedStatement preparedStatement = connection.prepareStatement(loginUserQuery);
-        preparedStatement.setString(1, userName);
-        preparedStatement.setInt(2, id);
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-
+        //getting password
+        String userPassword = iterator.next().toString().split("=")[1];
+//        System.out.println(userPassword);
+//        System.out.println(userPassword.getClass().getSimpleName());
+        //getting email
+        String email = iterator.next().toString().split("=")[1];
+//        System.out.println(email);
+//        System.out.println(email.getClass().getSimpleName());
+        //query
+        String loginUserQuery = "SELECT * FROM users_table WHERE email = "+email+" and password= "+userPassword+"";
+        PreparedStatement preparedstatement = connection.prepareStatement(loginUserQuery);
+        ResultSet resultSet = preparedstatement.executeQuery();
+//        System.out.println(resultSet);
         ResponseStatus responseStatus = new ResponseStatus();
-
-        if(!resultSet.next()){
-            responseStatus.setStatus(500);
-            responseStatus.setMessage("INTERNAL SERVER ERROR");
-            responseStatus.setActionToDo("Something went wrong");
-
-        }else {
+        if(resultSet.next()) {
+            String tokenQuery="insert into token (userid) values("+resultSet.getString("id")+")";
+            String checkIfUserIsLoggedIn="select * from token where userid="+resultSet.getString("id")+"";
+            PreparedStatement preparedstatement2 = connection.prepareStatement(checkIfUserIsLoggedIn);
+            ResultSet rs=preparedstatement2.executeQuery();
+            if(rs.next()) {
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("You are already logged in.");
+                responseStatus.setActionToDo("Already in.");
+                return new ObjectMapper().writeValueAsString(responseStatus);
+            }
+            PreparedStatement preparedstatement3 = connection.prepareStatement(tokenQuery);
+            preparedstatement3.execute();
             responseStatus.setStatus(200);
-            responseStatus.setMessage("User Logged In Successfully");
+            responseStatus.setMessage("User logged in successfully");
             responseStatus.setActionToDo("Login");
+        }else {
+            responseStatus.setStatus(400);
+            responseStatus.setMessage("Invalid email or password");
+            responseStatus.setActionToDo("Something went wrong");
         }
-
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 }

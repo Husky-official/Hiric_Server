@@ -1,0 +1,10 @@
+{
+    "maven.view": "hierarchical",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "A:\\Projects\\Hiric_Server\\src\\hiric\\lib\\jackson-annotations-2.11.2.jar",
+        "A:\\Projects\\Hiric_Server\\src\\hiric\\lib\\jackson-core-2.11.2.jar",
+        "A:\\Projects\\Hiric_Server\\src\\hiric\\lib\\jackson-databind-2.11.2.jar",
+        "A:\\Projects\\Hiric_Client\\.idea\\libraries\\jackson_annotations_2_11_2.xml"
+    ]
+}

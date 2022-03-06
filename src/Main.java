@@ -1,6 +1,9 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import controllers.billing.PaymentController;
+import controllers.groupmessaging.GroupControllers;
+import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
 import controllers.ArchiveController.ArchiveController;
 import dbconnection.DbConnectionVariables;
@@ -14,9 +17,9 @@ import java.net.Socket;
 
 public class Main {
     public void startServer() throws Exception{
-        String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3?"+"autoReconnect=true&useSSL=false";
-        String user = "ZKZ7qI2OW3";
-        String password = "pWgWkTztns";
+        String url = "jdbc:mysql://localhost:3306/hiric";
+        String user = "root";
+        String password = "password@2001";
 
         DbConnectionVariables connectionVariables = new DbConnectionVariables(url, user, password, "3306", 1200L);
         connectionVariables.saveDbConnectionVariablesInFile();
@@ -90,23 +93,38 @@ public class Main {
 
                     String url = jsonNode.get("url").asText();
 
-                    //System.out.println(jsonNode);
+                    System.out.println(jsonNode);
 
-                    switch (url){
-                        case "/users":
+                    switch (url) {
+                        case "/users" -> {
                             out.flush();
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
-                            break;
+                        }
 
-                        case "/Archives":
+                        case "/Archives"->{
                             out.flush();
                             out.writeUTF(new ArchiveController().mainMethod(jsonNode));
                             out.flush();
-                            break;
 
-                        default:
-                            System.out.println("something went wrong");
+                        }
+
+                        case "/payment" -> {
+                            out.flush();
+                            out.writeUTF(new PaymentController().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/jobPost" -> {
+                            out.flush();
+                            out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/group_messaging" -> {
+                            out.flush();
+                            out.writeUTF(new GroupControllers().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        default -> System.out.println("something went wrong");
                     }
                 }
             }catch (Exception e){
