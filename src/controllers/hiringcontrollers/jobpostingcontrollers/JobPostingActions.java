@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
+import models.hiring.JobPosting;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -88,16 +90,6 @@ public class JobPostingActions {
     public String getUserJobs(JsonNode requestData, int userId) throws Exception {
         String getJobPostsQuery = "select * from JobPosts WHERE userId = "+userId;
         Connection connection = new OnlineDbConnection().getConnection();
-        JsonNode jobPostData = requestData.get("object");
-        Iterator<Map.Entry<String, JsonNode>> iterator = jobPostData.fields();
-        String jobTitle = iterator.next().toString().split("=")[1];
-        String jobDescription = iterator.next().toString().split("=")[1];
-        String jobRequirements = iterator.next().toString().split("=")[1];
-        String location = iterator.next().toString().split("=")[1];
-        String startDate = iterator.next().toString().split("=")[1];
-        String duration = iterator.next().toString().split("=")[1];
-        String money = iterator.next().toString().split("=")[1];
-        int salary = Integer.parseInt(money);
         PreparedStatement preparedStatement = connection.prepareStatement(getJobPostsQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
         ResponseStatus responseStatus = new ResponseStatus();
@@ -108,11 +100,26 @@ public class JobPostingActions {
             responseStatus.setActionToDo("Something went wrong");
 
         }else {
+            resultSet.beforeFirst();
             responseStatus.setStatus(200);
-            responseStatus.setMessage("Retrieved the jobs successfully");
+            responseStatus.setMessage("Retrieved the job posts successfully");
             responseStatus.setActionToDo("getJobPosts");
+            ArrayList<JobPosting> userJobs = new ArrayList<JobPosting>();
+            while(resultSet.next()) {
+                JobPosting jobPosting = new JobPosting(
+                        resultSet.getInt("jobId"),
+                        resultSet.getInt("userId"),
+                        resultSet.getString("jobTitle"),
+                        resultSet.getString("jobDescription"),
+                        resultSet.getString("jobRequirements"),
+                        resultSet.getInt("location"),
+                        resultSet.getString("startDate"),
+                        resultSet.getString("duration"),
+                        resultSet.getInt("salary"));
+                userJobs.add(jobPosting);
+            }
+            responseStatus.setObject(userJobs);
         }
-
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 }

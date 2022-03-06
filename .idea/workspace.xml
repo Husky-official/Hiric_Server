@@ -5,32 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/libs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/description.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_11_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_11_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_28.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/project-template.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hiric_Server/hiric/Main$ClientHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hiric_Server/hiric/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hiric_Server/hiric/dbconnection/DbConnectionVariables.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hiric_Server/hiric/dbconnection/OnlineDbConnection.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hiric_Server/hiric/models/RequestBody.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hiric_Server/hiric/models/ResponseBody.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/hiringcontrollers/jobpostingcontrollers/JobPostingActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/hiringcontrollers/jobpostingcontrollers/JobPostingActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/hiringcontrollers/jobpostingcontrollers/JobPostingControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/hiringcontrollers/jobpostingcontrollers/JobPostingControllers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

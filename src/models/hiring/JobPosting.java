@@ -1,29 +1,29 @@
 package models.hiring;
 
 public class JobPosting {
-    private String jobId;
-    private String userId;
+    private Integer jobId;
+    private Integer userId;
     private String jobTitle;
     private String jobDescription;
     private String jobRequirements;
-    private String location;
+    private Integer location;
     private String startDate;
     private String duration;
-    private int salary;
+    private Integer salary;
 
-    public String getJobId() {
+    public Integer getJobId() {
         return jobId;
     }
 
-    public void setJobId(String jobId) {
+    public void setJobId(Integer jobId) {
         this.jobId = jobId;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -51,11 +51,11 @@ public class JobPosting {
         this.jobRequirements = jobRequirements;
     }
 
-    public String getLocation() {
+    public Integer getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Integer location) {
         this.location = location;
     }
 
@@ -82,7 +82,7 @@ public class JobPosting {
     public void setSalary(int salary) {
         this.salary = salary;
     }
-    public JobPosting(String jobId, String userId, String jobTitle, String jobDescription, String jobRequirements, String location, String startDate, String duration, int salary) {
+    public JobPosting(Integer jobId, Integer userId, String jobTitle, String jobDescription, String jobRequirements, Integer location, String startDate, String duration, int salary) {
         this.jobId = jobId;
         this.userId = userId;
         this.jobTitle = jobTitle;
