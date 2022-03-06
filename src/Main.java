@@ -114,6 +114,10 @@ public class Main {
                             out.flush();
                             out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                             out.flush();
+                        case "/viewApplications":
+                            out.flush();
+                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
+                            out.flush();
                         default:
                             System.out.println("something went wrong");
                     }

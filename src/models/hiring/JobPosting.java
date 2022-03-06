@@ -93,6 +93,7 @@ public class JobPosting {
         this.duration = duration;
         this.salary = salary;
     }
+    public JobPosting(){};
     @Override
     public String toString() {
         return "JobPosting{" +
