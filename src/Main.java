@@ -16,9 +16,9 @@ import java.net.Socket;
 
 public class Main {
     public void startServer() throws Exception{
-        String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3?"+"autoReconnect=true&useSSL=false";
-        String user = "ZKZ7qI2OW3";
-        String password = "pWgWkTztns";
+        String url = "jdbc:mysql://localhost:3306/hiric";
+        String user = "root";
+        String password = "password@2001";
 
         DbConnectionVariables connectionVariables = new DbConnectionVariables(url, user, password, "3306", 1200L);
         connectionVariables.saveDbConnectionVariablesInFile();
