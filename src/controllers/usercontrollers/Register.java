@@ -15,6 +15,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 
+import static utils.Hash.hashPassword;
+
 /**
  * The type Register.
  */
@@ -33,7 +35,7 @@ public class Register {
      */
     public static String register(JsonNode request) throws Exception {
         try{
-        String UserRegisterQuery = "INSERT INTO users_table(firstName,lastName,email,gender,password,role,DOB) VALUES (?,?,?,?,?,?,?)";
+        String UserRegisterQuery = "INSERT INTO users_table(firstName,lastName,email,gender,password,role,DOB,user_status) VALUES (?,?,?,?,?,?,?,?)";
         Connection connection = new OnlineDbConnection().getConnection();
         JsonNode userDetails = request.get("object");
         String firstName = userDetails.get("firstName").asText();
@@ -43,16 +45,19 @@ public class Register {
         String gender = userDetails.get("gender").asText("MALE");
         String role = userDetails.get("role").asText("EMPLOYER");
         String DOB = new SimpleDateFormat("yyyy-MM-dd").format(userDetails.get("dob").asLong());
+        String hashedPassword = hashPassword(password);
+        if(hashedPassword.startsWith("Details")) return new ObjectMapper().writeValueAsString(new ResponseStatus(400, hashedPassword.replace("details",""),"register"));
         PreparedStatement preparedStatement = connection.prepareStatement(UserRegisterQuery);
         preparedStatement.setString(1, firstName);
         preparedStatement.setString(2, lastName);
         preparedStatement.setString(3, email);
         preparedStatement.setString(4, gender);
-        preparedStatement.setString(5, password);
+        preparedStatement.setString(5, hashedPassword);
         preparedStatement.setString(6, role);
         preparedStatement.setString(7, DOB);
-        preparedStatement.executeUpdate();
-        return new ObjectMapper().writeValueAsString(new ResponseStatus(200, "User registered successfully", "register"));
+        preparedStatement.setString(8,"ACTIVE");
+        if (preparedStatement.executeUpdate() == 1) return new ObjectMapper().writeValueAsString(new ResponseStatus(200, "User registered successfully", "register"));
+        return new ObjectMapper().writeValueAsString(new ResponseStatus(400, "User registration failed", "register"));
         }catch (Exception e){
             e.printStackTrace();
             return new ObjectMapper().writeValueAsString(new ResponseStatus(400, "Error:"+e.getMessage(), "register"));
