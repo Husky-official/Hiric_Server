@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controllers.billing.PaymentController;
 import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
+import controllers.jobApplication.JobApplicationController;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
 
@@ -92,6 +93,8 @@ public class Main {
                     String url = jsonNode.get("url").asText();
                     if(url.contains("get_job_posts")){
                         url = "/get_job_posts";
+                    }else if(url.contains("get_job_applications")){
+                        url = "/get_job_applications";
                     }
                     System.out.println(jsonNode);
 
@@ -119,6 +122,10 @@ public class Main {
                         case "/get_job_posts" -> {
                             out.flush();
                             out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                        }
+                        case "/get_job_applications" -> {
+                            out.flush();
+                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                         }
                         default -> System.out.println("something went wrong");
                     }

@@ -13,10 +13,9 @@ public class JobApplication {
     private  String resume;
     private  String certificate;
 
+
     public void JobApplication(){};
-    public void JobApplication(int id,int jobId,int userId, String
-            paymentMethod, int locationId, String referenceName, String referencePhone, String resume,
-                               String certificate){
+    public JobApplication(int id,int jobId,int userId, String paymentMethod, int locationId, String referenceName, String referencePhone, String resume, String certificate){
         this.userId=userId;
         this.id=id;
         this.jobPostId =jobId;
