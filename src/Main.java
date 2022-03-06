@@ -90,7 +90,9 @@ public class Main {
                     JsonNode jsonNode = objectMapper.readTree(requestBody);
 
                     String url = jsonNode.get("url").asText();
-
+                    if(url.contains("get_job_posts")){
+                        url = "/get_job_posts";
+                    }
                     System.out.println(jsonNode);
 
                     switch (url) {
@@ -113,6 +115,10 @@ public class Main {
                             out.flush();
                             out.writeUTF("New group");
                             out.flush();
+                        }
+                        case "/get_job_posts" -> {
+                            out.flush();
+                            out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
                         }
                         default -> System.out.println("something went wrong");
                     }
