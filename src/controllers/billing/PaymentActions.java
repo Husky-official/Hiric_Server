@@ -31,9 +31,14 @@ public class PaymentActions {
         try {
             //initialise  db connection
             Connection connection = new OnlineDbConnection().getConnection();
+            Statement statement = connection.createStatement();
+            statement.execute("CREATE TABLE IF NOT EXISTS payment(id INT PRIMARY KEY AUTO_INCREMENT, jobId INT NOT NULL, " +
+                    "originalAmount DOUBLE NOT NULL, paymentMethod VARCHAR (250), reducedAmount DOUBLE DEFAULT 0, dateOfPayment VARCHAR(200), employeeId INT NOT NULL, employerId INT NOT NULL)");
 
             JsonNode userData = requestData.get("object");
             Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
+
+            iterator.next();
 
             String idForJob = iterator.next().toString().split("=")[1];
             Long jobId = Long.parseLong(idForJob);
@@ -46,8 +51,8 @@ public class PaymentActions {
             String receivedReducAmt = iterator.next().toString().split("=")[1];
             Double reducedAmount = Double.parseDouble(receivedReducAmt);
 
-            String receivedDateOfPay = iterator.next().toString().split("=")[1];
-            Date dateOfPayment = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(receivedDateOfPay);
+            String dateOfPayment = iterator.next().toString().split("=")[1];
+//            String dateOfPayment = receivedDateOfPay;
 
             String receivedEmployeeId = iterator.next().toString().split("=")[1];
             Long employeeId = Long.parseLong(receivedEmployeeId);
@@ -60,12 +65,11 @@ public class PaymentActions {
             preparedStatement.setDouble(2, originalAmount);
             preparedStatement.setString(3, paymentMethod);
             preparedStatement.setDouble(4, reducedAmount);
-            preparedStatement.setDate(5, (java.sql.Date) dateOfPayment);
+            preparedStatement.setString(5, dateOfPayment);
             preparedStatement.setLong(6, employeeId);
             preparedStatement.setLong(7, employerId);
 
             preparedStatement.executeUpdate();
-            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("select * from payment where jobId='" + jobId + "' AND employeeId='" + employeeId + "' AND employerId='" +employerId + "'");
 
             ResponseStatus responseStatus = new ResponseStatus();
@@ -84,7 +88,7 @@ public class PaymentActions {
                 payment.setOriginalAmount(rs.getDouble("originalAmount"));
                 payment.setPaymentMethod(rs.getString("paymentMethod"));
                 payment.setReducedAmount(rs.getDouble("reducedAmount"));
-                payment.setDateOfPayment(rs.getDate("dateOfPayment"));
+                payment.setDateOfPayment(rs.getString("dateOfPayment"));
                 payment.setEmployeeId(rs.getLong("employeeId"));
                 payment.setEmployerId(rs.getLong("employerId"));
                 responseStatus.setObject(payment);

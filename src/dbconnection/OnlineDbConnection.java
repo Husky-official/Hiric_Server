@@ -1,6 +1,8 @@
 package dbconnection;
 
+import java.io.FileReader;
 import java.sql.*;
+import java.util.Properties;
 
 /**
  *@author: DABAGIRE Valens
@@ -13,21 +15,18 @@ public class OnlineDbConnection {
         Connection connection = null;
 
         //read db connection properties from file
-//        FileReader reader = new FileReader("dbConfig.properties");
-//        Properties storedProperties = new Properties();
-//        storedProperties.load(reader);
+        FileReader reader = new FileReader("dbConfig.properties");
+        Properties storedProperties = new Properties();
+        storedProperties.load(reader);
 
         try {
-//            commented this as it doesn't work for me
-//            String url = storedProperties.getProperty("dbUrl");
-//            String username = storedProperties.getProperty("dbUsername");
-//            String password = storedProperties.getProperty("dbPassword");
-            String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3";
-            String username = "ZKZ7qI2OW3";
-            String password = "pWgWkTztns";
+            String url = storedProperties.getProperty("dbUrl");
+            String username = storedProperties.getProperty("dbUsername");
+            String password = storedProperties.getProperty("dbPassword");
+
 
 //            Class.forName("com.mysql.cj.jdbc.Driver")
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
 
             connection = DriverManager.getConnection(url, username, password);
             System.out.println("connection");

@@ -22,6 +22,7 @@ public class UserActions {
 
         JsonNode userData = requestData.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
+
         //getting password
         String userPassword = iterator.next().toString().split("=")[1];
 //        System.out.println(userPassword);
@@ -37,6 +38,7 @@ public class UserActions {
 
         if(!resultSet.next()){
             responseStatus.setStatus(404);
+            responseStatus.setMessage("Invalid email or password");
             responseStatus.setMessage("No user with provided credentials");
             responseStatus.setActionToDo("Something went wrong");
 
