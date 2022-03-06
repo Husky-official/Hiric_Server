@@ -18,12 +18,11 @@ public class OnlineDbConnection {
             String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3";
             String username = "ZKZ7qI2OW3";
             String password = "pWgWkTztns";
-
+          
             Class.forName("com.mysql.cj.jdbc.Driver");
 //            Class.forName("com.mysql.jdbc.Driver");
 
             connection = DriverManager.getConnection(url, username, password);
-            System.out.println("connection");
 
             return connection;
         } catch (SQLException e) {
