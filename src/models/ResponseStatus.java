@@ -28,6 +28,7 @@ public class ResponseStatus implements Serializable {
         this.actionToDo = actionToDo;
     }
 
+
     public Integer getStatus() {
         return status;
     }
