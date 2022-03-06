@@ -32,12 +32,24 @@ public class UserActions {
 //        System.out.println(email);
 //        System.out.println(email.getClass().getSimpleName());
         //query
-        String loginUserQuery = "SELECT email,password FROM users_table WHERE email = "+email+" and password= "+userPassword+"";
+        String loginUserQuery = "SELECT * FROM users_table WHERE email = "+email+" and password= "+userPassword+"";
         PreparedStatement preparedstatement = connection.prepareStatement(loginUserQuery);
         ResultSet resultSet = preparedstatement.executeQuery();
 //        System.out.println(resultSet);
         ResponseStatus responseStatus = new ResponseStatus();
-        if(resultSet.next()){
+        if(resultSet.next()) {
+            String tokenQuery="insert into token (userid) values("+resultSet.getString("id")+")";
+            String checkIfUserIsLoggedIn="select * from token where userid="+resultSet.getString("id")+"";
+            PreparedStatement preparedstatement2 = connection.prepareStatement(checkIfUserIsLoggedIn);
+            ResultSet rs=preparedstatement2.executeQuery();
+            if(rs.next()) {
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("You are already logged in.");
+                responseStatus.setActionToDo("Already in.");
+                return new ObjectMapper().writeValueAsString(responseStatus);
+            }
+            PreparedStatement preparedstatement3 = connection.prepareStatement(tokenQuery);
+            preparedstatement3.execute();
             responseStatus.setStatus(200);
             responseStatus.setMessage("User logged in successfully");
             responseStatus.setActionToDo("Login");
