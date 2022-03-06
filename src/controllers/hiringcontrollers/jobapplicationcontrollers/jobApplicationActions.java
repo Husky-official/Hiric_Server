@@ -21,8 +21,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class jobApplicationActions {
-    String createApplicationQuery = "INSERT INTO jobApplication(jobPostId, userId, locationId, paymentMethod, referenceName, referencePhone, resume, certificate)" +
-            "VALUES(?,?,?,?,?,?,?,?)";
+    String createApplicationQuery = "INSERT INTO jobApplication(id , jobPostId, userId, locationId, paymentMethod, referenceName, referencePhone, resume, certificate)" +
+            "VALUES(?,?,?,?,?,?,?,?,?)";
 
     String viewPostsQuery = "Select * from jobPosts";
     String viewApplicationsQuery = "Select * from jobApplication";
@@ -31,12 +31,14 @@ public class jobApplicationActions {
     }
 
     public String createApplication(JsonNode requestData) throws Exception {
-
         //initialise  db connection
         Connection connection = new OnlineDbConnection().getConnection();
 //changing the object into string as it cannot pass in TCP channel as object
         JsonNode userData = requestData.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
+        String newId = iterator.next().toString().split("=")[1];
+        int jobAppId = Integer.parseInt(newId);
+       // String userId = iterator.next().toString().split("=")[1];
         String Id = iterator.next().toString().split("=")[1];
         int id = Integer.parseInt(Id);
         String userId = iterator.next().toString().split("=")[1];
@@ -49,6 +51,7 @@ public class jobApplicationActions {
         String resume = iterator.next().toString().split("=")[1];
         String certicate = iterator.next().toString().split("=")[1];
         PreparedStatement preparedStatement = connection.prepareStatement(createApplicationQuery);
+        preparedStatement.setInt(1,jobAppId);
         preparedStatement.setInt(2, idJob);
         preparedStatement.setInt(3, userIdd);
         preparedStatement.setInt(4, id);
@@ -76,29 +79,57 @@ public class jobApplicationActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-    public void viewPosts(JsonNode requestData) throws Exception {
-//        Connection newConnection=new OnlineDbConnection().getConnection();
-//        Statement statement=newConnection.createStatement();
-//        ResultSet myresult=statement.executeQuery(viewPostsQuery);
-//        List<JobPosting> jobPostingList=new ArrayList<JobPosting>();
-//        while (myresult.next()){
-//            JobPosting jobPost=new JobPosting();
-//            jobPost.getJobId();
-//            jobPost.getJobDescription();
-//            jobPost.getDuration();
-//            jobPost.getJobDescription();
-//            jobPost.getLocation();
-//            jobPost.getStartDate();
-        //}
-    }
+//    public String getJobPosts(JsonNode requestData) throws Exception {
+//        String getJobPostsQuery = "select * from JobPosts";
+//        Connection connection = new OnlineDbConnection().getConnection();
+//        JsonNode jobPostData = requestData.get("object");
+//        Iterator<Map.Entry<String, JsonNode>> iterator = jobPostData.fields();
+//        String jobTitle = iterator.next().toString().split("=")[1];
+//        String jobDescription = iterator.next().toString().split("=")[1];
+//        String jobRequirements = iterator.next().toString().split("=")[1];
+//        String location = iterator.next().toString().split("=")[1];
+//        String startDate = iterator.next().toString().split("=")[1];
+//        String duration = iterator.next().toString().split("=")[1];
+//        String money = iterator.next().toString().split("=")[1];
+//        Integer salary = Integer.parseInt(money);
+//        PreparedStatement preparedStatement = connection.prepareStatement(getJobPostsQuery);
+//        ResultSet resultSet = preparedStatement.executeQuery();
+//        ResponseStatus responseStatus = new ResponseStatus();
+//
+//        if(!resultSet.next()){
+//            responseStatus.setStatus(500);
+//            responseStatus.setMessage("INTERNAL SERVER ERROR");
+//            responseStatus.setActionToDo("Something went wrong");
+//
+//        }else {
+//            responseStatus.setStatus(200);
+//            responseStatus.setMessage("Retrieved the jobs successfully");
+//            responseStatus.setActionToDo("getJobPosts");
+//        }
+//    }
 
-    public String viewApplications() throws Exception {
+    public String viewApplications(JsonNode requestData) throws Exception {
         Connection connection = new OnlineDbConnection().getConnection();
+//changing the object into string as it cannot pass in TCP channel as object
+//        JsonNode userData = requestData.get("object");
+//        Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
+//        String newId = iterator.next().toString().split("=")[1];
+//        int jobAppId = Integer.parseInt(newId);
+//        // String userId = iterator.next().toString().split("=")[1];
+//        String Id = iterator.next().toString().split("=")[1];
+//        int id = Integer.parseInt(Id);
+//        String userId = iterator.next().toString().split("=")[1];
+//        int userIdd = Integer.parseInt(userId);
+//        String jobId = iterator.next().toString().split("=")[1];
+//        int idJob = Integer.parseInt(jobId);
+//        String paymentMethod = iterator.next().toString().split("=")[1];
+//        String referenceName = iterator.next().toString().split("=")[1];
+//        String referencePhone = iterator.next().toString().split("=")[1];
+//        String resume = iterator.next().toString().split("=")[1];
+//        String certicate = iterator.next().toString().split("=")[1];
         PreparedStatement preparedStatement = connection.prepareStatement(viewApplicationsQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
-
         ResponseStatus responseStatus = new ResponseStatus();
-
         if (!resultSet.isBeforeFirst()) {
             responseStatus.setStatus(404);
             responseStatus.setMessage("No users found");
@@ -111,24 +142,20 @@ public class jobApplicationActions {
         ArrayList<JobApplication> applicationList=new ArrayList<>();
         while (resultSet.next()) {
             JobApplication app=new JobApplication();
-            app.setId(resultSet.getInt(1));
-            app.setUserId(resultSet.getInt(2));
-            app.setJobPostId(resultSet.getInt(3));
-            //            int jobPostId=resultSet.getInt(3);
-            //     app.setPaymentMethod(resultSet.getString(4));
-            //   int locationId=resultSet.getInt(5);
-            // String referenceName=resultSet.getString(6);
-            //String referencePhone=resultSet.getString(7);
-            //String resume=resultSet.getString(8);
-            //String certificate=resultSet.getString(9);
-            //     System.out.println(id + userId+jobPostId+paymentMethod+referenceName+locationId+referenceName
-            //   +referencePhone+referenceName+resume+certificate);
-          applicationList.add(app);
+
+            app.setId(resultSet.getInt("id"));
+            app.setUserId(resultSet.getInt("userId"));
+            app.setJobPostId(resultSet.getInt("jobPostId"));
+            app.setLocationId(resultSet.getInt("locationId"));
+            app.setPaymentMethod(resultSet.getString("paymentMethod"));
+            app.setReferenceName(resultSet.getString("referenceName"));
+            app.setReferencePhone(resultSet.getString("referencePhone"));
+            app.setCertificate(resultSet.getString("certificate"));
+            app.setResume(resultSet.getString("resume"));
+           applicationList.add(app);
         }
          responseStatus.setObject(applicationList);
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 }
-
-

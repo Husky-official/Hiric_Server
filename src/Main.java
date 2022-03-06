@@ -1,9 +1,8 @@
+//import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import controllers.hiringcontrollers.jobapplicationcontrollers.JobApplicationController;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import controllers.billing.PaymentController;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
@@ -95,31 +94,38 @@ public class Main {
 
                     System.out.println(jsonNode);
 
-                    switch (url){
-                        case "/users":
+                    switch (url) {
+                        case "/users" -> {
                             out.flush();
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
-                            break;
-                        case "/payment":
+                        }
+                        case "/payment" -> {
                             out.flush();
                             out.writeUTF(new PaymentController().mainMethod(jsonNode));
                             out.flush();
-                            break;
-                        case "/jobPost":
+                        }
+                        case "/jobPost" -> {
                             out.flush();
-                           // out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            // out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
                             out.flush();
-                        case "/createApplication":
-                            out.flush();
-                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
-                            out.flush();
-                        case "/viewApplications":
+                        }
+                        case "/createApplication" ->{
                             out.flush();
                             out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                             out.flush();
-                        default:
-                            System.out.println("something went wrong");
+                        }
+//                        case "/viewApplications" -> {
+//                            out.flush();
+//                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
+//                            out.flush();
+//                        }
+                        case "/group_messaging" -> {
+                            out.flush();
+                            out.writeUTF("New group");
+                            out.flush();
+                        }
+                        default -> System.out.println("something went wrong");
                     }
                 }
             }catch (Exception e){
@@ -127,5 +133,5 @@ public class Main {
                 System.out.println("Error ===> " +e.getMessage());
             }
         }
-    }
+        }
 }

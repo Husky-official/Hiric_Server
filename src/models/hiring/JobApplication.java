@@ -5,8 +5,8 @@ public class JobApplication {
     private  Integer id;
     private  Integer userId;
     private  Integer jobPostId;
-    private  String paymentMethod;
     private  Integer locationId;
+    private  String paymentMethod;
     private String referenceName;
     private  String referencePhone;
     private  String resume;
@@ -19,10 +19,10 @@ public class JobApplication {
         this.userId=userId;
         this.id=id;
         this.jobPostId =jobId;
+        this.locationId =locationId;
         this.paymentMethod=paymentMethod;
         this.referencePhone=referencePhone;
         this.referenceName=referenceName;
-        this.locationId =locationId;
         this.resume=resume;
         this.certificate=certificate;
     }
@@ -91,8 +91,8 @@ public class JobApplication {
         this.resume = resume;
     }
 
-    public  String getCertificate() {
-        return certificate;
+    public  String getCertificate(String certificate) {
+        return this.certificate;
     }
 
     public void setCertificate(String certificate) {
