@@ -2,6 +2,7 @@ package controllers.billing;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
 import models.hiring.JobPosting;
@@ -28,31 +29,48 @@ public class PayrollActions {
     public String listOfJobsByEmployer(JsonNode request) throws Exception{
 
         Connection connection = new OnlineDbConnection().getConnection();
-        String listAllJobsQuery = "SELECT * FROM `jobPosts` as jp INNER JOIN users as us ON us.id = jp.userId where us.email = ?";
         JsonNode payrollData = request.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = payrollData.fields();
         iterator.next();
 
-        String employerEmail = iterator.next().toString().split("=")[1];
+        StringBuffer sb = new StringBuffer(iterator.next().toString().split("=")[1]);
+        sb.deleteCharAt(sb.length()-1);
+        String employerEmail = sb.toString().substring(1, sb.length());
+        System.out.println(employerEmail);
+
+        String listAllJobsQuery = "SELECT * FROM `jobPosts` as jp INNER JOIN users_table as us ON us.id = jp.userId where us.email = '" + employerEmail +"' ";
+
         PreparedStatement preparedStatement = connection.prepareStatement(listAllJobsQuery);
-        preparedStatement.setString(1, employerEmail);
         ResultSet rs = preparedStatement.executeQuery();
 
         ResponseStatus responseStatus = new ResponseStatus();
 
-        if(!rs.next()){
-            responseStatus.setStatus(500);
-            responseStatus.setMessage("INTERNAL SERVER ERROR");
-            responseStatus.setActionToDo("Creating payment failed, try again later.");
+        int i = 1;
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode objectNode = objectMapper.createObjectNode();
 
-        }else {
-            responseStatus.setStatus(200);
-            responseStatus.setMessage("Payment done Successfully");
-            responseStatus.setActionToDo("Payment");
-            JobPosting jobPosting = new JobPosting();
-            jobPosting.setJobId(String.valueOf(rs.getInt("jobId")));
-            responseStatus.setObject(jobPosting);
+        if (rs.next() == false) {
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("NOT FOUND ERROR");
+            responseStatus.setActionToDo("No jobs found for the user with that email.");
+            return new ObjectMapper().writeValueAsString(responseStatus);
+        } else {
+            do {
+                JobPosting jobPosting = new JobPosting();
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("Payment done Successfully");
+                responseStatus.setActionToDo("Payment");
+                jobPosting.setJobId(String.valueOf(rs.getInt("jobId")) + ", ");
+                jobPosting.setJobDescription(rs.getString("jobDesc"));
+                jobPosting.setSalary(rs.getDouble("salary"));
+                jobPosting.setUserId(rs.getString("userId"));
+                objectNode.put(""+i, String.valueOf(jobPosting));
+                i++;
+            } while (rs.next());
         }
+        responseStatus.setObject(objectNode);
+        System.out.println(objectNode);
+
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 }

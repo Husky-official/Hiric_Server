@@ -1,9 +1,8 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import controllers.billing.PayrollControllers;
+import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
-import controllers.billing.PaymentController;
 import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
@@ -92,6 +91,7 @@ public class Main {
                     JsonNode jsonNode = objectMapper.readTree(requestBody);
 
                     String url = jsonNode.get("url").asText();
+                    String urlDup = url;
 
                     System.out.println(jsonNode);
 
@@ -107,12 +107,7 @@ public class Main {
                         }
                         case "/payment" -> {
                             out.flush();
-                            out.writeUTF(new PaymentController().mainMethod(jsonNode));
-                            out.flush();
-                        }
-                        case "/payroll" -> {
-                            out.flush();
-                            out.writeUTF(new PayrollControllers().mainMethod(jsonNode));
+                            out.writeUTF(new BillingMain().mainMethod(jsonNode));
                             out.flush();
                         }
                         case "/jobPost" -> {
