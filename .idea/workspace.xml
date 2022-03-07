@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controllers/jobApplication/JobApplicationActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/jobApplication/JobApplicationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/hiring/JobApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hiring/JobApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/jobApplication/JobApplicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/jobApplication/JobApplicationController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +40,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/mysql-connector.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -83,5 +80,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
