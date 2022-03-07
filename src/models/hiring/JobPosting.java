@@ -9,7 +9,10 @@ public class JobPosting {
     private String location;
     private String startDate;
     private String duration;
-    private int salary;
+    private Double salary;
+
+    public JobPosting() {
+    }
 
     public String getJobId() {
         return jobId;
@@ -75,14 +78,14 @@ public class JobPosting {
         this.duration = duration;
     }
 
-    public int getSalary() {
+    public Double getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
     }
-    public JobPosting(String jobId, String userId, String jobTitle, String jobDescription, String jobRequirements, String location, String startDate, String duration, int salary) {
+    public JobPosting(String jobId, String userId, String jobTitle, String jobDescription, String jobRequirements, String location, String startDate, String duration, Double salary) {
         this.jobId = jobId;
         this.userId = userId;
         this.jobTitle = jobTitle;
