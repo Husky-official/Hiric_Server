@@ -18,7 +18,7 @@ public class OnlineDbConnection {
             String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3";
             String username = "ZKZ7qI2OW3";
             String password = "pWgWkTztns";
-          
+
             Class.forName("com.mysql.cj.jdbc.Driver");
 //            Class.forName("com.mysql.jdbc.Driver");
 
@@ -56,5 +56,6 @@ public class OnlineDbConnection {
         OnlineDbConnection dbConnection = new OnlineDbConnection();
         System.out.println(dbConnection.getConnection());
         dbConnection.checkDbConnection(dbConnection.getConnection());
+
     }
 }
