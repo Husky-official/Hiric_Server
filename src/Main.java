@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
+import controllers.groupmessaging.GroupControllers;
 import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
@@ -16,9 +17,9 @@ import java.net.Socket;
 
 public class Main {
     public void startServer() throws Exception{
-        String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3?"+"autoReconnect=true&useSSL=false";
-        String user = "ZKZ7qI2OW3";
-        String password = "pWgWkTztns";
+        String url = "jdbc:mysql://localhost:3306/hiric";
+        String user = "root";
+        String password = "password@2001";
 
         DbConnectionVariables connectionVariables = new DbConnectionVariables(url, user, password, "3306", 1200L);
         connectionVariables.saveDbConnectionVariablesInFile();
@@ -117,7 +118,7 @@ public class Main {
                         }
                         case "/group_messaging" -> {
                             out.flush();
-                            out.writeUTF("New group");
+                            out.writeUTF(new GroupControllers().mainMethod(jsonNode));
                             out.flush();
                         }
                         default -> System.out.println("something went wrong");
