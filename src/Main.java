@@ -1,12 +1,12 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import controllers.billing.PaymentController;
 import controllers.groupmessaging.GroupControllers;
 import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
 
+import javax.net.ssl.SSLServerSocketFactory;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class Main {
         ServerSocket server = null;
 
         try{
-            server = new ServerSocket(8888);
+            server = SSLServerSocketFactory.getDefault().createServerSocket(8888);
             server.setReuseAddress(true);
 
             //running infinite loop to accept
