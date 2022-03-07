@@ -23,7 +23,6 @@ public class OnlineDbConnection {
 //            Class.forName("com.mysql.jdbc.Driver");
 
             connection = DriverManager.getConnection(url, username, password);
-            System.out.println("connection");
 
             return connection;
         } catch (SQLException e) {
@@ -57,5 +56,6 @@ public class OnlineDbConnection {
         OnlineDbConnection dbConnection = new OnlineDbConnection();
         System.out.println(dbConnection.getConnection());
         dbConnection.checkDbConnection(dbConnection.getConnection());
+
     }
 }

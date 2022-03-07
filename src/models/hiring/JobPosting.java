@@ -1,5 +1,6 @@
 package models.hiring;
 
+<<<<<<< HEAD
 public class JobPosting {
     private Integer jobId;
     private Integer userId;
@@ -11,6 +12,55 @@ public class JobPosting {
     private String duration;
     private Integer salary;
 
+=======
+import java.sql.*;
+
+public class JobPosting {
+    public Integer id;
+    public Integer jobId;
+    public Integer userId;
+    public String jobDesc;
+    public String jobRequirements;
+    public Integer location;
+    public Date startDate;
+    public Time startTime;
+    public Integer duration;
+    public Integer salary;
+    public String salaryType;
+    public Integer workers;
+    public Integer paymentStatus;
+    public String status;
+
+    public JobPosting(Integer id,Integer jobId, Integer userId, String jobDesc, String jobRequirements, Integer location, Date startDate, Time startime, Integer duration, Integer salary, String salaryType, Integer workers, Integer paymentStatus, String status) {
+        this.id = id;
+        this.jobId = jobId;
+        this.userId = userId;
+        this.jobDesc = jobDesc;
+        this.jobRequirements = jobRequirements;
+        this.location = location;
+        this.startDate = startDate;
+        this.startTime = startime;
+        this.duration = duration;
+        this.salary = salary;
+        this.salaryType = salaryType;
+        this.workers = workers;
+        this.paymentStatus = paymentStatus;
+        this.status = status;
+    }
+
+    public JobPosting() {
+
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+>>>>>>> main
     public Integer getJobId() {
         return jobId;
     }
@@ -27,10 +77,11 @@ public class JobPosting {
         this.userId = userId;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
+    public String getJobDesc() {
+        return jobDesc;
     }
 
+<<<<<<< HEAD
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
     }
@@ -39,6 +90,8 @@ public class JobPosting {
         return jobDesc;
     }
 
+=======
+>>>>>>> main
     public void setJobDesc(String jobDesc) {
         this.jobDesc = jobDesc;
     }
@@ -59,29 +112,38 @@ public class JobPosting {
         this.location = location;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getDuration() {
+    public Time getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
+    }
+
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
-    public int getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
+<<<<<<< HEAD
     public JobPosting(Integer jobId, Integer userId, String jobTitle, String jobDesc, String jobRequirements, Integer location, String startDate, String duration, int salary) {
         this.jobId = jobId;
         this.userId = userId;
@@ -106,5 +168,53 @@ public class JobPosting {
                 ", duration=" + duration +
                 ", salary=" + salary +
                 '}';
+=======
+
+    public String getSalaryType() {
+        return salaryType;
     }
+
+    public void setSalaryType(String salaryType) {
+        this.salaryType = salaryType;
+>>>>>>> main
+    }
+
+    public Integer getWorkers() {
+        return workers;
+    }
+
+    public void setWorkers(Integer workers) {
+        this.workers = workers;
+    }
+
+    public Integer getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(Integer paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    //    @Override
+//    public String toString() {
+//        return "JobPosting{" +
+//                "jobId=" + jobId +
+//                "userId=" + userId +
+//                ", jobDesc='" + jobDesc + '\'' +
+//                ", jobDesc='" + jobDesc + '\'' +
+//                ", jobRequirements=" + jobRequirements +
+//                ", location=" + location +
+//                ", startDate=" + startDate +
+//                ", duration=" + duration +
+//                ", salary=" + salary +
+//                '}';
+//    }
 }

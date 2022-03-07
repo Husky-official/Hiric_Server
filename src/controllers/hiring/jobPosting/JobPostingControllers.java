@@ -1,4 +1,4 @@
-package controllers.hiringcontrollers.jobpostingcontrollers;
+package controllers.hiring.jobPosting;
 
 import com.fasterxml.jackson.databind.JsonNode;
 /*
@@ -17,8 +17,8 @@ public class JobPostingControllers {
             case "createJobPost":
                 response = new JobPostingActions().createJobPost(request);
                 return response;
-            case "getJobPosts":
-                response = new JobPostingActions().getJobPosts(request);
+            case "getJobs":
+                response = new JobPostingActions().getJobs(request);
                 return response;
             case "get jobs":
                 String url = request.get("url").asText();

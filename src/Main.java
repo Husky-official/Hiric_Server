@@ -1,9 +1,13 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import controllers.billing.PaymentController;
 import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.jobApplication.JobApplicationController;
+//import controllers.billing.PaymentController;
+import controllers.hiring.jobPosting.JobPostingControllers;
+import controllers.billing.BillingMain;
+import controllers.invoicecontrollers.InvoiceControllers;
+import controllers.groupmessaging.GroupControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
 
@@ -96,6 +100,8 @@ public class Main {
                     }else if(url.contains("get_job_applications")){
                         url = "/get_job_applications";
                     }
+                    String urlDup = url;
+
                     System.out.println(jsonNode);
 
                     switch (url) {
@@ -104,9 +110,13 @@ public class Main {
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
                         }
+                        case "/invoices" -> {
+                            out.flush();
+                            out.writeUTF(new InvoiceControllers().mainMethod(jsonNode));
+                        }
                         case "/payment" -> {
                             out.flush();
-                            out.writeUTF(new PaymentController().mainMethod(jsonNode));
+                            out.writeUTF(new BillingMain().mainMethod(jsonNode));
                             out.flush();
                         }
                         case "/jobPost" -> {
@@ -116,7 +126,7 @@ public class Main {
                         }
                         case "/group_messaging" -> {
                             out.flush();
-                            out.writeUTF("New group");
+                            out.writeUTF(new GroupControllers().mainMethod(jsonNode));
                             out.flush();
                         }
                         case "/get_job_posts" -> {
@@ -130,7 +140,7 @@ public class Main {
                         default -> System.out.println("something went wrong");
                     }
                 }
-            }catch (Exception e){
+        }catch (Exception e){
                 e.printStackTrace();
                 System.out.println("Error ===> " +e.getMessage());
             }
