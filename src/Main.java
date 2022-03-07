@@ -1,7 +1,9 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import controllers.billing.PaymentController;
+import controllers.billing.BillingMain;
+import controllers.invoicecontrollers.InvoiceControllers;
+import controllers.groupmessaging.GroupControllers;
 import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
@@ -90,29 +92,39 @@ public class Main {
                     JsonNode jsonNode = objectMapper.readTree(requestBody);
 
                     String url = jsonNode.get("url").asText();
+                    String urlDup = url;
 
-                    //System.out.println(jsonNode);
+                    System.out.println(jsonNode);
 
-                    switch (url){
-                        case "/users":
+                    switch (url) {
+                        case "/users" -> {
                             out.flush();
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
-                            break;
-                        case "/payment":
+                        }
+                        case "/invoices" -> {
                             out.flush();
-                            out.writeUTF(new PaymentController().mainMethod(jsonNode));
+                            out.writeUTF(new InvoiceControllers().mainMethod(jsonNode));
+                        }
+                        case "/payment" -> {
                             out.flush();
-                            break;
-                        case "/jobPost":
+                            out.writeUTF(new BillingMain().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/jobPost" -> {
                             out.flush();
                             out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
                             out.flush();
-                        default:
-                            System.out.println("something went wrong");
+                        }
+                        case "/group_messaging" -> {
+                            out.flush();
+                            out.writeUTF(new GroupControllers().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        default -> System.out.println("something went wrong");
                     }
                 }
-            }catch (Exception e){
+        }catch (Exception e){
                 e.printStackTrace();
                 System.out.println("Error ===> " +e.getMessage());
             }
