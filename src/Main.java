@@ -8,6 +8,7 @@ import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
 import controllers.groupmessaging.GroupControllers;
 import controllers.usercontrollers.UserControllers;
+import controllers.ArchiveController.ArchiveController;
 import dbconnection.DbConnectionVariables;
 
 import java.io.DataInputStream;
@@ -109,15 +110,25 @@ public class Main {
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
                         }
+
+                        case "/Archives"->{
+                            out.flush();
+                            out.writeUTF(new ArchiveController().mainMethod(jsonNode));
+                            out.flush();
+
+                        }
+
+
                         case "/invoices" -> {
                             out.flush();
                             out.writeUTF(new InvoiceControllers().mainMethod(jsonNode));
                         }
-//                        case "/payment" -> {
-//                            out.flush();
-//                            out.writeUTF(new BillingMain().mainMethod(jsonNode));
-//                            out.flush();
-//                        }
+
+                        case "/payment" -> {
+                            out.flush();
+                            out.writeUTF(new BillingMain().mainMethod(jsonNode));
+                            out.flush();
+                        }
                         case "/jobPost" -> {
                             out.flush();
                             out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
