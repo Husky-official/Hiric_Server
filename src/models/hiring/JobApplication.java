@@ -11,6 +11,7 @@ public class JobApplication {
     private  String referencePhone;
     private  String resume;
     private  String certificate;
+    private String Status;
 
     public void JobApplication(){};
     public void JobApplication(int id,int jobId,int userId, String

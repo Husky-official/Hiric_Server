@@ -26,7 +26,7 @@ public class jobApplicationActions {
 
     String viewPostsQuery = "Select * from jobPosts";
     String viewApplicationsQuery = "Select * from jobApplication";
-
+    String cancelApplication =  "Delete * from jobApplication where id=?";
     public jobApplicationActions() throws Exception {
     }
 
@@ -49,7 +49,7 @@ public class jobApplicationActions {
         String referenceName = iterator.next().toString().split("=")[1];
         String referencePhone = iterator.next().toString().split("=")[1];
         String resume = iterator.next().toString().split("=")[1];
-        String certicate = iterator.next().toString().split("=")[1];
+        String certificate = iterator.next().toString().split("=")[1];
         PreparedStatement preparedStatement = connection.prepareStatement(createApplicationQuery);
         preparedStatement.setInt(1,jobAppId);
         preparedStatement.setInt(2, idJob);
@@ -59,7 +59,7 @@ public class jobApplicationActions {
         preparedStatement.setString(6, referenceName);
         preparedStatement.setString(7, referencePhone);
         preparedStatement.setString(8, resume);
-        preparedStatement.setString(9, certicate);
+        preparedStatement.setString(9, certificate);
 
         int resultSet = preparedStatement.executeUpdate();
 
@@ -110,23 +110,6 @@ public class jobApplicationActions {
 
     public String viewApplications(JsonNode requestData) throws Exception {
         Connection connection = new OnlineDbConnection().getConnection();
-//changing the object into string as it cannot pass in TCP channel as object
-//        JsonNode userData = requestData.get("object");
-//        Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
-//        String newId = iterator.next().toString().split("=")[1];
-//        int jobAppId = Integer.parseInt(newId);
-//        // String userId = iterator.next().toString().split("=")[1];
-//        String Id = iterator.next().toString().split("=")[1];
-//        int id = Integer.parseInt(Id);
-//        String userId = iterator.next().toString().split("=")[1];
-//        int userIdd = Integer.parseInt(userId);
-//        String jobId = iterator.next().toString().split("=")[1];
-//        int idJob = Integer.parseInt(jobId);
-//        String paymentMethod = iterator.next().toString().split("=")[1];
-//        String referenceName = iterator.next().toString().split("=")[1];
-//        String referencePhone = iterator.next().toString().split("=")[1];
-//        String resume = iterator.next().toString().split("=")[1];
-//        String certicate = iterator.next().toString().split("=")[1];
         PreparedStatement preparedStatement = connection.prepareStatement(viewApplicationsQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
         ResponseStatus responseStatus = new ResponseStatus();
