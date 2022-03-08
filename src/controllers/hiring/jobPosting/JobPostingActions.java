@@ -170,15 +170,21 @@ public class JobPostingActions {
             ArrayList<JobPosting> userJobs = new ArrayList<JobPosting>();
             while(resultSet.next()) {
                 JobPosting jobPosting = new JobPosting(
+                        resultSet.getInt("id"),
                         resultSet.getInt("jobId"),
                         resultSet.getInt("userId"),
-                        resultSet.getString("jobTitle"),
                         resultSet.getString("jobDesc"),
                         "requirements",
                         resultSet.getInt("locationId"),
-                        resultSet.getString("startDate"),
+                        resultSet.getDate("startDate"),
+                        resultSet.getTime("startTime"),
                         resultSet.getString("duration"),
-                        resultSet.getInt("salary"));
+                        resultSet.getInt("salary"),
+                        resultSet.getString("salaryType"),
+                        resultSet.getInt("workers"),
+                        resultSet.getInt("paymentStatus"),
+                        resultSet.getString("status")
+                );
                 userJobs.add(jobPosting);
             }
             responseStatus.setObject(userJobs);

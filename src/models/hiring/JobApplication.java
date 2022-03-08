@@ -13,6 +13,17 @@ public class JobApplication {
     private  String resume;
     private  String certificate;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private String firstName;
+    private String lastName;
+    private String email;
 
     public void JobApplication(){};
     public JobApplication(int id,int jobId,int userId, String paymentMethod, int locationId, String referenceName, String referencePhone, String resume, String certificate){
@@ -25,6 +36,21 @@ public class JobApplication {
         this.locationId =locationId;
         this.resume=resume;
         this.certificate=certificate;
+    }
+
+    public JobApplication(int id,int jobId,int userId, String paymentMethod, int locationId, String referenceName, String referencePhone, String resume, String certificate, String firstName, String lastName, String email){
+        this.userId=userId;
+        this.id=id;
+        this.jobPostId =jobId;
+        this.paymentMethod=paymentMethod;
+        this.referencePhone=referencePhone;
+        this.referenceName=referenceName;
+        this.locationId =locationId;
+        this.resume=resume;
+        this.certificate=certificate;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     public Integer getId() {
@@ -93,6 +119,22 @@ public class JobApplication {
 
     public  String getCertificate() {
         return certificate;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setCertificate(String certificate) {

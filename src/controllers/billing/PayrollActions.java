@@ -60,10 +60,10 @@ public class PayrollActions {
                 responseStatus.setStatus(200);
                 responseStatus.setMessage("Payment done Successfully");
                 responseStatus.setActionToDo("Payment");
-                jobPosting.setJobId(String.valueOf(rs.getInt("jobId")) + ", ");
-                jobPosting.setJobDescription(rs.getString("jobDesc"));
-                jobPosting.setSalary(rs.getDouble("salary"));
-                jobPosting.setUserId(rs.getString("userId"));
+//                jobPosting.setJobId(String.valueOf(rs.getInt("jobId")) + ", ");
+                jobPosting.setJobDesc(rs.getString("jobDesc"));
+                jobPosting.setSalary(rs.getInt("salary"));
+                jobPosting.setUserId(rs.getInt("userId"));
                 objectNode.put(""+i, String.valueOf(jobPosting));
                 i++;
             } while (rs.next());

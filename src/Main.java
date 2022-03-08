@@ -1,7 +1,6 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.jobApplication.JobApplicationController;
 //import controllers.billing.PaymentController;
 import controllers.hiring.jobPosting.JobPostingControllers;
@@ -114,11 +113,11 @@ public class Main {
                             out.flush();
                             out.writeUTF(new InvoiceControllers().mainMethod(jsonNode));
                         }
-                        case "/payment" -> {
-                            out.flush();
-                            out.writeUTF(new BillingMain().mainMethod(jsonNode));
-                            out.flush();
-                        }
+//                        case "/payment" -> {
+//                            out.flush();
+//                            out.writeUTF(new BillingMain().mainMethod(jsonNode));
+//                            out.flush();
+//                        }
                         case "/jobPost" -> {
                             out.flush();
                             out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));

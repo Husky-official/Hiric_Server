@@ -5,33 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jackson.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/bcrypt-0.9.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/bytes-1.5.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/billing/PayrollActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupControllers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/invoicecontrollers/InvoiceActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/invoicecontrollers/InvoiceControllers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/Group.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/InvoiceContent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/hiring/Job.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/Hash.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_11_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_11_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_28.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_28.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hiric_Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Hiric_Server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Server.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/billing/PaymentActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/billing/PaymentActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/billing/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/billing/BillingMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/hiringcontrollers/jobpostingcontrollers/JobPostingActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/hiringcontrollers/jobpostingcontrollers/JobPostingControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingControllers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/usercontrollers/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/usercontrollers/Register.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dbconnection/OnlineDbConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbconnection/OnlineDbConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/billing/PayrollActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/billing/PayrollActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/jobApplication/JobApplicationActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/jobApplication/JobApplicationActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/hiring/JobApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hiring/JobApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
