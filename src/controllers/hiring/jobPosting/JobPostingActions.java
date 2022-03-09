@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
+import models.hiring.JobPosting;
 
 import java.text.SimpleDateFormat;
 import java.io.FileReader;
@@ -14,6 +15,7 @@ import java.sql.Connection;
 import java.sql.Time;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Date;
@@ -147,6 +149,46 @@ public class JobPostingActions {
             responseStatus.setActionToDo("getJobPosts");
         }
 
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+    public String getUserJobs(JsonNode requestData, int userId) throws Exception {
+        String getJobPostsQuery = "select * from jobPosts INNER JOIN jobs ON jobPosts.jobId = jobs.id WHERE userId = "+userId;
+        Connection connection = new OnlineDbConnection().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(getJobPostsQuery);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ResponseStatus responseStatus = new ResponseStatus();
+        if(!resultSet.next()){
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setActionToDo("Something went wrong");
+
+        }else {
+            resultSet.beforeFirst();
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Retrieved the job posts successfully");
+            responseStatus.setActionToDo("getJobPosts");
+            ArrayList<JobPosting> userJobs = new ArrayList<JobPosting>();
+            while(resultSet.next()) {
+                JobPosting jobPosting = new JobPosting(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("jobId"),
+                        resultSet.getInt("userId"),
+                        resultSet.getString("jobDesc"),
+                        "requirements",
+                        resultSet.getInt("locationId"),
+                        resultSet.getDate("startDate"),
+                        resultSet.getTime("startTime"),
+                        resultSet.getString("duration"),
+                        resultSet.getInt("salary"),
+                        resultSet.getString("salaryType"),
+                        resultSet.getInt("workers"),
+                        resultSet.getInt("paymentStatus"),
+                        resultSet.getString("status")
+                );
+                userJobs.add(jobPosting);
+            }
+            responseStatus.setObject(userJobs);
+        }
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 }

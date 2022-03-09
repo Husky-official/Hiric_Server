@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import controllers.jobApplication.JobApplicationController;
 //import controllers.billing.PaymentController;
 import controllers.hiring.jobPosting.JobPostingControllers;
 import controllers.billing.BillingMain;
@@ -94,6 +95,11 @@ public class Main {
                     JsonNode jsonNode = objectMapper.readTree(requestBody);
 
                     String url = jsonNode.get("url").asText();
+                    if(url.contains("get_job_posts")){
+                        url = "/get_job_posts";
+                    }else if(url.contains("get_job_applications")){
+                        url = "/get_job_applications";
+                    }
                     String urlDup = url;
 
                     System.out.println(jsonNode);
@@ -132,6 +138,14 @@ public class Main {
                             out.flush();
                             out.writeUTF(new GroupControllers().mainMethod(jsonNode));
                             out.flush();
+                        }
+                        case "/get_job_posts" -> {
+                            out.flush();
+                            out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                        }
+                        case "/get_job_applications" -> {
+                            out.flush();
+                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                         }
                         default -> System.out.println("something went wrong");
                     }

@@ -20,6 +20,12 @@ public class JobPostingControllers {
             case "getJobs":
                 response = new JobPostingActions().getJobs(request);
                 return response;
+            case "get jobs":
+                String url = request.get("url").asText();
+                String[] url_parts = url.split("=");
+                int userId = Integer.parseInt(url_parts[1]);
+                response = new JobPostingActions().getUserJobs(request, userId);
+                return response;
         }
         return "";
     }

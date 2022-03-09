@@ -1,5 +1,4 @@
 package models.hiring;
-
 import java.sql.*;
 
 public class JobPosting {
@@ -11,14 +10,14 @@ public class JobPosting {
     public Integer location;
     public Date startDate;
     public Time startTime;
-    public Integer duration;
+    public String duration;
     public Integer salary;
     public String salaryType;
     public Integer workers;
     public Integer paymentStatus;
     public String status;
 
-    public JobPosting(Integer id,Integer jobId, Integer userId, String jobDesc, String jobRequirements, Integer location, Date startDate, Time startime, Integer duration, Integer salary, String salaryType, Integer workers, Integer paymentStatus, String status) {
+    public JobPosting(Integer id,Integer jobId, Integer userId, String jobDesc, String jobRequirements, Integer location, Date startDate, Time startime, String duration, Integer salary, String salaryType, Integer workers, Integer paymentStatus, String status) {
         this.id = id;
         this.jobId = jobId;
         this.userId = userId;
@@ -51,7 +50,7 @@ public class JobPosting {
         return jobId;
     }
 
-    public void setJobId(Integer jobId) {
+    public void setJobId(int jobId) {
         this.jobId = jobId;
     }
 
@@ -91,34 +90,6 @@ public class JobPosting {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Time getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
-
-    public Integer getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Integer salary) {
-        this.salary = salary;
-    }
-
     public String getSalaryType() {
         return salaryType;
     }
@@ -151,18 +122,31 @@ public class JobPosting {
         this.status = status;
     }
 
-    //    @Override
-//    public String toString() {
-//        return "JobPosting{" +
-//                "jobId=" + jobId +
-//                "userId=" + userId +
-//                ", jobDesc='" + jobDesc + '\'' +
-//                ", jobDesc='" + jobDesc + '\'' +
-//                ", jobRequirements=" + jobRequirements +
-//                ", location=" + location +
-//                ", startDate=" + startDate +
-//                ", duration=" + duration +
-//                ", salary=" + salary +
-//                '}';
-//    }
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Time getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
 }
