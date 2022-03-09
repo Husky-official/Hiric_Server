@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controllers.billing.PaymentController;
 import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
+import controllers.interviewingController.EventSchedulingController;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
 
@@ -112,6 +113,11 @@ public class Main {
                         case "/group_messaging" -> {
                             out.flush();
                             out.writeUTF("New group");
+                            out.flush();
+                        }
+                        case "/eventScheduling" -> {
+                            out.flush();
+                            out.writeUTF(new EventSchedulingController().mainMethod(jsonNode));
                             out.flush();
                         }
                         default -> System.out.println("something went wrong");

@@ -1,10 +1,9 @@
 package controllers.hiringcontrollers.jobpostingcontrollers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-/*
- * author: Gashugi Aderline
- * desc: This is a controller that handles actions including getting, creating, updating and deleting a job post.
- *
+/**
+ * @author: Gashugi Aderline
+ * @desc: This is a controller that handles actions including getting, creating, updating and deleting a job post.
  */
 
 public class JobPostingControllers {
