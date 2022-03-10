@@ -101,8 +101,8 @@ public class EventSchedulingActions {
             responseStatus.setStatus(500);
             responseStatus.setMessage("INTERNAL SERVER ERROR");
             responseStatus.setActionToDo("Something went wrong");
-            return "";
+            return "0";
         }
-        return "";
+        return new ObjectMapper().writeValueAsString(responseStatus);
     }
 }
