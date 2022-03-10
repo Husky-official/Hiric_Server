@@ -60,9 +60,13 @@ public class PayrollActions {
                 responseStatus.setStatus(200);
                 responseStatus.setMessage("Payment done Successfully");
                 responseStatus.setActionToDo("Payment");
+                jobPosting.setJobId(Integer.parseInt(String.valueOf(rs.getInt("jobId")) + ", "));
+                jobPosting.setJobDesc(rs.getString("jobDesc"));
+                jobPosting.setSalary(rs.getDouble("salary"));
+                jobPosting.setUserId(Integer.valueOf(rs.getString("userId")));
 //                jobPosting.setJobId(String.valueOf(rs.getInt("jobId")) + ", ");
                 jobPosting.setJobDesc(rs.getString("jobDesc"));
-                jobPosting.setSalary(rs.getInt("salary"));
+                jobPosting.setSalary((double) rs.getInt("salary"));
                 jobPosting.setUserId(rs.getInt("userId"));
                 objectNode.put(""+i, String.valueOf(jobPosting));
                 i++;

@@ -2,42 +2,41 @@ package models.hiring;
 import java.sql.*;
 
 public class JobPosting {
+    private String jobId;
+    private String userId;
+    private String jobTitle;
+    private String jobDescription;
+    private String jobRequirements;
+    private String location;
+    private String startDate;
+    private String duration;
+    private Double salary;
+
+    public JobPosting() {
+    }
     public Integer id;
-    public Integer jobId;
-    public Integer userId;
-    public String jobDesc;
-    public String jobRequirements;
-    public Integer location;
-    public Date startDate;
+    public String jobDesc;;
     public Time startTime;
-    public String duration;
-    public Integer salary;
     public String salaryType;
     public Integer workers;
     public Integer paymentStatus;
     public String status;
-
     public JobPosting(Integer id,Integer jobId, Integer userId, String jobDesc, String jobRequirements, Integer location, Date startDate, Time startime, String duration, Integer salary, String salaryType, Integer workers, Integer paymentStatus, String status) {
         this.id = id;
-        this.jobId = jobId;
-        this.userId = userId;
+        this.jobId = String.valueOf(jobId);
+        this.userId = String.valueOf(userId);
         this.jobDesc = jobDesc;
         this.jobRequirements = jobRequirements;
-        this.location = location;
-        this.startDate = startDate;
+        this.location = String.valueOf(location);
+        this.startDate = String.valueOf(startDate);
         this.startTime = startime;
         this.duration = duration;
-        this.salary = salary;
+        this.salary = Double.valueOf(salary);
         this.salaryType = salaryType;
         this.workers = workers;
         this.paymentStatus = paymentStatus;
         this.status = status;
     }
-
-    public JobPosting() {
-
-    }
-
     public Integer getId() {
         return id;
     }
@@ -46,20 +45,20 @@ public class JobPosting {
         this.id = id;
     }
 
-    public Integer getJobId() {
+    public String getJobId() {
         return jobId;
     }
 
     public void setJobId(int jobId) {
-        this.jobId = jobId;
+        this.jobId = String.valueOf(jobId);
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
     public void setUserId(Integer userId) {
-        this.userId = userId;
+        this.userId = String.valueOf(userId);
     }
 
     public String getJobDesc() {
@@ -78,15 +77,15 @@ public class JobPosting {
         this.jobRequirements = jobRequirements;
     }
 
-    public Integer getLocation() {
+    public String getLocation() {
         return location;
     }
 
     public void setLocation(Integer location) {
-        this.location = location;
+        this.location = String.valueOf(location);
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
@@ -123,7 +122,7 @@ public class JobPosting {
     }
 
     public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+        this.startDate = String.valueOf(startDate);
     }
 
     public Time getStartTime() {
@@ -142,11 +141,39 @@ public class JobPosting {
         this.duration = duration;
     }
 
-    public Integer getSalary() {
+    public Double getSalary() {
         return salary;
     }
 
-    public void setSalary(Integer salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
+    }
+    public JobPosting(String jobId, String userId, String jobTitle, String jobDescription, String jobRequirements, String location, String startDate, String duration, Double salary) {
+        this.jobId = jobId;
+        this.userId = userId;
+        this.jobTitle = jobTitle;
+        this.jobDescription = jobDescription;
+        this.jobRequirements = jobRequirements;
+        this.location = location;
+        this.startDate = startDate;
+        this.duration = duration;
+        this.salary = salary;
+    }
+    @Override
+    public String toString() {
+        return "JobPosting{" +
+                "jobId=" + jobId +
+                "userId=" + userId +
+                ", jobTitle=" + jobTitle +
+                ", jobDescription='" + jobDescription + '\'' +
+                ", jobRequirements=" + jobRequirements +
+                ", location=" + location +
+                ", startDate=" + startDate +
+                ", duration=" + duration +
+                ", salary=" + salary +
+                '}';
+    }
+    public void setSalary(Integer salary) {
+        this.salary = Double.valueOf(salary);
     }
 }
