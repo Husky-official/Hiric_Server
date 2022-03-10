@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/bcrypt_0_9_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/jackson.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/libs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_28.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Database.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bcrypt-0.9.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bytes-1.5.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/ArchiveController/ArchiveActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/ArchiveController/ArchiveController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/billing/PayrollActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupControllers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/invoicecontrollers/InvoiceActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/invoicecontrollers/InvoiceControllers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/jobApplication/JobApplicationActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/jobApplication/JobApplicationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/usercontrollers/Jwt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/usercontrollers/Register.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/Archive.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/Group.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/InvoiceContent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/Hash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/description.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_11_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_11_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1_44.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/project-template.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hiric_Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Hiric_Server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/billing/PaymentActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/billing/PaymentActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/billing/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/billing/BillingMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingControllers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/hiringcontrollers/jobapplicationcontrollers/jobApplicationActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/hiringcontrollers/jobapplicationcontrollers/jobApplicationActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/usercontrollers/UserActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/usercontrollers/UserActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/usercontrollers/UserControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/usercontrollers/UserControllers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dbconnection/OnlineDbConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbconnection/OnlineDbConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/ResponseStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/ResponseStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/hiring/JobApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hiring/JobApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="260vyPIlk6M9hjIg3uZ5DkZVQRP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/mysql-connector.jar" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Hiric_Server" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="" />
+      <created>1646573575333</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1646573575333</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>
