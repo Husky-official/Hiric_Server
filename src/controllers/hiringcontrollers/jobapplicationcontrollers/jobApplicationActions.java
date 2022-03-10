@@ -108,37 +108,4 @@ public class jobApplicationActions {
 //        }
 //    }
 
-    public String viewApplications(JsonNode requestData) throws Exception {
-        Connection connection = new OnlineDbConnection().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(viewApplicationsQuery);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        ResponseStatus responseStatus = new ResponseStatus();
-        if (!resultSet.isBeforeFirst()) {
-            responseStatus.setStatus(404);
-            responseStatus.setMessage("No users found");
-            responseStatus.setActionToDo("Something went wrong");
-        }
-        responseStatus.setStatus(200);
-        responseStatus.setMessage("applications found");
-        responseStatus.setActionToDo("viewApplications");
-
-        ArrayList<JobApplication> applicationList=new ArrayList<>();
-        while (resultSet.next()) {
-            JobApplication app=new JobApplication();
-
-            app.setId(resultSet.getInt("id"));
-            app.setUserId(resultSet.getInt("userId"));
-            app.setJobPostId(resultSet.getInt("jobPostId"));
-            app.setLocationId(resultSet.getInt("locationId"));
-            app.setPaymentMethod(resultSet.getString("paymentMethod"));
-            app.setReferenceName(resultSet.getString("referenceName"));
-            app.setReferencePhone(resultSet.getString("referencePhone"));
-            app.setCertificate(resultSet.getString("certificate"));
-            app.setResume(resultSet.getString("resume"));
-           applicationList.add(app);
-        }
-         responseStatus.setObject(applicationList);
-
-        return new ObjectMapper().writeValueAsString(responseStatus);
-    }
 }
