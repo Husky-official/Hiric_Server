@@ -1,12 +1,16 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import controllers.billing.PaymentController;
+
+import controllers.jobApplication.JobApplicationController;
+//import controllers.billing.PaymentController;
+import controllers.hiring.jobPosting.JobPostingControllers;
+import controllers.billing.BillingMain;
+import controllers.invoicecontrollers.InvoiceControllers;
 import controllers.groupmessaging.GroupControllers;
-import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
+import controllers.ArchiveController.ArchiveController;
 import dbconnection.DbConnectionVariables;
 
-import javax.net.ssl.SSLServerSocketFactory;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -30,7 +34,7 @@ public class Main {
         ServerSocket server = null;
 
         try{
-            server = SSLServerSocketFactory.getDefault().createServerSocket(8888);
+            server = new ServerSocket(8888);
             server.setReuseAddress(true);
 
             //running infinite loop to accept
@@ -91,6 +95,12 @@ public class Main {
                     JsonNode jsonNode = objectMapper.readTree(requestBody);
 
                     String url = jsonNode.get("url").asText();
+                    if(url.contains("get_job_posts")){
+                        url = "/get_job_posts";
+                    }else if(url.contains("get_job_applications")){
+                        url = "/get_job_applications";
+                    }
+                    String urlDup = url;
 
                     System.out.println(jsonNode);
 
@@ -100,9 +110,23 @@ public class Main {
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
                         }
+
+                        case "/Archives"->{
+                            out.flush();
+                            out.writeUTF(new ArchiveController().mainMethod(jsonNode));
+                            out.flush();
+
+                        }
+
+
+                        case "/invoices" -> {
+                            out.flush();
+                            out.writeUTF(new InvoiceControllers().mainMethod(jsonNode));
+                        }
+
                         case "/payment" -> {
                             out.flush();
-                            out.writeUTF(new PaymentController().mainMethod(jsonNode));
+                            out.writeUTF(new BillingMain().mainMethod(jsonNode));
                             out.flush();
                         }
                         case "/jobPost" -> {
@@ -115,10 +139,18 @@ public class Main {
                             out.writeUTF(new GroupControllers().mainMethod(jsonNode));
                             out.flush();
                         }
+                        case "/get_job_posts" -> {
+                            out.flush();
+                            out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                        }
+                        case "/get_job_applications" -> {
+                            out.flush();
+                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
+                        }
                         default -> System.out.println("something went wrong");
                     }
                 }
-            }catch (Exception e){
+        }catch (Exception e){
                 e.printStackTrace();
                 System.out.println("Error ===> " +e.getMessage());
             }
