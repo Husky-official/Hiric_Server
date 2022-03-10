@@ -6,18 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
 
-import java.text.SimpleDateFormat;
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.util.*;
 import java.sql.Connection;
-//import java.sql.Date;
-import java.sql.Time;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Date;
-import java.util.Properties;
 
 public class JobPostingActions {
     public JobPostingActions() throws Exception {}
@@ -45,13 +38,14 @@ public class JobPostingActions {
             responseStatus.setMessage("INTERNAL SERVER ERROR");
             responseStatus.setActionToDo("Something went wrong");
             return "0";
+
         }
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
     public String createJobPost(JsonNode requestData) throws Exception {
-        String createJobPostQuery = "INSERT INTO jobPosts(jobId, userId, jobTitle, jobDesc, jobRequirements, location, startDate, startTime, duration, salary) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String createJobPostQuery = "INSERT INTO jobPosts(jobId, userId, jobTitle, jobDesc, jobRequirements, location, startDate, duration, salary, salaryType, workers) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         //initialise  db connection
         Connection connection = new OnlineDbConnection().getConnection();
         JsonNode jobPostData = requestData.get("object");
@@ -65,6 +59,7 @@ public class JobPostingActions {
         Properties storedProperties = new Properties();
         storedProperties.load(reader);
         String userrId = storedProperties.getProperty("userId");
+        System.out.println(userrId);
         Integer userId = Integer.parseInt(userrId);
         String jobTitle = iterator.next().toString().split("=")[1];
 
@@ -73,23 +68,16 @@ public class JobPostingActions {
         String jobRequirements = iterator.next().toString().split("=")[1];
 
         String location = iterator.next().toString().split("=")[1];
-
         String date = iterator.next().toString().split("=")[1];
-
-//        Date startDate= Date.valueOf(date);
-        Date starDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-        java.sql.Date  startDate= new java.sql.Date(starDate.getDate());
-        String stime = iterator.next().toString().split("=")[1];
-
-        Time starTime = Time.valueOf(stime);
-
-        String time = iterator.next().toString().split("=")[1];
-
-        Time duration = Time.valueOf(time);
-
+        java.sql.Date startDate = new java.sql.Date(Long.parseLong(date));
+//        String stime = iterator.next().toString().split("=")[1];
+//        System.out.println("stime: " + stime);
+//        java.sql.Time startTime = java.sql.Time.valueOf(stime);
+//        System.out.println(startTime);
+        String duration = iterator.next().toString().split("=")[1];
         String money = iterator.next().toString().split("=")[1];
-
-        Integer salary = Integer.parseInt(money);
+        System.out.println(money);
+        int salary = Integer.parseInt(money);
 
         PreparedStatement preparedStatement = connection.prepareStatement(createJobPostQuery);
         preparedStatement.setInt(1,jobId);
@@ -99,8 +87,8 @@ public class JobPostingActions {
         preparedStatement.setString(4, jobRequirements);
         preparedStatement.setString(5, location);
         preparedStatement.setDate(6, startDate);
-        preparedStatement.setTime(7, starTime);
-        preparedStatement.setTime(8, duration);
+//        preparedStatement.setTime(7, startTime);
+        preparedStatement.setString(8, duration);
         preparedStatement.setInt(9, salary);
 
         int resultSet = preparedStatement.executeUpdate();
@@ -148,5 +136,10 @@ public class JobPostingActions {
         }
 
         return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+
+    public void deleteJobPost(JsonNode requestData) throws Exception{
+
+        String deleteJobPostQuery = "select * from JobPosts";
     }
 }
