@@ -10,7 +10,7 @@ public class CaptureAudio {
     static final long RECORD_TIME = 30000;  // 1 minute
 
     // path of the wav file
-    File wavFile = new File("./RecordAudio.WAV");
+    File wavFile = new File("./RecordAudio.wav");
 
     // format of audio file
     AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
