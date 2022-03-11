@@ -7,10 +7,19 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="jackson-databind-2.11.2" level="project" />
-    <orderEntry type="library" name="jackson-core-2.11.2" level="project" />
     <orderEntry type="library" name="jackson-annotations-2.11.2" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-8.0.28" level="project" />
-    <orderEntry type="library" name="bcrypt-0.9.0" level="project" />
+    <orderEntry type="module-library">
+      <library name="jackson-annotations-2.11.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../Hiric_Client/lib/jackson-annotations-2.11.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../Hiric_Client/lib/jackson-core-2.11.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../Hiric_Client/lib/jackson-databind-2.11.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="mysql-connector-java-8.0.13" level="project" />
+    <orderEntry type="library" name="at.favre.lib.bcrypt" level="project" />
   </component>
 </module>

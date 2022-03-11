@@ -90,7 +90,7 @@ public class UserActions {
                 }
             } else {
                 responseStatus.setStatus(400);
-                responseStatus.setMessage("Invalid email or passwordfghj");
+                responseStatus.setMessage("Invalid email or password");
                 responseStatus.setActionToDo("Something went wrong");
             }
             return new ObjectMapper().writeValueAsString(responseStatus);
