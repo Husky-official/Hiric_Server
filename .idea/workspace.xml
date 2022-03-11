@@ -4,6 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/shortListing/ShortListingActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/shortListing/ShortListingActions.java" afterDir="false" />
+=======
     <list default="true" id="481e8500-8655-4dc5-a5dd-03491c766695" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_11_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_11_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -13,6 +18,7 @@
       <change beforePath="$PROJECT_DIR$/src/controllers/billing/PayrollActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/billing/PayrollActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dbconnection/OnlineDbConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbconnection/OnlineDbConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" afterDir="false" />
+>>>>>>> 03a54c8439b85954d60e10ab3d233ff92fce683d
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

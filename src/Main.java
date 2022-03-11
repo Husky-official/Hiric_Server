@@ -12,6 +12,7 @@ import controllers.hiring.jobPosting.JobPostingControllers;
 import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
 import controllers.groupmessaging.GroupControllers;
+import controllers.shortListing.ShortListingController;
 import controllers.usercontrollers.UserControllers;
 import controllers.ArchiveController.ArchiveController;
 import dbconnection.DbConnectionVariables;
@@ -163,6 +164,12 @@ public class Main {
                         case "/get_job_applications" -> {
                             out.flush();
                             out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/shortList" -> {
+                            out.flush();
+                            out.writeUTF(new ShortListingController().mainMethod(jsonNode));
+                            out.flush();
                         }
 
                         default -> System.out.println("something went wrong");
