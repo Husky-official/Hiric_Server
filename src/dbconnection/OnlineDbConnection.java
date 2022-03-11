@@ -3,13 +3,8 @@ package dbconnection;
 import java.sql.*;
 
 /**
-<<<<<<< HEAD
- *author: DABAGIRE Valens
- * description : Provide the class to enable us to connect to online database
-=======
  *@author: DABAGIRE Valens
  * @description : Provide the class to enable us to connect to online database
->>>>>>> 6089a1f77e6fea3736f330fcaa4a539ec80e15ba
  * */
 
 public class OnlineDbConnection {
@@ -20,24 +15,15 @@ public class OnlineDbConnection {
         //read db connection properties from file
 
         try {
-<<<<<<< HEAD
-            String url = storedProperties.getProperty("dbUrl");
-            String username = storedProperties.getProperty("dbUsername");
-            String password = storedProperties.getProperty("dbPassword");
-           // Class.forName("com.mysql.cj.jdbc.Driver");
 
-//            Class.forName("com.mysql.cj.jdbc.Driver")
-            Class.forName("com.mysql.jdbc.Driver");
-=======
+
             String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3?useSSL=false";
             String username = "ZKZ7qI2OW3";
             String password = "pWgWkTztns";
-
 //            Class.forName("com.mysql.cj.jdbc.Driver");
 //            Class.forName("com.mysql.jdbc.Driver");
 
->>>>>>> 6089a1f77e6fea3736f330fcaa4a539ec80e15ba
-            connection = DriverManager.getConnection(url, username, password);
+                    connection = DriverManager.getConnection(url, username, password);
 
             return connection;
         } catch (SQLException e) {

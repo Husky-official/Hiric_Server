@@ -2,11 +2,12 @@
 //import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import controllers.hiringcontrollers.jobapplicationcontrollers.JobApplicationController;
 import controllers.hiring.jobPosting.JobPostingControllers;
 import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
 import controllers.groupmessaging.GroupControllers;
+import controllers.jobApplication.JobApplicationActions;
+import controllers.jobApplication.JobApplicationController;
 import controllers.usercontrollers.UserControllers;
 import controllers.ArchiveController.ArchiveController;
 import dbconnection.DbConnectionVariables;
@@ -118,7 +119,6 @@ public class Main {
 
                         }
 
-
                         case "/invoices" -> {
                             out.flush();
                             out.writeUTF(new InvoiceControllers().mainMethod(jsonNode));
@@ -127,11 +127,6 @@ public class Main {
                         case "/payment" -> {
                             out.flush();
                             out.writeUTF(new BillingMain().mainMethod(jsonNode));
-                            out.flush();
-                        }
-                        case "/jobPost" -> {
-                            out.flush();
-                            // out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
                             out.flush();
                         }
                         case "/createApplication" ->{
