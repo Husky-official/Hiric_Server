@@ -73,7 +73,7 @@ public class UserActions {
                     //comparing password
                     boolean ok = Boolean.parseBoolean(checkPassword(userPassword, resultSet.getString("password")));
                     System.out.println( Boolean.parseBoolean(checkPassword(userPassword, resultSet.getString("password"))));
-                    if(!ok) {
+                    if(ok) {
                         responseStatus.setStatus(400);
                         responseStatus.setMessage("Invalid email or password");
                         responseStatus.setActionToDo("Login");
