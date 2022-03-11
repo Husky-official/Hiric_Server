@@ -21,9 +21,14 @@ public class ShortListingActions {
         Integer shortListed[] = objectMapper.treeToValue(requestData, Integer[].class);
         String inArrayStr  = "";
         for(int i = 0; i < shortListed.length; i++) {
-            inArrayStr = inArrayStr + String.valueOf(shortListed[i]) + ",";
+            if(i == shortListed.length - 1) {
+                inArrayStr = inArrayStr + String.valueOf(shortListed[i]);
+            }else {
+                inArrayStr = inArrayStr + String.valueOf(shortListed[i]) + ",";
+            }
         }
-        String addToShortListQuery = "UPDATE jobApplications SET status = 'shortlisted' WHERE userId IN ("+ inArrayStr +")";
+        System.out.println(inArrayStr);
+        String addToShortListQuery = "UPDATE jobApplication SET status = 'shortlisted' WHERE userId IN ("+ inArrayStr +")";
 
         Connection connection = new OnlineDbConnection().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(addToShortListQuery);
@@ -33,7 +38,6 @@ public class ShortListingActions {
             responseStatus.setStatus(500);
             responseStatus.setMessage("INTERNAL SERVER ERROR");
             responseStatus.setActionToDo("Something went wrong");
-
         }else {
             responseStatus.setStatus(200);
             responseStatus.setMessage("Shortlisting finished");
