@@ -5,11 +5,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
+import java.util.UUID;
 //decode password
 import static utils.ComparingPassword.checkPassword;
 
@@ -149,4 +155,123 @@ public class UserActions {
         }
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
+    static Integer userId=0;
+    public static String sendEmail(JsonNode requestData) throws Exception{
+        // @author=Beulla
+        Connection connection=new OnlineDbConnection().getConnection();
+        JsonNode userData=requestData.get("object");
+        Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
+        String id = iterator.next().toString().split("=")[1];
+        String email = iterator.next().toString().split("=")[1];
+        String query="SELECT * FROM users_table where email="+email;
+
+        Statement statement=connection.createStatement();
+        statement.execute(query);
+        ResultSet resultSet=statement.executeQuery(query);
+        ResponseStatus responseStatus = new ResponseStatus();
+        if(resultSet.next()){
+            userId=resultSet.getInt("id");
+            String token= UUID.randomUUID().toString();
+
+            String tokenInsertionQuery="insert into token values ('"+userId+"','"+token+"');";
+            statement.executeUpdate(tokenInsertionQuery);
+            String recipient=email;
+            String sender="beullarugero8@gmail.com";
+
+            Properties properties=System.getProperties();
+            String host="127.0.0.1";
+            properties.setProperty("mail.smtp.host","smtp.gmail.com");
+            properties.setProperty("mail.smtp.port","587");
+            properties.setProperty("mail.smtp.socketFactory.port","587");
+            properties.setProperty("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+            properties.setProperty("mail.smtp.starttls.enable","true");
+            properties.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+            properties.setProperty("mail.smtp.user","beullarugero8@gmail.com");
+            properties.setProperty("mail.smtp.auth","true");
+
+            Session session=Session.getDefaultInstance(properties, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication(){
+                    return new PasswordAuthentication("beullarugero8@gmail.com","increaseby2");
+                }
+            });
+
+            try{
+
+                MimeMessage message=new MimeMessage(session);
+                message.setFrom(new InternetAddress(sender));
+                message.addRecipient(Message.RecipientType.TO,new InternetAddress(recipient));
+                message.setSubject("Password reset");
+                message.setText(token);
+                Transport.send(message);
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("EMAIL SENT TO THE PROVIDED ADDRESS");
+                responseStatus.setActionToDo("check your email for continuation with password verification");
+            }
+            catch(MessagingException mex){
+                mex.printStackTrace();
+                responseStatus.setStatus(500);
+                responseStatus.setMessage("INTERNAL SERVER ERROR");
+                responseStatus.setActionToDo("try again");
+            }
+
+        }
+        else{
+            responseStatus.setStatus(404);
+            responseStatus.setMessage("INVALID EMAIL PROVIDED");
+            responseStatus.setActionToDo("try again");
+        }
+
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+
+    public static String verifyToken(JsonNode requestData) throws Exception{
+        // @author=Beulla
+        Connection connection=new OnlineDbConnection().getConnection();
+        JsonNode userData=requestData.get("object");
+        Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
+        String id = iterator.next().toString().split("=")[1];
+        String email = iterator.next().toString().split("=")[1];
+        String token=iterator.next().toString().split("=")[1];
+        String query="SELECT * FROM token where tokenValue="+token;
+
+        Statement statement=connection.createStatement();
+        statement.execute(query);
+        ResultSet resultSet=statement.executeQuery(query);
+        ResponseStatus responseStatus = new ResponseStatus();
+        if(resultSet.next()){
+            userId=resultSet.getInt("userId");
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("PROCEED");
+            responseStatus.setActionToDo("you can proceed with password reset");
+        }
+        else{
+            responseStatus.setStatus(404);
+            responseStatus.setMessage("INVALID EMAIL PROVIDED");
+            responseStatus.setActionToDo("try again");
+        }
+
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+    public static String setPassword(JsonNode requestData) throws Exception{
+        // @author=Beulla
+        Connection connection=new OnlineDbConnection().getConnection();
+        JsonNode userData=requestData.get("object");
+        Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
+        String password = iterator.next().toString().split("=")[1];
+        String userid=userId.toString();
+        String query="Update users_table set password= " +password+" where id= "+userid;
+
+        Statement statement=connection.createStatement();
+        statement.executeUpdate(query);
+
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        responseStatus.setStatus(200);
+        responseStatus.setMessage("SUCCESS");
+        responseStatus.setActionToDo("SUCCESSFULLY RESET PASSWORD");
+
+
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+
 }

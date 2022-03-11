@@ -22,6 +22,15 @@ public class UserControllers {
         case "register":
                 response = register(request);
                 return response;
+            case "sendEmail":
+                response=new UserActions().sendEmail(request);
+                return response;
+            case "verifyToken":
+                response=new UserActions().verifyToken(request);
+                return response;
+            case "setPassword":
+                response=new UserActions().setPassword(request);
+                return response;
         default:
             System.out.println("Unknown action");
         }
