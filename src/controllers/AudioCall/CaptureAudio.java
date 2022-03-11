@@ -7,13 +7,13 @@ import java.io.*;
 
 public class CaptureAudio {
     // record duration, in milliseconds
-    static final long RECORD_TIME = 60000;  // 1 minute
+    static final long RECORD_TIME = 30000;  // 1 minute
 
     // path of the wav file
-    File wavFile = new File("./RecordAudio.AIFF");
+    File wavFile = new File("./RecordAudio.WAV");
 
     // format of audio file
-    AudioFileFormat.Type fileType = AudioFileFormat.Type.AIFF;
+    AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
 
     // the line from which audio data is captured
     TargetDataLine line;

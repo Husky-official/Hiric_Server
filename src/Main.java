@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controllers.billing.PaymentController;
 import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
+import controllers.messagecontrollers.MessageControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
 
@@ -107,6 +108,10 @@ public class Main {
                         case "/jobPost":
                             out.flush();
                             out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            out.flush();
+                        case "/messages":
+                            out.flush();
+                            out.writeUTF(new MessageControllers().mainMethod(jsonNode));
                             out.flush();
                         default:
                             System.out.println("something went wrong");
