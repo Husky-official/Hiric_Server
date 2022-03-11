@@ -5,6 +5,7 @@ import java.util.List;
 public class ResponseBody {
     private List<Object> response;
 
+    public ResponseBody() {}
     public ResponseBody(List<Object> response){
         this.response = response;
     }

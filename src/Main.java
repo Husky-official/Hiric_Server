@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import controllers.messagecontrollers.MessageControllers;
 import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
 import controllers.groupmessaging.GroupControllers;
@@ -168,10 +169,12 @@ public class Main {
                         }
                         case "/shortList" -> {
                             out.flush();
-                            out.writeUTF(new ShortListingController().mainMethod(jsonNode));
+                        }
+                        case "/messages" -> {
+                            out.flush();
+                            out.writeUTF(new MessageControllers().mainMethod(jsonNode));
                             out.flush();
                         }
-
                         default -> System.out.println("something went wrong");
                     }
                 }

@@ -7,7 +7,7 @@ import java.io.*;
 
 public class CaptureAudio {
     // record duration, in milliseconds
-    static final long RECORD_TIME = 60000;  // 1 minute
+    static final long RECORD_TIME = 30000;  // 1 minute
 
     // path of the wav file
     File wavFile = new File("./RecordAudio.wav");
