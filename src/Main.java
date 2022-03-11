@@ -147,10 +147,12 @@ public class Main {
                         case "/get_job_applications" -> {
                             out.flush();
                             out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
+                            out.flush();
                         }
                         case "/shortList" -> {
                             out.flush();
                             out.writeUTF(new ShortListingController().mainMethod(jsonNode));
+                            out.flush();
                         }
                         default -> System.out.println("something went wrong");
                     }
