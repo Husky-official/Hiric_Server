@@ -26,6 +26,15 @@ public class JobPostingControllers {
                 int userId = Integer.parseInt(url_parts[1]);
                 response = new JobPostingActions().getUserJobs(request, userId);
                 return response;
+            case "deleteJobPost":
+                response = new JobPostingActions().deleteJobPost(request);
+                return response;
+            case "getJobPostById":
+                response = new JobPostingActions().getJobPostById(request);
+                return response;
+//            case "updateJobPost":
+//                response = new JobPostingActions().updateJobPost(request);
+//                return response;
         }
         return "";
     }

@@ -8,6 +8,8 @@ import models.ResponseStatus;
 import models.hiring.JobPosting;
 
 import java.io.FileReader;
+import java.sql.Date;
+import java.time.LocalTime;
 import java.util.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +17,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Date;
 import java.util.Properties;
 
 public class JobPostingActions {
@@ -52,51 +53,59 @@ public class JobPostingActions {
     }
 
     public String createJobPost(JsonNode requestData) throws Exception {
-        String createJobPostQuery = "INSERT INTO jobPosts(jobId, userId, jobTitle, jobDesc, jobRequirements, location, startDate, duration, salary, salaryType, workers) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String createJobPostQuery = "INSERT INTO jobPosts(jobId, userId, jobDesc, jobRequirements, locationId, startDate, startTime, duration, salary, salaryType, workers) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         //initialise  db connection
         Connection connection = new OnlineDbConnection().getConnection();
         JsonNode jobPostData = requestData.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = jobPostData.fields();
         System.out.println("iterator values: " + iterator.next().toString());
         String id = iterator.next().toString().split("=")[1];
+        System.out.println(id);
         Integer jobId = Integer.parseInt(id);
-
+        System.out.println("jobId: " + jobId);
         //get user id from file
         FileReader reader = new FileReader("dbConfig.properties");
         Properties storedProperties = new Properties();
         storedProperties.load(reader);
         String userrId = storedProperties.getProperty("userId");
-        System.out.println(userrId);
         Integer userId = Integer.parseInt(userrId);
-        String jobTitle = iterator.next().toString().split("=")[1];
-
+        System.out.println("userId: " + userrId);
+        System.out.println(iterator.next());
         String jobDescription = iterator.next().toString().split("=")[1];
-
+        System.out.println("jobDescription: " + jobDescription);
         String jobRequirements = iterator.next().toString().split("=")[1];
-
+        System.out.println("jobRequirements: " + jobRequirements);
         String location = iterator.next().toString().split("=")[1];
+        System.out.println("location: " + location);
         String date = iterator.next().toString().split("=")[1];
         java.sql.Date startDate = new java.sql.Date(Long.parseLong(date));
-//        String stime = iterator.next().toString().split("=")[1];
-//        System.out.println("stime: " + stime);
-//        java.sql.Time startTime = java.sql.Time.valueOf(stime);
-//        System.out.println(startTime);
+        String stime = iterator.next().toString().split("=")[1];
+        System.out.println("stime: " + stime);
+        java.sql.Time startTime = java.sql.Time.valueOf(LocalTime.parse("12:00:00"));
+        System.out.println("startTime: " + startTime);
         String duration = iterator.next().toString().split("=")[1];
+        System.out.println("duration: " + duration);
         String money = iterator.next().toString().split("=")[1];
-        System.out.println(money);
-        int salary = Integer.parseInt(money);
+        System.out.println("money: " + money);
+        Integer salary = Integer.parseInt(money);
+        String salaryType = iterator.next().toString().split("=")[1];
+        System.out.println("salaryType: " + salaryType);
+        String work = iterator.next().toString().split("=")[1];
+        Integer workers = Integer.parseInt(work);
+        System.out.println("workers: " + workers);
 
         PreparedStatement preparedStatement = connection.prepareStatement(createJobPostQuery);
         preparedStatement.setInt(1, jobId);
         preparedStatement.setInt(2, userId);
-        preparedStatement.setString(2, jobTitle);
         preparedStatement.setString(3, jobDescription);
         preparedStatement.setString(4, jobRequirements);
         preparedStatement.setString(5, location);
         preparedStatement.setDate(6, startDate);
-//        preparedStatement.setTime(7, startTime);
+        preparedStatement.setTime(7, startTime);
         preparedStatement.setString(8, duration);
         preparedStatement.setInt(9, salary);
+        preparedStatement.setString(10, salaryType);
+        preparedStatement.setInt(11, workers);
 
         int resultSet = preparedStatement.executeUpdate();
         ResponseStatus responseStatus = new ResponseStatus();
@@ -115,19 +124,55 @@ public class JobPostingActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-    public String getJobPosts(JsonNode requestData) throws Exception {
-        String getJobPostsQuery = "select * from JobPosts";
+    public String getJobPostById(JsonNode requestData) throws Exception {
+        String getJobPostByIdQuery = "select * from jobPosts where id = ?";
+        System.out.println("reached here!!");
         Connection connection = new OnlineDbConnection().getConnection();
         JsonNode jobPostData = requestData.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = jobPostData.fields();
-        String jobTitle = iterator.next().toString().split("=")[1];
-        String jobDescription = iterator.next().toString().split("=")[1];
-        String jobRequirements = iterator.next().toString().split("=")[1];
-        String location = iterator.next().toString().split("=")[1];
-        String startDate = iterator.next().toString().split("=")[1];
-        String duration = iterator.next().toString().split("=")[1];
-        String money = iterator.next().toString().split("=")[1];
-        Integer salary = Integer.parseInt(money);
+        iterator.next();
+        String id = iterator.next().toString().split("=")[1];
+        Integer jobPostId = Integer.parseInt(id);
+        PreparedStatement preparedStatement = connection.prepareStatement(getJobPostByIdQuery);
+        preparedStatement.setInt(1, jobPostId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        if (!resultSet.next()) {
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setActionToDo("Something went wrong");
+
+        } else {
+            resultSet.beforeFirst();
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Got post by id successfully!");
+            responseStatus.setActionToDo("getJobPostById");
+            ArrayList<JobPosting> jobPosts = new ArrayList<JobPosting>();
+            while (resultSet.next()) {
+                Integer jobPostIdd = resultSet.getInt("id");
+                Integer jobId = resultSet.getInt("jobId");
+                String jobDesc = resultSet.getString("jobDesc");
+                String jobRequirements = resultSet.getString("jobRequirements");
+                Integer location = resultSet.getInt("locationId");
+                Date startDate = resultSet.getDate("startDate");
+                String duration = resultSet.getString("duration");
+                Integer salary = resultSet.getInt("salary");
+                String salaryType = resultSet.getString("salaryType");
+                Integer workers = resultSet.getInt("workers");
+
+                jobPosts.add(new JobPosting(jobPostIdd, jobId, jobDesc, jobRequirements, location, startDate, duration, salary, salaryType, workers));
+            }
+            System.out.println(jobPosts);
+            responseStatus.setObject(jobPosts);
+        }
+
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+
+    public String getJobPosts(JsonNode requestData) throws Exception {
+        String getJobPostsQuery = "select * from JobPosts";
+        Connection connection = new OnlineDbConnection().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(getJobPostsQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
         ResponseStatus responseStatus = new ResponseStatus();
@@ -143,6 +188,35 @@ public class JobPostingActions {
             responseStatus.setActionToDo("getJobPosts");
         }
 
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+
+    //    public String updateJobPost(JsonNode requestDate) throws  Exception {
+//
+//    }
+    public String deleteJobPost(JsonNode requestData) throws Exception {
+        String deleteJobPostQuery = "UPDATE jobPosts SET status = 'DELETED' where id = ?";
+        Connection connection = new OnlineDbConnection().getConnection();
+        JsonNode jobPostData = requestData.get("object");
+        Iterator<Map.Entry<String, JsonNode>> iterator = jobPostData.fields();
+        iterator.next();
+        String id = iterator.next().toString().split("=")[1];
+        Integer jobPostId = Integer.parseInt(id);
+        PreparedStatement preparedStatement = connection.prepareStatement(deleteJobPostQuery);
+        preparedStatement.setInt(1, jobPostId);
+        int resultSet = preparedStatement.executeUpdate();
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        if (resultSet == 0) {
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setActionToDo("Something went wrong");
+
+        } else {
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Deleted job successfully!");
+            responseStatus.setActionToDo("deleteJobPost");
+        }
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 

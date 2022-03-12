@@ -37,6 +37,19 @@ public class JobPosting {
 
     }
 
+    public JobPosting(Integer jobPostIdd, Integer jobId, String jobDesc, String jobRequirements, Integer location, Date startDate, String duration, Integer salary, String salaryType, Integer workers) {
+        this.id = jobPostIdd;
+        this.jobId = jobId;
+        this.jobDesc = jobDesc;
+        this.jobRequirements = jobRequirements;
+        this.location = location;
+        this.startDate = startDate;
+        this.duration = duration;
+        this.salary = salary;
+        this.salaryType = salaryType;
+        this.workers = workers;
+    }
+
     public Integer getId() {
         return id;
     }
