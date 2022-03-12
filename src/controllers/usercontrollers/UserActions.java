@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -71,8 +72,8 @@ public class UserActions {
                 }
                 else {
                     //comparing password
-                    boolean ok = Boolean.parseBoolean(checkPassword(userPassword, resultSet.getString("password")));
-                    System.out.println( Boolean.parseBoolean(checkPassword(userPassword, resultSet.getString("password"))));
+                    boolean ok = checkPassword(userPassword.replaceAll("\"",""), resultSet.getString("password"));
+                    System.out.println(userPassword +" "+ resultSet.getString("password") +" "+ ok);
                     if(ok) {
                         responseStatus.setStatus(400);
                         responseStatus.setMessage("Invalid email or password");
@@ -90,7 +91,7 @@ public class UserActions {
                 }
             } else {
                 responseStatus.setStatus(400);
-                responseStatus.setMessage("Invalid email or passwordfghj");
+                responseStatus.setMessage("Invalid email or password");
                 responseStatus.setActionToDo("Something went wrong");
             }
             return new ObjectMapper().writeValueAsString(responseStatus);

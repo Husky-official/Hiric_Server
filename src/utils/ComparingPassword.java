@@ -4,13 +4,18 @@
  */
 package utils;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;
+
+/** The type Comparing password. */
 public class ComparingPassword {
-    public static String checkPassword(String password, String hashedPassword) {
-        BCrypt.Result matched = BCrypt.verifyer().verify(password.toCharArray(), hashedPassword);
-        if (matched.verified) {
-            return password;
-        }
-        return matched.toString();
+  /**
+   * Check password boolean.
+   *
+   * @param password the password
+   * @param hashedPassword the hashed password
+   * @return the boolean
+   */
+  public static boolean checkPassword(String password, String hashedPassword) {
+        return BCrypt.checkpw(password, hashedPassword);
     }
 }
