@@ -19,6 +19,13 @@ public class OnlineDbConnection {
             String username = "ZKZ7qI2OW3";
             String password = "pWgWkTztns";
 
+//            String url="jdbc:mysql://localhost:3306/hiric";
+//            String password="password@2001";
+//            String username="root";
+//            String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3?useSSL=false";
+//            String username = "ZKZ7qI2OW3";
+//            String password = "pWgWkTztns";
+
             Class.forName("com.mysql.cj.jdbc.Driver");
 //            Class.forName("com.mysql.jdbc.Driver");
 

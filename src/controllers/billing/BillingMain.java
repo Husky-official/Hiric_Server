@@ -2,6 +2,7 @@ package controllers.billing;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import controllers.hiring.jobPosting.JobPostingActions;
 import models.ResponseStatus;
 
 public class BillingMain {
@@ -18,7 +19,10 @@ public class BillingMain {
                 response = new PayrollActions().createAndSavePayroll(request);
                 return response;
             case "listJobs":
-                response = new PayrollActions().listOfJobsByEmployer(request);
+                String url = request.get("url").asText();
+                String[] url_parts = url.split("=");
+                int userId = Integer.parseInt(url_parts[1]);
+                response = new PayrollActions().listOfJobsByEmployer(request, userId);
                 return response;
             default:
                 ResponseStatus responseStatus = new ResponseStatus();

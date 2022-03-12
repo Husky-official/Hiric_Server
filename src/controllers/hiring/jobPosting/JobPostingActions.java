@@ -5,15 +5,23 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
+import models.hiring.JobPosting;
 
 import java.io.FileReader;
 import java.util.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Date;
+import java.util.Properties;
 
 public class JobPostingActions {
-    public JobPostingActions() throws Exception {}
+    public JobPostingActions() throws Exception {
+    }
+
     public String getJobs(JsonNode requestData) throws Exception {
         String getJobsQuery = "SELECT * FROM jobs";
         Connection connection = new OnlineDbConnection().getConnection();
@@ -21,19 +29,18 @@ public class JobPostingActions {
         ResultSet resultSet = preparedStatement.executeQuery();
         ResponseStatus responseStatus = new ResponseStatus();
 
-        if(resultSet.next()) {
+        if (resultSet.next()) {
             resultSet.beforeFirst();
             responseStatus.setStatus(200);
             responseStatus.setMessage("Retrieved Jobs successfully!");
             responseStatus.setActionToDo("getJobs");
             ArrayList<Job> jobs = new ArrayList<Job>();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 jobs.add(new Job(resultSet.getInt("id"), resultSet.getString("jobTitle")));
             }
             System.out.println(jobs);
             responseStatus.setObject(jobs);
-        }
-        else {
+        } else {
             responseStatus.setStatus(500);
             responseStatus.setMessage("INTERNAL SERVER ERROR");
             responseStatus.setActionToDo("Something went wrong");
@@ -80,7 +87,7 @@ public class JobPostingActions {
         int salary = Integer.parseInt(money);
 
         PreparedStatement preparedStatement = connection.prepareStatement(createJobPostQuery);
-        preparedStatement.setInt(1,jobId);
+        preparedStatement.setInt(1, jobId);
         preparedStatement.setInt(2, userId);
         preparedStatement.setString(2, jobTitle);
         preparedStatement.setString(3, jobDescription);
@@ -94,12 +101,12 @@ public class JobPostingActions {
         int resultSet = preparedStatement.executeUpdate();
         ResponseStatus responseStatus = new ResponseStatus();
 
-        if(resultSet == 0){
+        if (resultSet == 0) {
             responseStatus.setStatus(500);
             responseStatus.setMessage("INTERNAL SERVER ERROR");
             responseStatus.setActionToDo("Something went wrong");
 
-        }else {
+        } else {
             responseStatus.setStatus(200);
             responseStatus.setMessage("Posted Job Successfully");
             responseStatus.setActionToDo("createJobPost");
@@ -107,6 +114,7 @@ public class JobPostingActions {
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
+
     public String getJobPosts(JsonNode requestData) throws Exception {
         String getJobPostsQuery = "select * from JobPosts";
         Connection connection = new OnlineDbConnection().getConnection();
@@ -124,12 +132,12 @@ public class JobPostingActions {
         ResultSet resultSet = preparedStatement.executeQuery();
         ResponseStatus responseStatus = new ResponseStatus();
 
-        if(!resultSet.next()){
+        if (!resultSet.next()) {
             responseStatus.setStatus(500);
             responseStatus.setMessage("INTERNAL SERVER ERROR");
             responseStatus.setActionToDo("Something went wrong");
 
-        }else {
+        } else {
             responseStatus.setStatus(200);
             responseStatus.setMessage("Retrieved the jobs successfully");
             responseStatus.setActionToDo("getJobPosts");
@@ -138,8 +146,44 @@ public class JobPostingActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-    public void deleteJobPost(JsonNode requestData) throws Exception{
+    public String getUserJobs(JsonNode requestData, int userId) throws Exception {
+        String getJobPostsQuery = "select * from jobPosts INNER JOIN jobs ON jobPosts.jobId = jobs.id WHERE userId = " + userId;
+        Connection connection = new OnlineDbConnection().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(getJobPostsQuery);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ResponseStatus responseStatus = new ResponseStatus();
+        if (!resultSet.next()) {
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setActionToDo("Something went wrong");
 
-        String deleteJobPostQuery = "select * from JobPosts";
+        } else {
+            resultSet.beforeFirst();
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Retrieved the job posts successfully");
+            responseStatus.setActionToDo("getJobPosts");
+            ArrayList<JobPosting> userJobs = new ArrayList<JobPosting>();
+            while (resultSet.next()) {
+                JobPosting jobPosting = new JobPosting(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("jobId"),
+                        resultSet.getInt("userId"),
+                        resultSet.getString("jobDesc"),
+                        "requirements",
+                        resultSet.getInt("locationId"),
+                        resultSet.getDate("startDate"),
+                        resultSet.getTime("startTime"),
+                        resultSet.getString("duration"),
+                        resultSet.getInt("salary"),
+                        resultSet.getString("salaryType"),
+                        resultSet.getInt("workers"),
+                        resultSet.getInt("paymentStatus"),
+                        resultSet.getString("status")
+                );
+                userJobs.add(jobPosting);
+            }
+            responseStatus.setObject(userJobs);
+        }
+        return new ObjectMapper().writeValueAsString(responseStatus);
     }
 }
