@@ -12,6 +12,7 @@ public class JobApplication {
     private  String referencePhone;
     private  String resume;
     private  String certificate;
+    private String status;
 
     public String getEmail() {
         return email;
@@ -26,7 +27,7 @@ public class JobApplication {
     private String email;
 
     public void JobApplication(){};
-    public JobApplication(int id,int jobId,int userId, String paymentMethod, int locationId, String referenceName, String referencePhone, String resume, String certificate){
+    public JobApplication(int id,int jobId,int userId, String paymentMethod, int locationId, String referenceName, String referencePhone, String resume, String certificate,String status){
         this.userId=userId;
         this.id=id;
         this.jobPostId =jobId;
@@ -36,6 +37,7 @@ public class JobApplication {
         this.locationId =locationId;
         this.resume=resume;
         this.certificate=certificate;
+        this.status=status;
     }
 
     public JobApplication(int id,int jobId,int userId, String paymentMethod, int locationId, String referenceName, String referencePhone, String resume, String certificate, String firstName, String lastName, String email){

@@ -15,8 +15,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class JobApplicationActions {
-    String createApplicationQuery = "INSERT INTO jobApplication(id , jobPostId, userId, locationId, paymentMethod, referenceName, referencePhone, resume, certificate)" +
-            "VALUES(?,?,?,?,?,?,?,?,?)";
+    static String createApplicationQuery = "INSERT INTO jobApplication(jobPostId, userId, locationId, paymentMethod, referenceName, referencePhone, resume, certificate)" +
+            "VALUES(?,?,?,?,?,?,?,?)";
 
     public String getJobApplications(JsonNode requestData, int jobPostId) throws Exception {
         String getJobApplicationsQuery = "SELECT * FROM jobApplication INNER JOIN users_table ON jobApplication.userId = users_table.id WHERE jobPostId = " + jobPostId;
@@ -43,15 +43,35 @@ public class JobApplicationActions {
         }
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
-    public String createApplication(JsonNode requestData) throws Exception {
-        //initialise  db connection
+    boolean searchID;
+       public String searchById(JsonNode requestData,int jobPostId) throws Exception {
+
+        String searchQuery="Select id from jobPosts where id = "+ jobPostId;
         Connection connection = new OnlineDbConnection().getConnection();
-//changing the object into string as it cannot pass in TCP channel as object
-        JsonNode userData = requestData.get("object");
-        Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
-        String newId = iterator.next().toString().split("=")[1];
-        int jobAppId = Integer.parseInt(newId);
-        // String userId = iterator.next().toString().split("=")[1];
+        PreparedStatement stmt=connection.prepareStatement(searchQuery);
+        ResultSet resultSet=stmt.executeQuery();
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        if (!resultSet.next()) {
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setActionToDo("Something went wrong");
+            searchID=false;
+        } else {
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("JOB POST ID RETRIEVED Successfully");
+            responseStatus.setActionToDo("CreateApplication");
+            searchID=true;
+        }
+           return new ObjectMapper().writeValueAsString(responseStatus);
+
+    }
+    public static String createApplication(JsonNode requestData) throws Exception {
+
+        Connection connection = new OnlineDbConnection().getConnection();
+        JsonNode jobApplication = requestData.get("object");
+        Iterator<Map.Entry<String, JsonNode>> iterator = jobApplication.fields();
+        System.out.println("iterator values: " + iterator.next().toString());
         String Id = iterator.next().toString().split("=")[1];
         int id = Integer.parseInt(Id);
         String userId = iterator.next().toString().split("=")[1];
@@ -63,16 +83,17 @@ public class JobApplicationActions {
         String referencePhone = iterator.next().toString().split("=")[1];
         String resume = iterator.next().toString().split("=")[1];
         String certificate = iterator.next().toString().split("=")[1];
+        String status=iterator.next().toString().split("=")[1];
         PreparedStatement preparedStatement = connection.prepareStatement(createApplicationQuery);
-        preparedStatement.setInt(1,jobAppId);
-        preparedStatement.setInt(2, idJob);
-        preparedStatement.setInt(3, userIdd);
-        preparedStatement.setInt(4, id);
-        preparedStatement.setString(5, paymentMethod);
-        preparedStatement.setString(6, referenceName);
-        preparedStatement.setString(7, referencePhone);
-        preparedStatement.setString(8, resume);
-        preparedStatement.setString(9, certificate);
+        preparedStatement.setInt(1, idJob);
+        preparedStatement.setInt(2, userIdd);
+        preparedStatement.setInt(3, id);
+        preparedStatement.setString(4, paymentMethod);
+        preparedStatement.setString(5, referenceName);
+        preparedStatement.setString(6, referencePhone);
+        preparedStatement.setString(7, resume);
+        preparedStatement.setString(8, certificate);
+
 
         int resultSet = preparedStatement.executeUpdate();
 
