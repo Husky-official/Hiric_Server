@@ -35,6 +35,9 @@ public class GroupControllers {
             case "editMessage" ->{
                 response = new GroupActions().editMessage(request);
             }
+            case "allMessages" ->{
+                response = new GroupActions().allGroupMessages(request);
+            }
             default -> {
                 response = "Something went wrong";
                 return response;
