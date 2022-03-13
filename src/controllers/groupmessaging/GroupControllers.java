@@ -12,6 +12,12 @@ public class GroupControllers {
             case "createGroup" -> {
                 response = new GroupActions().createGroup(request);
             }
+            case "joinGroup" ->{
+                response = new GroupActions().joinGroup(request);
+            }
+            case "deleteGroup" ->{
+                response = new GroupActions().deleteGroup(request);
+            }
             default -> {
                 response = "Something went wrong";
                 return response;
