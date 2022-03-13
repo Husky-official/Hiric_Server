@@ -32,6 +32,9 @@ public class GroupControllers {
             case "sendMessage" ->{
                 response = new GroupActions().sendMessage(request);
             }
+            case "editMessage" ->{
+                response = new GroupActions().editMessage(request);
+            }
             default -> {
                 response = "Something went wrong";
                 return response;
