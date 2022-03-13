@@ -1,13 +1,11 @@
 package dbconnection;
 
-import java.io.FileReader;
 import java.sql.*;
-import java.util.Properties;
 
 /**
-*@author: DABAGIRE Valens
+ *@author: DABAGIRE Valens
  * @description : Provide the class to enable us to connect to online database
-* */
+ * */
 
 public class OnlineDbConnection {
     public Connection getConnection() throws Exception {
@@ -15,15 +13,18 @@ public class OnlineDbConnection {
         Connection connection = null;
 
         //read db connection properties from file
-        FileReader reader = new FileReader("dbConfig.properties");
-        Properties storedProperties = new Properties();
-        storedProperties.load(reader);
 
         try {
-            String url = storedProperties.getProperty("dbUrl");
-            String username = storedProperties.getProperty("dbUsername");
-            String password = storedProperties.getProperty("dbPassword");
+            String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3";
+            String username = "ZKZ7qI2OW3";
+            String password = "pWgWkTztns";
 
+//            String url="jdbc:mysql://localhost:3306/hiric";
+//            String password="password@2001";
+//            String username="root";
+//            String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3?useSSL=false";
+//            String username = "ZKZ7qI2OW3";
+//            String password = "pWgWkTztns";
 
             Class.forName("com.mysql.cj.jdbc.Driver");
 //            Class.forName("com.mysql.jdbc.Driver");
@@ -62,5 +63,6 @@ public class OnlineDbConnection {
         OnlineDbConnection dbConnection = new OnlineDbConnection();
         System.out.println(dbConnection.getConnection());
         dbConnection.checkDbConnection(dbConnection.getConnection());
+
     }
 }
