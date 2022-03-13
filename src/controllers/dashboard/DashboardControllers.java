@@ -8,9 +8,11 @@ public class DashboardControllers {
         String response;
 
         switch (action){
-            case "adminDashboard" :
+            case "adminDashboard" -> {
                 response = new DashboardActions().adminDashboard();
                 return response;
+            }
+            default -> System.out.println("Unknown action");
         }
 
         return "";

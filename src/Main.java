@@ -1,7 +1,11 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 import controllers.dashboard.DashboardControllers;
+import controllers.billing.PaymentController;
 import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
 import dbconnection.DbConnectionVariables;
@@ -15,9 +19,9 @@ import java.net.Socket;
 
 public class Main {
     public void startServer() throws Exception{
-        String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3?"+"autoReconnect=true&useSSL=false";
-        String user = "ZKZ7qI2OW3";
-        String password = "pWgWkTztns";
+        String url = "jdbc:mysql://localhost:3306/hiric";
+        String user = "root";
+        String password = "password@2001";
 
         DbConnectionVariables connectionVariables = new DbConnectionVariables(url, user, password, "3306", 1200L);
         connectionVariables.saveDbConnectionVariablesInFile();
@@ -93,24 +97,39 @@ public class Main {
 
                     System.out.println(jsonNode);
 
-                    switch (url){
-                        case "/users":
+                    switch (url) {
+                        case "/users" -> {
                             out.flush();
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
                             out.flush();
-                            break;
-                        case "/jobPost":
+                        }
+                        case "/payment" -> {
+                            out.flush();
+                            out.writeUTF(new PaymentController().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/jobPost" -> {
                             out.flush();
                             out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
                             out.flush();
-                        case "/dashboard":
+                        }
+
+                        case "/adminDashboard" -> {
                             out.flush();
                             out.writeUTF(new DashboardControllers().mainMethod(jsonNode));
-                        default:
+                            out.flush();
+                        }
+
+                        case "/group_messaging" -> {
+                            out.flush();
+                            out.writeUTF("New group");
+                            out.flush();
+                        }
+                        default ->
                             System.out.println("something went wrong");
                     }
                 }
-            }catch (Exception e){
+        }catch (Exception e){
                 e.printStackTrace();
                 System.out.println("Error ===> " +e.getMessage());
             }
