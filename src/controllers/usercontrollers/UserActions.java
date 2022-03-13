@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.Map;
-//decode password
+
 import static utils.ComparingPassword.checkPassword;
 
 /**
@@ -72,8 +72,8 @@ public class UserActions {
                 else {
                     //comparing password
                     boolean ok = Boolean.parseBoolean(checkPassword(userPassword, resultSet.getString("password")));
-                    System.out.println( Boolean.parseBoolean(checkPassword(userPassword, resultSet.getString("password"))));
-                    if(!ok) {
+                    System.out.println(checkPassword(userPassword, resultSet.getString("password")));
+                    if(ok) {
                         responseStatus.setStatus(400);
                         responseStatus.setMessage("Invalid email or password");
                         responseStatus.setActionToDo("Login");
