@@ -12,6 +12,7 @@ import models.ResponseStatus;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -123,7 +124,6 @@ public class GroupActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-
     public String deleteGroup(JsonNode requestBody) throws Exception{
 
         ResponseStatus responseStatus = new ResponseStatus();
@@ -153,5 +153,37 @@ public class GroupActions {
         }
 
         return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+
+    public String checkMemberShip(JsonNode requestBody) throws Exception{
+
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        Connection connection = new OnlineDbConnection().getConnection();
+        JsonNode groupInfo = requestBody.get("object");
+
+        Iterator<Map.Entry<String, JsonNode>> iterator = groupInfo.fields();
+
+        int member_id = Integer.parseInt(iterator.next().toString().split("=")[1]);
+        int group_id = Integer.parseInt(iterator.next().toString().split("=")[1]);
+
+        String memberShip = "SELECT  * FROM `Groupmembers` WHERE `Groupmembers`.`memberID` = ? AND `Groupmembers`.`groupID` = ?";
+        PreparedStatement statement = connection.prepareStatement(memberShip);
+        statement.setInt(1, member_id);
+        statement.setInt(2, group_id);
+
+        ResultSet rs  = statement.executeQuery();
+
+        if(rs.first()){
+            responseStatus.setStatus(200);
+        }else{
+            responseStatus.setStatus(400);
+        }
+
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+
+    public String sendMessage(JsonNode requestBody) throws Exception{
+        return "Bara ...";
     }
 }
