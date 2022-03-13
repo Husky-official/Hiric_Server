@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupControllers.java" afterDir="false" />
+    </list>
     <list default="true" id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="added bcrypt library">
       <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_28.xml" afterDir="false" />
