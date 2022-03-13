@@ -258,4 +258,8 @@ public class GroupActions {
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
+
+    public String allGroupMessages(JsonNode requestBody) throws Exception{
+        return "hello .......";
+    }
 }
