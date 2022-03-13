@@ -1,5 +1,10 @@
 package controllers.groupmessaging;
 
+/**
+ * @author : DABAGIRE Valens
+ * @description : Handling group messaging actions
+ */
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class GroupControllers {
@@ -17,6 +22,9 @@ public class GroupControllers {
             }
             case "deleteGroup" ->{
                 response = new GroupActions().deleteGroup(request);
+            }
+            case "leaveGroup" ->{
+                response = new GroupActions().leaveGroup(request);
             }
             default -> {
                 response = "Something went wrong";
