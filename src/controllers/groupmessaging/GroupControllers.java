@@ -26,6 +26,12 @@ public class GroupControllers {
             case "leaveGroup" ->{
                 response = new GroupActions().leaveGroup(request);
             }
+            case "checkMemberShip" -> {
+                response = new GroupActions().checkMemberShip(request);
+            }
+            case "sendMessage" ->{
+                response = new GroupActions().sendMessage(request);
+            }
             default -> {
                 response = "Something went wrong";
                 return response;
