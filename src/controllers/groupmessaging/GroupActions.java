@@ -191,33 +191,35 @@ public class GroupActions {
 
         Iterator<Map.Entry<String, JsonNode>> iterator = groupInfo.fields();
 
-        int id = Integer.parseInt(iterator.next().toString().split("=")[1]);
+        String id = iterator.next().toString();
 
-        //Group Name
-        String groupName = iterator.next().toString().split("=")[1].split("\"")[1];
-        //Group Description
-        String groupDescription = iterator.next().toString().split("=")[1].split("\"")[1];
-        //Group Creator
-        int groupCreator = Integer.parseInt(iterator.next().toString().split("=")[1]);
+        String messageType = iterator.next().toString().split("=")[1].split("\"")[1];
+        String content = iterator.next().toString().split("=")[1].split("\"")[1];
+        int originalMessage = Integer.parseInt(iterator.next().toString().split("=")[1]);
+        int sender = Integer.parseInt(iterator.next().toString().split("=")[1]);
+        int receiver = Integer.parseInt(iterator.next().toString().split("=")[1]);
+        String sentAt = iterator.next().toString().split("=")[1].split("\"")[1];
 
         //create group statement
-        String groupCreationQuery = "INSERT INTO `Groups` (`groupName`, `groupDescription`, `numberOfParticipants`, `groupCreatorID`) VALUES (?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(groupCreationQuery);
-        statement.setString(1, groupName);
-        statement.setString(2, groupDescription);
-        statement.setInt(3, 1);
-        statement.setInt(4, groupCreator);
+        String sendGroupMessage = "INSERT INTO `messages` (`messageType`, `messageContent`, `originalMessage`, `senderID`, `receiverID`, `sentAt`) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement = connection.prepareStatement(sendGroupMessage);
+        statement.setString(1, messageType);
+        statement.setString(2, content);
+        statement.setInt(3, originalMessage);
+        statement.setInt(4, sender);
+        statement.setInt(5, receiver);
+        statement.setString(6, sentAt);
 
         int count  = statement.executeUpdate();
 
         if(count>0){
             responseStatus.setStatus(200);
-            responseStatus.setActionToDo("CREATE GROUP");
-            responseStatus.setMessage("New group was created successfully");
+            responseStatus.setActionToDo("SEND GROUP MESSAGE");
+            responseStatus.setMessage("You have successfully send message in group with id = "+receiver);
         }else{
             responseStatus.setStatus(400);
-            responseStatus.setActionToDo("CREATE GROUP");
-            responseStatus.setMessage("Unable to create new group");
+            responseStatus.setActionToDo("SEND GROUP MESSAGE");
+            responseStatus.setMessage("Unable to send message in group with id = "+receiver);
         }
 
         return new ObjectMapper().writeValueAsString(responseStatus);
