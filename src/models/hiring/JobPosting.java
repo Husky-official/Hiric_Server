@@ -5,7 +5,6 @@ public class JobPosting {
     private String jobId;
     private String userId;
     private String jobTitle;
-    private String jobDescription;
     private String jobRequirements;
     private String location;
     private String startDate;
@@ -148,24 +147,13 @@ public class JobPosting {
     public void setSalary(Double salary) {
         this.salary = salary;
     }
-    public JobPosting(String jobId, String userId, String jobTitle, String jobDescription, String jobRequirements, String location, String startDate, String duration, Double salary) {
-        this.jobId = jobId;
-        this.userId = userId;
-        this.jobTitle = jobTitle;
-        this.jobDescription = jobDescription;
-        this.jobRequirements = jobRequirements;
-        this.location = location;
-        this.startDate = startDate;
-        this.duration = duration;
-        this.salary = salary;
-    }
     @Override
     public String toString() {
         return "JobPosting{" +
                 "jobId=" + jobId +
                 "userId=" + userId +
                 ", jobTitle=" + jobTitle +
-                ", jobDescription='" + jobDescription + '\'' +
+                ", jobDesc='" + jobDesc + '\'' +
                 ", jobRequirements=" + jobRequirements +
                 ", location=" + location +
                 ", startDate=" + startDate +
