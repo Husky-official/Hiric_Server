@@ -6,10 +6,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
 import models.hiring.JobPosting;
+import models.hiring.Location;
+import  models.hiring.LocationLevel;
 
 import java.io.FileReader;
 import java.sql.Date;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +25,77 @@ import java.util.Properties;
 public class JobPostingActions {
     public JobPostingActions() throws Exception {
     }
+    public String getProvinces(JsonNode requestData) throws Exception {
+        String getProvincesQuery = "SELECT * FROM Locations where levelId = 2";
+        Connection connection = new OnlineDbConnection().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(getProvincesQuery);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ResponseStatus responseStatus = new ResponseStatus();
 
+        if (resultSet.next()) {
+            resultSet.beforeFirst();
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Retrieved Provinces successfully!");
+            responseStatus.setActionToDo("getProvinces");
+            ArrayList<Location> locations = new ArrayList<Location>();
+            while (resultSet.next()) {
+                locations.add(new Location(resultSet.getInt("id"), resultSet.getInt("levelId"), resultSet.getString("location"), resultSet.getInt("upper_location")));
+            }
+            System.out.println(locations);
+            responseStatus.setObject(locations);
+
+        } else {
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setActionToDo("Something went wrong");
+            return "0";
+
+        }
+
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+    public String getDistricts(JsonNode requestData) throws Exception {
+        String getDistrictsQuery = "select * from Locations where levelId = 2 AND upper_location = ?";
+        System.out.println("reacheeeeeed!!");
+        Connection connection = new OnlineDbConnection().getConnection();
+        JsonNode districtData = requestData.get("object");
+        System.out.println(districtData);
+        Iterator<Map.Entry<String, JsonNode>> iterator = districtData.fields();
+        iterator.next();
+        iterator.next();
+        iterator.next();
+        String upper_loc = iterator.next().toString().split("=")[1];
+        Integer upper_location = Integer.parseInt(upper_loc);
+        PreparedStatement preparedStatement = connection.prepareStatement(getDistrictsQuery);
+        preparedStatement.setInt(1, upper_location);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        if (resultSet.next()) {
+            System.out.println("reached in the if statement!");
+            resultSet.beforeFirst();
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Retrieved districts successfully!");
+            responseStatus.setActionToDo("getDistricts");
+            ArrayList<Location> locations = new ArrayList<Location>();
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt("id");
+                Integer levelId = resultSet.getInt("levelId");
+                String location = resultSet.getString("location");
+                Integer upperLocation = resultSet.getInt("upper_location");
+                locations.add(new Location(id,levelId,location,upperLocation));
+            }
+            System.out.println(locations);
+            responseStatus.setObject(locations);
+        } else {
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setActionToDo("Something went wrong");
+            return "0";
+        }
+
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
     public String getJobs(JsonNode requestData) throws Exception {
         String getJobsQuery = "SELECT * FROM jobs";
         Connection connection = new OnlineDbConnection().getConnection();
@@ -81,7 +154,10 @@ public class JobPostingActions {
         java.sql.Date startDate = new java.sql.Date(Long.parseLong(date));
         String stime = iterator.next().toString().split("=")[1];
         System.out.println("stime: " + stime);
-        java.sql.Time startTime = java.sql.Time.valueOf(LocalTime.parse("12:00:00"));
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+//        LocalTime starTime = LocalTime.parse(stime, formatter);
+//        java.sql.Time startTime = java.sql.Time.valueOf(starTime);
+        java.sql.Time startTime = java.sql.Time.valueOf(LocalTime.parse("12:55:33"));
         System.out.println("startTime: " + startTime);
         String duration = iterator.next().toString().split("=")[1];
         System.out.println("duration: " + duration);
