@@ -224,4 +224,38 @@ public class GroupActions {
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
+
+    public String editMessage(JsonNode requestBody) throws Exception{
+
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        Connection connection = new OnlineDbConnection().getConnection();
+        JsonNode groupInfo = requestBody.get("object");
+
+        Iterator<Map.Entry<String, JsonNode>> iterator = groupInfo.fields();
+
+        int id = Integer.parseInt(iterator.next().toString().split("=")[1]);
+        String messageType  = iterator.next().toString().split("=")[1];
+        String content = iterator.next().toString().split("=")[1].split("\"")[1];
+
+        //create group statement
+        String sendGroupMessage = "UPDATE `messages` SET `messages`.`messageContent` = ? WHERE `messages`.`id` = ? ";
+        PreparedStatement statement = connection.prepareStatement(sendGroupMessage);
+        statement.setString(1, content);
+        statement.setInt(2, id);
+
+        int count  = statement.executeUpdate();
+
+        if(count>0){
+            responseStatus.setStatus(200);
+            responseStatus.setActionToDo("EDIT GROUP MESSAGE");
+            responseStatus.setMessage("You have successfully edited message");
+        }else{
+            responseStatus.setStatus(400);
+            responseStatus.setActionToDo("EDIT GROUP MESSAGE");
+            responseStatus.setMessage("Unable to edit message");
+        }
+
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
 }
