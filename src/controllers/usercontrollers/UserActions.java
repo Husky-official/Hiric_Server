@@ -4,13 +4,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.Map;
-//decode password
+import java.util.Objects;
+
 import static utils.ComparingPassword.checkPassword;
 
 /**
@@ -40,9 +42,6 @@ public class UserActions {
 
             //getting email
             String email = iterator.next().toString().split("=")[1];
-//            System.out.println(email);
-//        System.out.println(email.getClass().getSimpleName());
-
             //query
 
             String loginUserQuery = "SELECT * FROM users_table WHERE email = " + email + "";
@@ -57,9 +56,6 @@ public class UserActions {
                 String tokenQuery = "insert into token (userid) values(" + resultSet.getString("id") + ")";
                 //adding user in tokens table
                 String checkIfUserIsLoggedIn = "select * from token where userid=" + resultSet.getString("id") + " and tokenused=false";
-                //adding in session's table
-//                String addingInSession = "insert into session(userid) values(" + resultSet.getString("id") + ")";
-//                PreparedStatement preparedstatement4 = connection.prepareStatement(addingInSession);
                 PreparedStatement preparedstatement2 = connection.prepareStatement(checkIfUserIsLoggedIn);
                 ResultSet rs = preparedstatement2.executeQuery();
 
@@ -71,16 +67,14 @@ public class UserActions {
                 }
                 else {
                     //comparing password
-                    boolean ok = Boolean.parseBoolean(checkPassword(userPassword, resultSet.getString("password")));
-                    System.out.println( Boolean.parseBoolean(checkPassword(userPassword, resultSet.getString("password"))));
-                    if(ok) {
+                    boolean ok = checkPassword(userPassword.replaceAll("\"",""), resultSet.getString("password"));
+                    if(!ok) {
                         responseStatus.setStatus(400);
                         responseStatus.setMessage("Invalid email or password");
                         responseStatus.setActionToDo("Login");
                         return new ObjectMapper().writeValueAsString(responseStatus);
                     }
                     //adding user in token's table
-
                     PreparedStatement preparedstatement3 = connection.prepareStatement(tokenQuery);
                     preparedstatement3.execute();
 //                    preparedstatement4.execute();
@@ -90,13 +84,16 @@ public class UserActions {
                 }
             } else {
                 responseStatus.setStatus(400);
-                responseStatus.setMessage("Invalid email or passwordfghj");
+                responseStatus.setMessage("Invalid email or password");
                 responseStatus.setActionToDo("Something went wrong");
             }
             return new ObjectMapper().writeValueAsString(responseStatus);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
+            if(Objects.equals(e.getMessage(), "Invalid salt version")){
+                return new ObjectMapper().writeValueAsString(new ResponseStatus(400, "Invalid email or password", "Login"));
+            }
             return new ObjectMapper().writeValueAsString(new ResponseStatus(500, "Internal server error", "Login"));
         }
     }
@@ -106,13 +103,9 @@ public class UserActions {
 
         JsonNode userData = requestData.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
-//        System.out.println(userData);
 
         //getting email
         String email = iterator.next().toString().split("=")[1];
-//       System.out.println(email);
-//        System.out.println(email.getClass().getSimpleName());
-
         //query
         String logOutQuery = "SELECT * FROM users_table WHERE email = "+email+"";
         PreparedStatement preparedstatement = connection.prepareStatement(logOutQuery);
