@@ -8,13 +8,17 @@ package controllers.groupmessaging;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
+import models.ResponseData;
 import models.ResponseStatus;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class GroupActions {
     public String createGroup(JsonNode requestBody) throws Exception {
@@ -271,16 +275,41 @@ public class GroupActions {
         int id = Integer.parseInt(iterator.next().toString().split("=")[1]);
 
         //create group statement
-        String sendGroupMessage = "SELECT * FROM `messages`  WHERE `messages`.`receiverID` = ? ";
+        String sendGroupMessage = """
+                SELECT `messages`.`messageContent`, `messages`.`messageType`, `messages`.`sentAt`, `users_table`.`lastName` \040
+                FROM `messages`, `users_table`  WHERE `messages`.`receiverID` = ? AND `messages`.`senderID` = `users_table`.`id` \040
+                """;
         PreparedStatement statement = connection.prepareStatement(sendGroupMessage);
         statement.setInt(1, id);
 
         ResultSet rs = statement.executeQuery();
+        List<Object> objects = new LinkedList<>();
+
+        while (rs.next()){
+            String msg = rs.getString("messageContent");
+            String mt = rs.getString("messageType");
+            String dt = rs.getString("sentAt");
+            String name = rs.getString("lastName");
+
+//            System.out.println(msg);
+//            System.out.println(mt);
+//            System.out.println(dt);
+//            System.out.println(name);
+            ResponseData responseData = new ResponseData();
+
+            responseData.setMessage(msg);
+            responseData.setMessageType(mt);
+            responseData.setSentAt(dt);
+            responseData.setUserName(name);
+
+            objects.add(responseData);
+        }
 
         if (rs.first()) {
             responseStatus.setStatus(200);
             responseStatus.setActionToDo("GROUP MESSAGES");
-            responseStatus.setMessage("You have successfully edited message");
+            responseStatus.setObject(objects);
+            responseStatus.setMessage("You retrieved all messages");
         } else {
             responseStatus.setStatus(400);
             responseStatus.setActionToDo("GROUP MESSAGES");
@@ -290,7 +319,27 @@ public class GroupActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-    public static void chatting() throws Exception{
+    public void chat(JsonNode requestBody) throws Exception {
 
+        ServerSocket serverSocket = new ServerSocket(8888);
+        serverSocket.setReuseAddress(true);
+        serverSocket.accept();
+        Socket socket = new Socket("localhost", 8888);
+
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+        DataInputStream in = new DataInputStream(socket.getInputStream());
+
+        String message = "";
+
+        while (!message.equals("")){
+
+            message = in.readUTF();
+            System.out.println(message);
+
+            out.flush();
+            out.writeUTF("reply");
+            out.flush();
+
+        }
     }
 }
