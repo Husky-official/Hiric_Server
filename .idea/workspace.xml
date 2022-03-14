@@ -5,71 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/a2d04ec8-3aaf-4787-bf99-bee6aa097ac3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/a2d04ec8-3aaf-4787-bf99-bee6aa097ac3/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/a2d04ec8-3aaf-4787-bf99-bee6aa097ac3/storage_v2/_src_/schema/mysql.osA4Bg.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/a2d04ec8-3aaf-4787-bf99-bee6aa097ac3/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/a2d04ec8-3aaf-4787-bf99-bee6aa097ac3/storage_v2/_src_/schema/sys.zb4BAA.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/bcrypt_0_9_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/bcrypt-0.9.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/bytes-1.5.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/jbcrypt-0.4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/ArchiveController/ArchiveActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/ArchiveController/ArchiveController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/billing/PayrollActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupControllers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/invoicecontrollers/InvoiceActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/invoicecontrollers/InvoiceControllers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/jobApplication/JobApplicationActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/jobApplication/JobApplicationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/messagecontrollers/MessageActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/messagecontrollers/MessageControllers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/shortListing/ShortListingActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/shortListing/ShortListingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/Archive.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/Group.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/InvoiceContent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/hiring/Job.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/hiring/JobApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/ComparingPassword.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/Hash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/description.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_11_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_11_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/project-template.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hiric_Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Hiric_Server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dbConfig.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dbConfig.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/AudioCall/CaptureAudio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/AudioCall/CaptureAudio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/billing/PaymentActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/billing/PaymentActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/billing/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/billing/BillingMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/dashboard/DashboardActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/dashboard/DashboardActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/hiringcontrollers/jobpostingcontrollers/JobPostingActions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/hiringcontrollers/jobpostingcontrollers/JobPostingControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingControllers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/usercontrollers/Jwt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/usercontrollers/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/usercontrollers/Register.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/usercontrollers/UserActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/usercontrollers/UserActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/usercontrollers/UserControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/usercontrollers/UserControllers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dbconnection/OnlineDbConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbconnection/OnlineDbConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/ResponseBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/ResponseBody.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

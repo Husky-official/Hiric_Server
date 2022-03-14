@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -19,16 +16,20 @@ public class DashboardActions {
 
         Connection connection = new OnlineDbConnection().getConnection();
 
-        String getAllUsers = "SELECT * FROM `users_table`";
+        String getAllUsers = "SELECT firstName,lastName FROM `users_table`";
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(getAllUsers);
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getAllUsers);
-
-        ResultSet resultSet = preparedStatement.executeQuery();
+//        ResultSet resultSet = preparedStatement.executeQuery();
 
         if(resultSet.first()){
             responseStatus.setStatus(200);
             responseStatus.setActionToDo("GET ALL USERS");
             responseStatus.setMessage("You have successfully returned all users!");
+            String firstName = resultSet.getString("firstName");
+            String lastName = resultSet.getString("lastName");
+
+            System.out.println("My name is "+firstName+" "+lastName+"/n");
         }else{
             responseStatus.setStatus(400);
             responseStatus.setActionToDo("GET ALL USERS");
