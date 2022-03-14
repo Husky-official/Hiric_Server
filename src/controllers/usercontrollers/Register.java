@@ -37,6 +37,7 @@ public class Register {
         String UserRegisterQuery = "INSERT INTO users_table(firstName,lastName,email,gender,password,role,DOB,user_status) VALUES (?,?,?,?,?,?,?,?)";
         Connection connection = new OnlineDbConnection().getConnection();
         JsonNode userDetails = request.get("object");
+
         String firstName = userDetails.get("firstName").asText();
         String lastName = userDetails.get("lastName").asText("");
         String email = userDetails.get("email").asText();

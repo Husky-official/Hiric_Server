@@ -9,16 +9,11 @@ import models.interviewing.EventScheduling;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * @author I_Clarisse
- * @description
+ * @description event scheduling actions
  */
 public class EventSchedulingActions {
     public EventSchedulingActions() throws Exception{}
@@ -26,38 +21,26 @@ public class EventSchedulingActions {
     Connection connection = new OnlineDbConnection().getConnection();
 
     public String scheduleEvent(JsonNode requestData) throws Exception{
-        String scheduleEventQuery = "INSERT INTO eventScheduling(eventName, eventType, eventDate, startTime, endTime, eventCreator, eventTime) VALUES (?, ?, ?, ?, ?, ?, NOW())";
-        // creating db connection
+        String scheduleEventQuery = "INSERT INTO eventScheduling(jobPostId, eventName, eventType, eventDate, startTime, endTime, eventCreator, scheduledAt) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
 
         JsonNode eventSchedulingData = requestData.get("object");
-        System.out.println(eventSchedulingData);
-        Iterator<Map.Entry<String, JsonNode>> iterator = eventSchedulingData.fields();
 
-        String eventName = iterator.next().toString().split("=")[1];
-        String eventType = iterator.next().toString().split("=")[1];
-
-        String eventDate = iterator.next().toString().split("=")[1];
-//        Date eventDate = new SimpleDateFormat("dd/MM/yyy").parse(date);
-
-        String startTime= iterator.next().toString().split("=")[1];
-//        Time startTime = Time.valueOf(from);
-
-        String endTime = iterator.next().toString().split("=")[1];
-//        Time endTime = Time.valueOf(to);
-
-        String creator = iterator.next().toString().split("=")[1];
-        int eventCreator = Integer.valueOf(creator);
+        Integer jobPostId = eventSchedulingData.get("jobPostId").asInt();
+        String eventName = eventSchedulingData.get("eventName").asText("");
+        String eventType = eventSchedulingData.get("eventType").asText("CALL");
+        String eventDate = eventSchedulingData.get("eventDate").asText();
+        String startTime = eventSchedulingData.get("startTime").asText();
+        String endTime = eventSchedulingData.get("endTime").asText();
+        Integer eventCreator = eventSchedulingData.get("eventCreator").asInt();
 
         PreparedStatement preparedStatement = connection.prepareStatement(scheduleEventQuery);
-        preparedStatement.setString(1, eventName);
-        preparedStatement.setString(2,eventType);
-//        preparedStatement.setDate(4, (java.sql.Date) eventDate);
-        preparedStatement.setString(3, eventDate);
-//        preparedStatement.setTime(5,startTime);
-        preparedStatement.setString(4,startTime);
-//        preparedStatement.setTime(6,endTime);
-        preparedStatement.setString(5,endTime);
-        preparedStatement.setInt(6, eventCreator);
+        preparedStatement.setInt(1, jobPostId);
+        preparedStatement.setString(2, eventName);
+        preparedStatement.setString(3,eventType);
+        preparedStatement.setString(4, eventDate);
+        preparedStatement.setString(5,startTime);
+        preparedStatement.setString(6,endTime);
+        preparedStatement.setInt(7, eventCreator);
 
         int resultSet = preparedStatement.executeUpdate();
         ResponseStatus responseStatus = new ResponseStatus();

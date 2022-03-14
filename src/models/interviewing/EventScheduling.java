@@ -1,7 +1,15 @@
 package models.interviewing;
 
+import java.sql.Time;
+import java.util.Date;
+
+/**
+ * @author I_Clarisse
+ * @description event scheduling model to retrieve and add data into the eventSchedule tables
+ */
 public class EventScheduling {
     private int id;
+    private int jobPostId;
     private String eventName;
     private String eventType;
     //    private java.util.Date eventDate;
@@ -15,7 +23,8 @@ public class EventScheduling {
 
     public EventScheduling() {}
 
-    public EventScheduling(String eventName, String eventType, String eventDate, String startTime, String endTime){
+    public EventScheduling(int jobPostId, String eventName, String eventType, String eventDate, String startTime, String endTime){
+        this.jobPostId = jobPostId;
         this.eventName = eventName;
         this.eventType = eventType;
         this.eventDate = eventDate;
@@ -34,6 +43,14 @@ public class EventScheduling {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getJobPostId() {
+        return jobPostId;
+    }
+
+    public void setJobPostId(int jobPostId) {
+        this.jobPostId = jobPostId;
     }
 
     public String getEventName() {

@@ -30,6 +30,7 @@ public class JobApplicationActions {
             responseStatus.setMessage("Retrieved the job applications for the job post");
             responseStatus.setActionToDo("getJobPosts");
             ArrayList<JobApplication> jobApplications = new ArrayList<JobApplication>();
+
             while(resultSet.next()) {
                 JobApplication jobApplication = new JobApplication(resultSet.getInt("id"), resultSet.getInt("jobPostId"), resultSet.getInt("userId"), resultSet.getString("paymentMethod"), resultSet.getInt("locationId"), resultSet.getString("referenceName"), resultSet.getString("referencePhone"), resultSet.getString("resume"), resultSet.getString("certificate"), resultSet.getString("firstName"), resultSet.getString("lastName"), resultSet.getString("email"));
                 jobApplications.add(jobApplication);
