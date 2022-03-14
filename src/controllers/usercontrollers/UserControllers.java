@@ -1,10 +1,6 @@
 package controllers.usercontrollers;
 import com.fasterxml.jackson.databind.JsonNode;
-
 import static controllers.usercontrollers.Register.register;
-
-import static controllers.usercontrollers.Register.register;
-
 public class UserControllers {
     public String mainMethod(JsonNode request) throws Exception{
         
