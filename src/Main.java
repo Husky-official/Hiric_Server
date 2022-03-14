@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import controllers.messagecontrollers.MessageControllers;
 import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
 import controllers.groupmessaging.GroupControllers;
@@ -12,6 +13,7 @@ import controllers.hiring.jobPosting.JobPostingControllers;
 import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
 import controllers.groupmessaging.GroupControllers;
+import controllers.shortListing.ShortListingController;
 import controllers.usercontrollers.UserControllers;
 import controllers.ArchiveController.ArchiveController;
 import dbconnection.DbConnectionVariables;
@@ -163,8 +165,16 @@ public class Main {
                         case "/get_job_applications" -> {
                             out.flush();
                             out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
+                            out.flush();
                         }
-
+                        case "/shortList" -> {
+                            out.flush();
+                        }
+                        case "/messages" -> {
+                            out.flush();
+                            out.writeUTF(new MessageControllers().mainMethod(jsonNode));
+                            out.flush();
+                        }
                         default -> System.out.println("something went wrong");
                     }
                 }
