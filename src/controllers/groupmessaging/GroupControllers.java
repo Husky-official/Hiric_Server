@@ -38,6 +38,9 @@ public class GroupControllers {
             case "allMessages" ->{
                 response = new GroupActions().allGroupMessages(request);
             }
+            case "chat" ->{
+                new GroupActions().chat(request);
+            }
             default -> {
                 response = "Something went wrong";
                 return response;
