@@ -34,6 +34,7 @@ public class PaymentActions {
             Statement statement = connection.createStatement();
             Statement updateEmployerWallet = connection.createStatement();
             Statement updateEmployeeWallet = connection.createStatement();
+            Statement transactionRecording = connection.createStatement();
 
             JsonNode userData = requestData.get("object");
             Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
@@ -70,6 +71,7 @@ public class PaymentActions {
             preparedStatement.executeUpdate();
             updateEmployerWallet.execute("UPDATE `Wallet` SET amount_money = amount_money - " + originalAmount +" WHERE ownerId = " + employerId + ";");
             updateEmployeeWallet.execute("UPDATE `Wallet` SET amount_money = amount_money + " + originalAmount +" WHERE ownerId = " + employeeId + ";");
+            transactionRecording.execute("INSERT INTO Transactions (Employer, Employee, PaymentMethod, transactionType, Amount) VALUES("+employerId +", "+ employeeId +", "+paymentMethod+", 1, "+originalAmount+");");
             ResultSet rs = statement.executeQuery("select * from Transactions where Employee='" + employeeId + "' AND Employer='" +employerId + "'");
 
             ResponseStatus responseStatus = new ResponseStatus();

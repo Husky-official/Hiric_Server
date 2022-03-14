@@ -11,7 +11,7 @@ public class BillingMain {
 
         String response = "";
 
-        switch (action){
+        switch (action) {
             case "payment":
                 response = new PaymentActions().createPayment(request);
                 return  response;
