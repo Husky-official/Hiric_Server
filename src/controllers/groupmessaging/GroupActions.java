@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class GroupActions {
-    public String createGroup(JsonNode requestBody) throws Exception{
+    public String createGroup(JsonNode requestBody) throws Exception {
 
         ResponseStatus responseStatus = new ResponseStatus();
 
@@ -43,13 +43,13 @@ public class GroupActions {
         statement.setInt(3, 1);
         statement.setInt(4, groupCreator);
 
-        int count  = statement.executeUpdate();
+        int count = statement.executeUpdate();
 
-        if(count>0){
+        if (count > 0) {
             responseStatus.setStatus(200);
             responseStatus.setActionToDo("CREATE GROUP");
             responseStatus.setMessage("New group was created successfully");
-        }else{
+        } else {
             responseStatus.setStatus(400);
             responseStatus.setActionToDo("CREATE GROUP");
             responseStatus.setMessage("Unable to create new group");
@@ -58,32 +58,32 @@ public class GroupActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-    public String joinGroup(JsonNode requestBody) throws Exception{
+    public String joinGroup(JsonNode requestBody) throws Exception {
 
         ResponseStatus responseStatus = new ResponseStatus();
 
         Connection connection = new OnlineDbConnection().getConnection();
-        JsonNode groupInfo = requestBody.get("object");
+        JsonNode memberInfo = requestBody.get("object");
 
-        Iterator<Map.Entry<String, JsonNode>> iterator = groupInfo.fields();
+        Iterator<Map.Entry<String, JsonNode>> iterator = memberInfo.fields();
 
         int member_id = Integer.parseInt(iterator.next().toString().split("=")[1]);
         int group_id = Integer.parseInt(iterator.next().toString().split("=")[1]);
 
         String groupMemberCreationQuery = "INSERT INTO `Groupmembers` (`memberID`, `groupID`, `membershipStatus`, `membershipRole`) VALUES (?, ?, ?, ?)";
         PreparedStatement st = connection.prepareStatement(groupMemberCreationQuery);
-        st.setInt(1,member_id);
+        st.setInt(1, member_id);
         st.setInt(2, group_id);
         st.setString(3, "in");
         st.setString(4, "member");
 
-        int count  = st.executeUpdate();
+        int count = st.executeUpdate();
 
-        if(count>0){
+        if (count > 0) {
             responseStatus.setStatus(200);
             responseStatus.setActionToDo("JOINING GROUP");
             responseStatus.setMessage("New Member Has Joined Successfully");
-        }else{
+        } else {
             responseStatus.setStatus(400);
             responseStatus.setActionToDo("JOINING GROUP");
             responseStatus.setMessage("Unable to JOIN  group");
@@ -92,14 +92,14 @@ public class GroupActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-    public String leaveGroup(JsonNode requestBody) throws Exception{
+    public String leaveGroup(JsonNode requestBody) throws Exception {
 
         ResponseStatus responseStatus = new ResponseStatus();
 
         Connection connection = new OnlineDbConnection().getConnection();
-        JsonNode groupInfo = requestBody.get("object");
+        JsonNode memberInfo = requestBody.get("object");
 
-        Iterator<Map.Entry<String, JsonNode>> iterator = groupInfo.fields();
+        Iterator<Map.Entry<String, JsonNode>> iterator = memberInfo.fields();
 
         int member_id = Integer.parseInt(iterator.next().toString().split("=")[1]);
         int groupID = Integer.parseInt(iterator.next().toString().split("=")[1]);
@@ -109,13 +109,13 @@ public class GroupActions {
         st.setInt(1, member_id);
         st.setInt(2, groupID);
 
-        int count  = st.executeUpdate();
+        int count = st.executeUpdate();
 
-        if(count>0){
+        if (count > 0) {
             responseStatus.setStatus(200);
             responseStatus.setActionToDo("LEAVE GROUP");
             responseStatus.setMessage("You Left Group Successfully.");
-        }else{
+        } else {
             responseStatus.setStatus(400);
             responseStatus.setActionToDo("LEAVE GROUP");
             responseStatus.setMessage("Unable to LEAVE  group");
@@ -124,7 +124,7 @@ public class GroupActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-    public String deleteGroup(JsonNode requestBody) throws Exception{
+    public String deleteGroup(JsonNode requestBody) throws Exception {
 
         ResponseStatus responseStatus = new ResponseStatus();
 
@@ -140,13 +140,13 @@ public class GroupActions {
         st.setInt(1, group_id);
         st.setInt(2, 0);
 
-        int count  = st.executeUpdate();
+        int count = st.executeUpdate();
 
-        if(count>0){
+        if (count > 0) {
             responseStatus.setStatus(200);
             responseStatus.setActionToDo("DELETE GROUP");
             responseStatus.setMessage("Group Has Deleted Successfully");
-        }else{
+        } else {
             responseStatus.setStatus(400);
             responseStatus.setActionToDo("DELETE GROUP");
             responseStatus.setMessage("Unable to DELETE  group");
@@ -155,14 +155,14 @@ public class GroupActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-    public String checkMemberShip(JsonNode requestBody) throws Exception{
+    public String checkMemberShip(JsonNode requestBody) throws Exception {
 
         ResponseStatus responseStatus = new ResponseStatus();
 
         Connection connection = new OnlineDbConnection().getConnection();
-        JsonNode groupInfo = requestBody.get("object");
+        JsonNode memberInfo = requestBody.get("object");
 
-        Iterator<Map.Entry<String, JsonNode>> iterator = groupInfo.fields();
+        Iterator<Map.Entry<String, JsonNode>> iterator = memberInfo.fields();
 
         int member_id = Integer.parseInt(iterator.next().toString().split("=")[1]);
         int group_id = Integer.parseInt(iterator.next().toString().split("=")[1]);
@@ -172,24 +172,24 @@ public class GroupActions {
         statement.setInt(1, member_id);
         statement.setInt(2, group_id);
 
-        ResultSet rs  = statement.executeQuery();
+        ResultSet rs = statement.executeQuery();
 
-        if(rs.first()){
+        if (rs.first()) {
             responseStatus.setStatus(200);
-        }else{
+        } else {
             responseStatus.setStatus(400);
         }
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-    public String sendMessage(JsonNode requestBody) throws Exception{
+    public String sendMessage(JsonNode requestBody) throws Exception {
         ResponseStatus responseStatus = new ResponseStatus();
 
         Connection connection = new OnlineDbConnection().getConnection();
-        JsonNode groupInfo = requestBody.get("object");
+        JsonNode messageInfo = requestBody.get("object");
 
-        Iterator<Map.Entry<String, JsonNode>> iterator = groupInfo.fields();
+        Iterator<Map.Entry<String, JsonNode>> iterator = messageInfo.fields();
 
         String id = iterator.next().toString();
 
@@ -210,22 +210,56 @@ public class GroupActions {
         statement.setInt(5, receiver);
         statement.setString(6, sentAt);
 
-        int count  = statement.executeUpdate();
+        int count = statement.executeUpdate();
 
-        if(count>0){
+        if (count > 0) {
             responseStatus.setStatus(200);
             responseStatus.setActionToDo("SEND GROUP MESSAGE");
-            responseStatus.setMessage("You have successfully send message in group with id = "+receiver);
-        }else{
+            responseStatus.setMessage("You have successfully send message in group with id = " + receiver);
+        } else {
             responseStatus.setStatus(400);
             responseStatus.setActionToDo("SEND GROUP MESSAGE");
-            responseStatus.setMessage("Unable to send message in group with id = "+receiver);
+            responseStatus.setMessage("Unable to send message in group with id = " + receiver);
         }
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-    public String editMessage(JsonNode requestBody) throws Exception{
+    public String editMessage(JsonNode requestBody) throws Exception {
+
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        Connection connection = new OnlineDbConnection().getConnection();
+        JsonNode messageInfo = requestBody.get("object");
+
+        Iterator<Map.Entry<String, JsonNode>> iterator = messageInfo.fields();
+
+        int id = Integer.parseInt(iterator.next().toString().split("=")[1]);
+        String messageType = iterator.next().toString().split("=")[1];
+        String content = iterator.next().toString().split("=")[1].split("\"")[1];
+
+        //create group statement
+        String sendGroupMessage = "UPDATE `messages` SET `messages`.`messageContent` = ? WHERE `messages`.`id` = ? ";
+        PreparedStatement statement = connection.prepareStatement(sendGroupMessage);
+        statement.setString(1, content);
+        statement.setInt(2, id);
+
+        int count = statement.executeUpdate();
+
+        if (count > 0) {
+            responseStatus.setStatus(200);
+            responseStatus.setActionToDo("EDIT GROUP MESSAGE");
+            responseStatus.setMessage("You have successfully edited message");
+        } else {
+            responseStatus.setStatus(400);
+            responseStatus.setActionToDo("EDIT GROUP MESSAGE");
+            responseStatus.setMessage("Unable to edit message");
+        }
+
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+
+    public String allGroupMessages(JsonNode requestBody) throws Exception {
 
         ResponseStatus responseStatus = new ResponseStatus();
 
@@ -235,31 +269,28 @@ public class GroupActions {
         Iterator<Map.Entry<String, JsonNode>> iterator = groupInfo.fields();
 
         int id = Integer.parseInt(iterator.next().toString().split("=")[1]);
-        String messageType  = iterator.next().toString().split("=")[1];
-        String content = iterator.next().toString().split("=")[1].split("\"")[1];
 
         //create group statement
-        String sendGroupMessage = "UPDATE `messages` SET `messages`.`messageContent` = ? WHERE `messages`.`id` = ? ";
+        String sendGroupMessage = "SELECT * FROM `messages`  WHERE `messages`.`receiverID` = ? ";
         PreparedStatement statement = connection.prepareStatement(sendGroupMessage);
-        statement.setString(1, content);
-        statement.setInt(2, id);
+        statement.setInt(1, id);
 
-        int count  = statement.executeUpdate();
+        ResultSet rs = statement.executeQuery();
 
-        if(count>0){
+        if (rs.first()) {
             responseStatus.setStatus(200);
-            responseStatus.setActionToDo("EDIT GROUP MESSAGE");
+            responseStatus.setActionToDo("GROUP MESSAGES");
             responseStatus.setMessage("You have successfully edited message");
-        }else{
+        } else {
             responseStatus.setStatus(400);
-            responseStatus.setActionToDo("EDIT GROUP MESSAGE");
-            responseStatus.setMessage("Unable to edit message");
+            responseStatus.setActionToDo("GROUP MESSAGES");
+            responseStatus.setMessage("Unable to get message");
         }
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-    public String allGroupMessages(JsonNode requestBody) throws Exception{
-        return "hello .......";
+    public static void chatting() throws Exception{
+
     }
 }
