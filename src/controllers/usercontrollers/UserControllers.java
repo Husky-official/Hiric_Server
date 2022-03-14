@@ -15,6 +15,9 @@ public class UserControllers {
             case "logout":
                 response = new UserActions().logout(request);
                 return  response;
+            case "token":
+                response = new UserActions().tokenExist(request);
+                return  response;
         case "register":
                 response = register(request);
                 return response;
