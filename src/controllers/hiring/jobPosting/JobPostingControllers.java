@@ -30,10 +30,10 @@ public class JobPostingControllers {
                 response = new JobPostingActions().deleteJobPost(request);
                 return response;
             case "getProvinces":
-                response =  new JobPostingActions().getProvinces(request);
+                response = new JobPostingActions().getProvinces(request);
                 return response;
-            case "getDistricts":
-                response = new JobPostingActions().getDistricts(request);
+            case "getNextLocation":
+                response = new JobPostingActions().getNextLocation(request);
                 return response;
             case "getJobPostById":
                 response = new JobPostingActions().getJobPostById(request);
