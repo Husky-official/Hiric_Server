@@ -27,13 +27,13 @@ public class PaymentActions {
      */
 
     public String createPayment(JsonNode requestData) throws Exception{
-        String createPaymentQuery = "INSERT INTO payment(jobId,originalAmount,paymentMethod, reducedAmount, dateOfPayment, employeeId, employerId)VALUES(?,?,?,?,?,?,?)";
+        String createPaymentQuery = "INSERT INTO Transactions(Employer,Employee,PaymentMethod, transactionType, Amount) VALUES(?,?,?,?,?)";
         try {
             //initialise  db connection
             Connection connection = new OnlineDbConnection().getConnection();
             Statement statement = connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS payment(id INT PRIMARY KEY AUTO_INCREMENT, jobId INT NOT NULL, " +
-                    "originalAmount DOUBLE NOT NULL, paymentMethod VARCHAR (250), reducedAmount DOUBLE DEFAULT 0, dateOfPayment VARCHAR(200), employeeId INT NOT NULL, employerId INT NOT NULL)");
+            Statement updateEmployerWallet = connection.createStatement();
+            Statement updateEmployeeWallet = connection.createStatement();
 
             JsonNode userData = requestData.get("object");
             Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
@@ -48,11 +48,9 @@ public class PaymentActions {
 
             String paymentMethod = iterator.next().toString().split("=")[1];
 
-            String receivedReducAmt = iterator.next().toString().split("=")[1];
-            Double reducedAmount = Double.parseDouble(receivedReducAmt);
+            iterator.next();
 
-            String dateOfPayment = iterator.next().toString().split("=")[1];
-//            String dateOfPayment = receivedDateOfPay;
+            iterator.next();
 
             String receivedEmployeeId = iterator.next().toString().split("=")[1];
             Long employeeId = Long.parseLong(receivedEmployeeId);
@@ -60,17 +58,19 @@ public class PaymentActions {
             String receivedEmployerId = iterator.next().toString().split("=")[1];
             Long employerId = Long.parseLong(receivedEmployerId);
 
+            System.out.println("employerId: " + employerId + ", employeeId: " + employeeId + ", payment method: " + paymentMethod + ", amount: " + originalAmount);
+
             PreparedStatement preparedStatement = connection.prepareStatement(createPaymentQuery);
-            preparedStatement.setLong(1, jobId);
-            preparedStatement.setDouble(2, originalAmount);
+            preparedStatement.setLong(1, employerId);
+            preparedStatement.setLong(2, employeeId);
             preparedStatement.setString(3, paymentMethod);
-            preparedStatement.setDouble(4, reducedAmount);
-            preparedStatement.setString(5, dateOfPayment);
-            preparedStatement.setLong(6, employeeId);
-            preparedStatement.setLong(7, employerId);
+            preparedStatement.setLong(4, 1);
+            preparedStatement.setDouble(5, originalAmount);
 
             preparedStatement.executeUpdate();
-            ResultSet rs = statement.executeQuery("select * from payment where jobId='" + jobId + "' AND employeeId='" + employeeId + "' AND employerId='" +employerId + "'");
+            updateEmployerWallet.execute("UPDATE `Wallet` SET amount_money = amount_money - " + originalAmount +" WHERE ownerId = " + employerId + ";");
+            updateEmployeeWallet.execute("UPDATE `Wallet` SET amount_money = amount_money + " + originalAmount +" WHERE ownerId = " + employeeId + ";");
+            ResultSet rs = statement.executeQuery("select * from Transactions where Employee='" + employeeId + "' AND Employer='" +employerId + "'");
 
             ResponseStatus responseStatus = new ResponseStatus();
 
@@ -84,13 +84,11 @@ public class PaymentActions {
                 responseStatus.setMessage("Payment done Successfully");
                 responseStatus.setActionToDo("Payment");
                 Payment payment = new Payment();
-                payment.setJobId(rs.getLong("jobId"));
-                payment.setOriginalAmount(rs.getDouble("originalAmount"));
-                payment.setPaymentMethod(rs.getString("paymentMethod"));
-                payment.setReducedAmount(rs.getDouble("reducedAmount"));
-                payment.setDateOfPayment(rs.getString("dateOfPayment"));
-                payment.setEmployeeId(rs.getLong("employeeId"));
-                payment.setEmployerId(rs.getLong("employerId"));
+                payment.setOriginalAmount(rs.getDouble("Amount"));
+                payment.setPaymentMethod(String.valueOf(rs.getInt("PaymentMethod")));
+                payment.setDateOfPayment(String.valueOf(rs.getDate("transactionDate")));
+                payment.setEmployeeId(rs.getLong("Employee"));
+                payment.setEmployerId(rs.getLong("Employer"));
                 responseStatus.setObject(payment);
             }
 
