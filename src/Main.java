@@ -35,7 +35,7 @@ public class Main {
         ServerSocket server = null;
 
         try{
-            server = new ServerSocket(8888);
+            server = new ServerSocket(9000);
             server.setReuseAddress(true);
 
             //running infinite loop to accept
@@ -134,7 +134,7 @@ public class Main {
                             out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                             out.flush();
                         }
-//                        case "/viewApplications" -> {
+                        //                        case "/viewApplications" -> {
 //                            out.flush();
 //                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
 //                            out.flush();
