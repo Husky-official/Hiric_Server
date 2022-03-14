@@ -173,7 +173,7 @@ public class UserActions {
             userId=resultSet.getInt("id");
             String token= UUID.randomUUID().toString();
 
-            String tokenInsertionQuery="insert into token values ('"+userId+"','"+token+"');";
+            String tokenInsertionQuery="insert into reset_token(userId,tokenValue) values ('"+userId+"','"+token+"');";
             statement.executeUpdate(tokenInsertionQuery);
             String recipient=email;
             String sender="beullarugero8@gmail.com";
@@ -232,7 +232,7 @@ public class UserActions {
         String id = iterator.next().toString().split("=")[1];
         String email = iterator.next().toString().split("=")[1];
         String token=iterator.next().toString().split("=")[1];
-        String query="SELECT * FROM token where tokenValue="+token;
+        String query="SELECT * FROM reset_token where tokenValue="+token;
 
         Statement statement=connection.createStatement();
         statement.execute(query);
