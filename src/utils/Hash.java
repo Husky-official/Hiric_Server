@@ -18,10 +18,7 @@ public class Hash {
    * @return the string
    */
   public static String hashPassword(String password) {
-        System.out.println("Hashing password");
-        String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
-        System.out.println(hashed);
-        return hashed;
+      return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
 }
