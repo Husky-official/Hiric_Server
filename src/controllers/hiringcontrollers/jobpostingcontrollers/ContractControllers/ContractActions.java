@@ -2,13 +2,11 @@ package controllers.hiringcontrollers.jobpostingcontrollers.ContractControllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
-import models.ResponseBody;
 import models.ResponseStatus;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 
 public class ContractActions {
 
@@ -30,8 +28,8 @@ public class ContractActions {
          responseStatus.setStatus(302);
          responseStatus.setMessage("Found");
          responseStatus.setActionToDo("the jobs have been found");
-            List<String> AllJobs = new List<String>()
-            ResponseBody responseBody = new ResponseBody();
+//            List<String> AllJobs = new List<String>()
+//            ResponseBody responseBody = new ResponseBody();
         }
         else{
             responseStatus.setStatus(404);
