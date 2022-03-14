@@ -1,17 +1,15 @@
 package controllers.ArchiveController;
 //import com.mysql.jdbc.Statement;
-import java.sql.Statement;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
-import models.Archive;
 import models.ResponseStatus;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
+import java.sql.Statement;
 
 /**
  * @author Biziyaremye Henriette
@@ -23,7 +21,9 @@ public class ArchiveActions {
     ResultSet rs = null;
     Statement st = null;
     String selectQuery = " SELECT messageType ,messageText,senderId,receiverId from messages";
+   // String insertQuery = "INSERT INTO Archives(ArchivedDate,ArchiveItemType, ArchivedContent,ArchivedContentSenderId,ArchivedContentReceiverId,ArchivedMessageOriginId,ArchivedsentAt,ArchivedReceivedAt) VALUES(NOW(),?,?,?,?)";
     String insertQuery = "INSERT INTO Archives(ArchivedDate,ArchiveItemType, ArchivedContent,ArchivedContentSenderId,ArchivedContentReceiverId) VALUES(NOW(),?,?,?,?)";
+//    String updateQuery = "CREATE TRIGGER insert";
 
     /**
      * @author Biziyaremye Henriette
@@ -35,6 +35,7 @@ public class ArchiveActions {
         try {
             //getting all data from the selected fields
             Connection connection = new OnlineDbConnection().getConnection();
+            System.out.println(connection);
 //          connection = getConnection();
             PreparedStatement prestatement = connection.prepareStatement(selectQuery);
             PreparedStatement insertingStatement = connection.prepareStatement(insertQuery);
@@ -74,8 +75,9 @@ public class ArchiveActions {
             e.printStackTrace();
         }
 
-
+        System.out.println( new ObjectMapper().writeValueAsString(responseStatus));
         return new ObjectMapper().writeValueAsString(responseStatus);
+
     }
 
 

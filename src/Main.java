@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.billing.PaymentController;
 import controllers.groupmessaging.GroupControllers;
 import controllers.hiringcontrollers.jobpostingcontrollers.JobPostingControllers;
+import controllers.hiringcontrollers.jobpostingcontrollers.ContractControllers.ContractController;
 import controllers.usercontrollers.UserControllers;
 import controllers.ArchiveController.ArchiveController;
 import dbconnection.DbConnectionVariables;
@@ -124,6 +125,12 @@ public class Main {
                             out.writeUTF(new GroupControllers().mainMethod(jsonNode));
                             out.flush();
                         }
+                        case "/Contracts" ->{
+                            out.flush();
+                            out.writeUTF(new ContractController().mainMethod(jsonNode));
+
+                        }
+
                         default -> System.out.println("something went wrong");
                     }
                 }

@@ -11,8 +11,13 @@ public class Archive {
     private Date ArchivedDate;
     private Integer ArchiveItemType;
     private String ArchivedContent;
+    private String ArchivedMessageOriginId;
+    private Date ArchivedsentAt;
+    private Date ArchivedReceivedAt;
 
- public Archive(){}
+
+
+    public Archive(){}
 
     public Integer getArchiveIntakeId() {
         return ArchiveIntakeId;

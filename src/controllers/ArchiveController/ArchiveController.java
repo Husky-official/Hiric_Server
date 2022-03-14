@@ -1,7 +1,7 @@
 package controllers.ArchiveController;
-import com.fasterxml.jackson.databind.JsonNode;
 
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * @author  Biziyaremye Henriette
@@ -12,7 +12,7 @@ public class ArchiveController {
 
     public ArchiveController() {}
 
-    public static String mainMethod(JsonNode request) throws IOException {
+    public static String mainMethod(JsonNode request) throws JsonProcessingException {
 
         String requestAction = request.get("action").asText();
         String response;
