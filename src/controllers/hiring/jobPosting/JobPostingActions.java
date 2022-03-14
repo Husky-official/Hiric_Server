@@ -56,7 +56,7 @@ public class JobPostingActions {
     }
 
     public String getNextLocation(JsonNode requestData) throws Exception {
-        String getLocationQuery = "SELECT * FROM Locations where upper_location = ?";
+        String getLocationQuery = "SELECT * FROM Locations where upper_location = ? ";
         Connection connection = new OnlineDbConnection().getConnection();
         JsonNode locationData = requestData.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = locationData.fields();
@@ -264,9 +264,32 @@ public class JobPostingActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
-    //    public String updateJobPost(JsonNode requestDate) throws  Exception {
-//
-//    }
+    public String updateJobPost(JsonNode requestData) throws  Exception {
+        String updateJobPostQuery = "UPDATE jobPosts SET ? = ? where id = ?";
+        Connection connection = new OnlineDbConnection().getConnection();
+        JsonNode jobPostData = requestData.get("object");
+        Iterator<Map.Entry<String, JsonNode>> iterator = jobPostData.fields();
+        iterator.next();
+        String id = iterator.next().toString().split("=")[1];
+        Integer jobPostId = Integer.parseInt(id);
+        String field = iterator.next().toString().split("=")[1];
+        PreparedStatement preparedStatement = connection.prepareStatement(updateJobPostQuery);
+        preparedStatement.setInt(1, jobPostId);
+        int resultSet = preparedStatement.executeUpdate();
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        if (resultSet == 0) {
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setActionToDo("Something went wrong");
+
+        } else {
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Updated job successfully!");
+            responseStatus.setActionToDo("UpdateJobPost");
+        }
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
     public String deleteJobPost(JsonNode requestData) throws Exception {
         String deleteJobPostQuery = "UPDATE jobPosts SET status = 'DELETED' where id = ?";
         Connection connection = new OnlineDbConnection().getConnection();
