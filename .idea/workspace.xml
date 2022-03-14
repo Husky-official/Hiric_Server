@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="481e8500-8655-4dc5-a5dd-03491c766695" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_11_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_11_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dbConfig.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dbConfig.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/billing/BillingMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/billing/BillingMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/billing/PaymentActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/billing/PaymentActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/billing/PayrollActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/billing/PayrollActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dbconnection/OnlineDbConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbconnection/OnlineDbConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +48,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="app.teamhub.trackedBranches" value="50mhmg/Anglebert,50mhmg/main,50mhmg/Shumbusho_David" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/mysql-connector-java-8.0.13.jar" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -80,13 +77,18 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="" />
+      <changelist id="481e8500-8655-4dc5-a5dd-03491c766695" name="Changes" comment="" />
       <created>1646573575333</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1646573575333</updated>
+      <workItem from="1646977234186" duration="2446000" />
+      <workItem from="1647235705640" duration="3817000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
