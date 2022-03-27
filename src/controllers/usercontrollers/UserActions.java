@@ -1,11 +1,12 @@
 package controllers.usercontrollers;
 import  java.io.File;
+import java.io.FileReader;
+import java.util.Scanner;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
 
-import java.io.File;
 import  java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -89,7 +90,6 @@ public class UserActions {
                         myWriter.close();
                         System.out.println("wrote to file");
                     }
-
                     else {
                         System.out.println("File already exists.");
                     }
@@ -183,5 +183,21 @@ public class UserActions {
             responseStatus.setActionToDo("Checking token.");
         }
         return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+    public String getToken() throws Exception{
+        try {
+            File myFile = new File("token.txt");
+            Scanner myReader = new Scanner(myFile);
+            if (myFile.exists()) {
+                while(myReader.hasNextLine()){
+                    String data = myReader.nextLine();
+                    System.out.println(data);
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return "hhh";
     }
 }
