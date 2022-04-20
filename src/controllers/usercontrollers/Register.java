@@ -16,7 +16,6 @@ import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 
 import static utils.Hash.hashPassword;
-
 /**
  * The type Register.
  */

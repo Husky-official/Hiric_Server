@@ -166,6 +166,7 @@ public class JobPosting {
                 "userId=" + userId +
                 ", jobTitle=" + jobTitle +
                 ", jobDescription='" + jobDescription + '\'' +
+                ", jobDesc='" + jobDesc + '\'' +
                 ", jobRequirements=" + jobRequirements +
                 ", location=" + location +
                 ", startDate=" + startDate +

@@ -2,13 +2,11 @@ package controllers.jobApplication;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mysql.jdbc.Connection;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
 import models.hiring.Job;
 import models.hiring.JobApplication;
-
-import javax.xml.stream.Location;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -21,7 +19,7 @@ public class JobApplicationActions {
 
     public String getJobApplications(JsonNode requestData, int jobPostId) throws Exception {
         String getJobApplicationsQuery = "SELECT * FROM jobApplication INNER JOIN users_table ON jobApplication.userId = users_table.id WHERE jobPostId = " + jobPostId;
-        Connection connection = new OnlineDbConnection().getConnection();
+        Connection connection = (Connection) new OnlineDbConnection().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(getJobApplicationsQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
         ResponseStatus responseStatus = new ResponseStatus();
@@ -48,7 +46,7 @@ public class JobApplicationActions {
     public String searchById(JsonNode requestData,int jobPostId) throws Exception {
 
         String searchQuery="Select id from jobPosts where id = "+ jobPostId;
-        Connection connection = new OnlineDbConnection().getConnection();
+        Connection connection = (Connection) new OnlineDbConnection().getConnection();
         PreparedStatement stmt=connection.prepareStatement(searchQuery);
         ResultSet resultSet=stmt.executeQuery();
         ResponseStatus responseStatus = new ResponseStatus();
@@ -136,7 +134,7 @@ public class JobApplicationActions {
 //    }
     public static String createApplication(JsonNode requestData) throws Exception {
 
-        Connection connection = new OnlineDbConnection().getConnection();
+        Connection connection = (Connection) new OnlineDbConnection().getConnection();
         JsonNode jobApplication = requestData.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = jobApplication.fields();
         System.out.println("iterator values: " + iterator.next().toString());
@@ -182,7 +180,7 @@ public class JobApplicationActions {
     }
     public String getJobs(JsonNode requestData) throws Exception {
         String getJobsQuery = "SELECT * FROM jobs";
-        Connection connection = new OnlineDbConnection().getConnection();
+        Connection connection = (Connection) new OnlineDbConnection().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(getJobsQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
         ResponseStatus responseStatus = new ResponseStatus();

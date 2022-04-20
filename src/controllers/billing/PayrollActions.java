@@ -2,7 +2,6 @@ package controllers.billing;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
 import models.hiring.JobPosting;
@@ -10,6 +9,7 @@ import models.hiring.JobPosting;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -26,28 +26,18 @@ public class PayrollActions {
         PreparedStatement preparedStatement = connection.prepareStatement(savePayrollQuery);
         return "";
     }
-    public String listOfJobsByEmployer(JsonNode request) throws Exception{
+    public String listOfJobsByEmployer(JsonNode request, int userId) throws Exception{
 
         Connection connection = new OnlineDbConnection().getConnection();
-        JsonNode payrollData = request.get("object");
-        Iterator<Map.Entry<String, JsonNode>> iterator = payrollData.fields();
-        iterator.next();
-
-        StringBuffer sb = new StringBuffer(iterator.next().toString().split("=")[1]);
-        sb.deleteCharAt(sb.length()-1);
-        String employerEmail = sb.toString().substring(1, sb.length());
-        System.out.println(employerEmail);
-
-        String listAllJobsQuery = "SELECT * FROM `jobPosts` as jp INNER JOIN users_table as us ON us.id = jp.userId where us.email = '" + employerEmail +"' ";
+        String listAllJobsQuery = "select * from jobPosts INNER JOIN jobs ON jobPosts.jobId = jobs.id WHERE userId = "+userId;
 
         PreparedStatement preparedStatement = connection.prepareStatement(listAllJobsQuery);
         ResultSet rs = preparedStatement.executeQuery();
 
         ResponseStatus responseStatus = new ResponseStatus();
 
-        int i = 1;
         ObjectMapper objectMapper = new ObjectMapper();
-        ObjectNode objectNode = objectMapper.createObjectNode();
+        ArrayList<JobPosting> userJobs = new ArrayList<JobPosting>();
 
         if (rs.next() == false) {
             responseStatus.setStatus(500);
@@ -55,21 +45,31 @@ public class PayrollActions {
             responseStatus.setActionToDo("No jobs found for the user with that email.");
             return new ObjectMapper().writeValueAsString(responseStatus);
         } else {
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Retrieved the job posts successfully");
+            responseStatus.setActionToDo("getJobPosts");
             do {
-                JobPosting jobPosting = new JobPosting();
-                responseStatus.setStatus(200);
-                responseStatus.setMessage("Payment done Successfully");
-                responseStatus.setActionToDo("Payment");
-//                jobPosting.setJobId(String.valueOf(rs.getInt("jobId")) + ", ");
-                jobPosting.setJobDesc(rs.getString("jobDesc"));
-                jobPosting.setSalary(rs.getInt("salary"));
-                jobPosting.setUserId(rs.getInt("userId"));
-                objectNode.put(""+i, String.valueOf(jobPosting));
-                i++;
+                JobPosting jobPosting = new JobPosting(
+                        rs.getInt("id"),
+                        rs.getInt("jobId"),
+                        rs.getInt("userId"),
+                        rs.getString("jobDesc"),
+                        "requirements",
+                        rs.getInt("locationId"),
+                        rs.getDate("startDate"),
+                        rs.getTime("startTime"),
+                        rs.getString("duration"),
+                        rs.getInt("salary"),
+                        rs.getString("salaryType"),
+                        rs.getInt("workers"),
+                        rs.getInt("paymentStatus"),
+                        rs.getString("status")
+                );
+                userJobs.add(jobPosting);
             } while (rs.next());
         }
-        responseStatus.setObject(objectNode);
-        System.out.println(objectNode);
+        responseStatus.setObject(userJobs);
+        System.out.println(userJobs);
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
