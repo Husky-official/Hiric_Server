@@ -22,7 +22,7 @@ import java.util.UUID;
 
 import java.util.Objects;
 
-
+import static utils.Hash.hashPassword;
 import static utils.ComparingPassword.checkPassword;
 
 /**
@@ -255,8 +255,9 @@ public class UserActions {
         JsonNode userData=requestData.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
         String password = iterator.next().toString().split("=")[1];
+        String hashedPassword=hashPassword(password);
         String userid=userId.toString();
-        String query="Update users_table set password= " +password+" where id= "+userid;
+        String query="Update users_table set password= " +hashedPassword+" where id= "+userid;
 
         Statement statement=connection.createStatement();
         statement.executeUpdate(query);
