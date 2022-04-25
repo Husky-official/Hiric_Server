@@ -115,14 +115,14 @@ public class Main {
 
                     String url = jsonNode.get("url").asText();
 
-                    if (url.contains("get_job_posts")) {
-                        url = "/get_job_posts";
-                    } else if (url.contains("get_job_applications")) {
-                        url = "/get_job_applications";
-                    } else if (url.contains("payment")) {
-                        url = "/payment";
-                    }
-                    String urlDup = url;
+//                    if (url.contains("get_job_posts")) {
+//                        url = "/get_job_posts";
+//                    } else if (url.contains("get_job_applications")) {
+//                        url = "/get_job_applications";
+//                    } else if (url.contains("payment")) {
+//                        url = "/payment";
+//                    }
+//                    String urlDup = url;
 
                     System.out.println(jsonNode);
 
@@ -183,6 +183,15 @@ public class Main {
                             out.writeUTF(new EventSchedulingController().mainMethod(jsonNode));
                             out.flush();
                         }
+                        case "/shortlistedEmployees" -> {
+                            out.flush();
+                            out.writeUTF(new EventSchedulingController().mainMethod(jsonNode));
+                        }
+                        case "addingParticipant" -> {
+                            out.flush();
+                            out.writeUTF(new EventSchedulingController().mainMethod(jsonNode));
+                        }
+
                         default -> System.out.println("something went wrong");
                     }
                 }

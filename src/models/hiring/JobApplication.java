@@ -13,6 +13,11 @@ public class JobApplication {
     private  String resume;
     private  String certificate;
 
+    public JobApplication(int userId, String referenceName) {
+        this.userId = userId;
+        this.referenceName = referenceName;
+    }
+
     public String getEmail() {
         return email;
     }

@@ -1,14 +1,18 @@
 package controllers.interviewingController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
+import models.hiring.JobApplication;
+import models.hiring.ShortlistedEmployees;
 import models.interviewing.EventScheduling;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -85,6 +89,72 @@ public class EventSchedulingActions {
             responseStatus.setMessage("INTERNAL SERVER ERROR");
             responseStatus.setActionToDo("Something went wrong");
             return "0";
+        }
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+
+    public String getShortlistedEmployees(JsonNode requestData) throws SQLException, JsonProcessingException {
+        //sql query
+        String getJobPostIdQuery = "SELECT jobPostId FROM eventScheduling WHERE id = ? ";
+
+        JsonNode jobPostIdData = requestData.get("object");
+        Integer eventId = jobPostIdData.get("eventId").asInt();
+        PreparedStatement preparedStatement = connection.prepareStatement(getJobPostIdQuery);
+        preparedStatement.setInt(1,eventId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        int jobPostId = 0;
+        if (resultSet.next()){
+            jobPostId = resultSet.getInt("jobPostId");
+        }
+
+        String getShortlistedEmployeesQuery = "SELECT userId, referenceName FROM jobApplication WHERE jobPostId= ? AND Status='shortlisted'";
+        PreparedStatement preparedStatement1 = connection.prepareStatement(getShortlistedEmployeesQuery);
+        preparedStatement1.setInt(1, jobPostId);
+        ResultSet resultSet1 = preparedStatement1.executeQuery();
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        if (resultSet1.next()){
+            resultSet1.beforeFirst();
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Retrieved shortlisted employees successfully!");
+            responseStatus.setActionToDo("getShortlistedEmployees");
+            ArrayList<ShortlistedEmployees> shortlistedEmployees = new ArrayList<>();
+            while (resultSet1.next()){
+                shortlistedEmployees.add(new ShortlistedEmployees(resultSet1.getInt("userId"), resultSet1.getString("referenceName")));
+            }
+            System.out.println(shortlistedEmployees);
+            responseStatus.setObject(shortlistedEmployees);
+        }else {
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setActionToDo("Something went wrong");
+            return "0";
+        }
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+    public String addParticipant(JsonNode requestData) throws Exception{
+        String addParticipantQuery = "INSERT INTO eventParticipation(scheduleId, participantId, participationStatus) VALUES( ?, ?, DEFAULT)";
+
+        JsonNode addParticipantData = requestData.get("object");
+
+        Integer scheduleId = addParticipantData.get("scheduleId").asInt();
+        Integer participantId = addParticipantData.get("participantId").asInt();
+
+        PreparedStatement preparedStatement = connection.prepareStatement(addParticipantQuery);
+        preparedStatement.setInt(1,scheduleId);
+        preparedStatement.setInt(2,participantId);
+
+        int resultSet = preparedStatement.executeUpdate();
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        if(resultSet == 0){
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setActionToDo("Something went wrong");
+        }else{
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Scheduled Event Successfully");
+            responseStatus.setActionToDo("scheduleEvent");
         }
         return new ObjectMapper().writeValueAsString(responseStatus);
     }

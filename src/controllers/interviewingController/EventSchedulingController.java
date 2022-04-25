@@ -18,6 +18,12 @@ public class EventSchedulingController {
             case "getAllScheduledEvents":
                 response = new EventSchedulingActions().getAllEvents(request);
                 return response;
+            case "getShortlistedEmployees":
+                response = new EventSchedulingActions().getShortlistedEmployees(request);
+                return response;
+            case "addParticipant":
+                response = new EventSchedulingActions().addParticipant(request);
+                return response;
         }
         return "";
     }
