@@ -19,6 +19,9 @@ public class ShortListingActions {
         JsonNode requestData = request.get("object");
         ObjectMapper objectMapper = new ObjectMapper();
         Integer shortListed[] = objectMapper.treeToValue(requestData, Integer[].class);
+        for(int i = 0; i < shortListed.length; i++){
+            System.out.println(shortListed[i]);
+        }
         String inArrayStr  = "";
         for(int i = 0; i < shortListed.length; i++) {
             if(i == shortListed.length - 1) {
