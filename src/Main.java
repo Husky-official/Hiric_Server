@@ -1,5 +1,3 @@
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -8,12 +6,7 @@ import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
 import controllers.groupmessaging.GroupControllers;
 import controllers.jobApplication.JobApplicationController;
-//import controllers.billing.PaymentController;
 import controllers.hiring.jobPosting.JobPostingControllers;
-import controllers.billing.BillingMain;
-import controllers.invoicecontrollers.InvoiceControllers;
-import controllers.groupmessaging.GroupControllers;
-import controllers.shortListing.ShortListingController;
 import controllers.usercontrollers.UserControllers;
 import controllers.ArchiveController.ArchiveController;
 import dbconnection.DbConnectionVariables;
@@ -27,16 +20,11 @@ import java.net.Socket;
 
 public class Main {
     public void startServer() throws Exception{
-//        String url = "jdbc:mysql://localhost:3306/hiric";
-//        String user = "root";
-//        String password = "password@2001";
-//        dbPort=3306;
-//        serverPort=1200
         String url = "jdbc:mysql://remotemysql.com:3306/ZKZ7qI2OW3";
         String user = "ZKZ7qI2OW3";
         String password = "pWgWkTztns";
 
-        DbConnectionVariables connectionVariables = new DbConnectionVariables(url, user, password, "3306", 1200L);
+        DbConnectionVariables connectionVariables = new DbConnectionVariables(url, user, password, "3306", 8000l);
         connectionVariables.saveDbConnectionVariablesInFile();
 
     }
@@ -46,7 +34,7 @@ public class Main {
         ServerSocket server = null;
 
         try{
-            server = new ServerSocket(8888);
+            server = new ServerSocket(9000);
             server.setReuseAddress(true);
 
             //running infinite loop to accept
@@ -100,13 +88,13 @@ public class Main {
                 String requestBody = "";
 
                 while (!requestBody.equals("exit")) {
-
+                    requestBody = in.readUTF();
+//changing the normal user into json strings
                     try {
                         requestBody = in.readUTF();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                     ObjectMapper objectMapper = new ObjectMapper();
                     JsonNode jsonNode = objectMapper.readTree(requestBody);
 
@@ -134,7 +122,6 @@ public class Main {
                             out.flush();
                             out.writeUTF(new InvoiceControllers().mainMethod(jsonNode));
                         }
-
                         case "/Archives" -> {
                             out.flush();
                             out.writeUTF(new ArchiveController().mainMethod(jsonNode));
@@ -147,11 +134,16 @@ public class Main {
                             out.writeUTF(new BillingMain().mainMethod(jsonNode));
                             out.flush();
                         }
-                        case "/jobPost" -> {
+                        case "/createApplication" ->{
                             out.flush();
-                            out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                             out.flush();
                         }
+                        //                        case "/viewApplications" -> {
+//                            out.flush();
+//                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
+//                            out.flush();
+//                        }
                         case "/group_messaging" -> {
                             out.flush();
                             out.writeUTF(new GroupControllers().mainMethod(jsonNode));
@@ -162,12 +154,14 @@ public class Main {
                             out.flush();
                             out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
                         }
-                        case "/get_job_applications" -> {
-                            out.flush();
-                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
-                            out.flush();
-                        }
+//                        case "/get_job_applications" -> {
+//                            out.flush();
+//                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
+//                            out.flush();
+//                        }
                         case "/shortList" -> {
+                            out.flush();
+                            out.writeUTF(new ShortListingController().mainMethod(jsonNode));
                             out.flush();
                         }
                         case "/messages" -> {
@@ -183,5 +177,5 @@ public class Main {
                 System.out.println("Error ===> " + e.getMessage());
             }
         }
-    }
+        }
 }

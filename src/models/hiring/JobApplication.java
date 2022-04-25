@@ -8,25 +8,26 @@ public class JobApplication {
     private  Integer jobPostId;
     private  String paymentMethod;
     private  Integer locationId;
-    private String referenceName;
+    private  String referenceName;
     private  String referencePhone;
     private  String resume;
     private  String certificate;
+    private  String status;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    private String firstName;
-    private String lastName;
-    private String email;
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+//
+//    private String firstName;
+//    private String lastName;
+//    private String email;
 
     public void JobApplication(){};
-    public JobApplication(int id,int jobId,int userId, String paymentMethod, int locationId, String referenceName, String referencePhone, String resume, String certificate){
+    public JobApplication(int id,int jobId,int userId, String paymentMethod, int locationId, String referenceName, String referencePhone, String resume, String certificate,String status){
         this.userId=userId;
         this.id=id;
         this.jobPostId =jobId;
@@ -36,6 +37,7 @@ public class JobApplication {
         this.locationId =locationId;
         this.resume=resume;
         this.certificate=certificate;
+        this.status=status;
     }
 
     public JobApplication(int id,int jobId,int userId, String paymentMethod, int locationId, String referenceName, String referencePhone, String resume, String certificate, String firstName, String lastName, String email){
@@ -48,9 +50,9 @@ public class JobApplication {
         this.locationId =locationId;
         this.resume=resume;
         this.certificate=certificate;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
     }
 
     public Integer getId() {
@@ -121,21 +123,21 @@ public class JobApplication {
         return certificate;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+//    public String getFirstName() {
+//        return firstName;
+//    }
+//
+//    public void setFirstName(String firstName) {
+//        this.firstName = firstName;
+//    }
+//
+//    public String getLastName() {
+//        return lastName;
+//    }
+//
+//    public void setLastName(String lastName) {
+//        this.lastName = lastName;
+//    }
 
     public void setCertificate(String certificate) {
         this.certificate = certificate;
