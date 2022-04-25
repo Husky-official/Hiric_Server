@@ -183,11 +183,7 @@ public class Main {
                             out.writeUTF(new EventSchedulingController().mainMethod(jsonNode));
                             out.flush();
                         }
-                        case "/shortlistedEmployees" -> {
-                            out.flush();
-                            out.writeUTF(new EventSchedulingController().mainMethod(jsonNode));
-                        }
-                        case "addingParticipant" -> {
+                        case "/shortlistedEmployees", "/addingParticipant" -> {
                             out.flush();
                             out.writeUTF(new EventSchedulingController().mainMethod(jsonNode));
                         }

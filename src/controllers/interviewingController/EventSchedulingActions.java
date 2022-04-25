@@ -147,14 +147,15 @@ public class EventSchedulingActions {
         int resultSet = preparedStatement.executeUpdate();
         ResponseStatus responseStatus = new ResponseStatus();
 
+
         if(resultSet == 0){
             responseStatus.setStatus(500);
             responseStatus.setMessage("INTERNAL SERVER ERROR");
             responseStatus.setActionToDo("Something went wrong");
         }else{
             responseStatus.setStatus(200);
-            responseStatus.setMessage("Scheduled Event Successfully");
-            responseStatus.setActionToDo("scheduleEvent");
+            responseStatus.setMessage("Added new participant successfully");
+            responseStatus.setActionToDo("addParticipant");
         }
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
