@@ -5,7 +5,7 @@ import controllers.messagecontrollers.MessageControllers;
 import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
 import controllers.groupmessaging.GroupControllers;
-import controllers.jobApplication.JobApplicationController;
+import controllers.hiring.jobPosting.jobApplication.JobApplicationController;
 import controllers.hiring.jobPosting.JobPostingControllers;
 import controllers.usercontrollers.UserControllers;
 import controllers.ArchiveController.ArchiveController;
