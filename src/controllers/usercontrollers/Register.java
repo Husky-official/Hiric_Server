@@ -54,8 +54,8 @@ public class Register {
         preparedStatement.setString(5, hashedPassword);
         preparedStatement.setString(6, role);
         preparedStatement.setString(7, DOB);
-        preparedStatement.setString(8,"Active");
-        if (preparedStatement.executeUpdate() == 1) return new ObjectMapper().writeValueAsString(new ResponseStatus(200, "User registered successfully", "register"));
+        preparedStatement.setString(8,"Pending");
+        if (preparedStatement.executeUpdate() == 1) return new ObjectMapper().writeValueAsString(new ResponseStatus(200, "User registered successfully, to complete please verify your email address", "register"));
         return new ObjectMapper().writeValueAsString(new ResponseStatus(400, "User registration failed", "register"));
         }catch (Exception e){
             e.printStackTrace();

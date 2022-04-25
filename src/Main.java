@@ -161,6 +161,8 @@ public class Main {
 //                        }
                         case "/shortList" -> {
                             out.flush();
+                            out.writeUTF(new ShortListingController().mainMethod(jsonNode));
+                            out.flush();
                         }
                         case "/messages" -> {
                             out.flush();
