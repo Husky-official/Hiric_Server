@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-
-    <list default="true" id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="added bcrypt library">
+    <list default="true" id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/src/models/ResponseData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/groupmessaging/GroupControllers.java" afterDir="false" />
     </list>
-
-    <list default="true" id="481e8500-8655-4dc5-a5dd-03491c766695" name="Changes" comment="" />
-
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,10 +24,10 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="ProjectId" id="28Gwq0Hj0bX57JEQWV2Iq7IFPmu" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -86,17 +83,6 @@
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="" />
-      <created>1646573575333</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1646573575333</updated>
-      <workItem from="1647230668086" duration="9147000" />
-    </task>
-
-  <component name="TaskManager">
-
     <servers />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
