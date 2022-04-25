@@ -95,7 +95,7 @@ public class JobApplicationActions {
 //        return new ObjectMapper().writeValueAsString(responseStatus);
 //    }
 
-//    public String getNextLocation(JsonNode requestData) throws Exception {
+    //    public String getNextLocation(JsonNode requestData) throws Exception {
 //        String getLocationQuery = "SELECT * FROM Locations where upper_location = ?";
 //        Connection connection = new OnlineDbConnection().getConnection();
 //        JsonNode locationData = requestData.get("object");
@@ -134,7 +134,7 @@ public class JobApplicationActions {
 //    }
     public static String createApplication(JsonNode requestData) throws Exception {
 
-        Connection connection = (Connection) new OnlineDbConnection().getConnection();
+        java.sql.Connection connection = new OnlineDbConnection().getConnection();
         JsonNode jobApplication = requestData.get("object");
         Iterator<Map.Entry<String, JsonNode>> iterator = jobApplication.fields();
         System.out.println("iterator values: " + iterator.next().toString());
