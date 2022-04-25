@@ -78,6 +78,10 @@
       <option name="JAR_PATH" value="$PROJECT_DIR$/lib/mysql-connector-java-5.1.44.jar" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="JAR Application.mysql-connector-java-5.1.44.jar" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />

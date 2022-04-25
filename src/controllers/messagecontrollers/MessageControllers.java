@@ -8,7 +8,6 @@ public class MessageControllers {
     public String mainMethod(JsonNode request) throws IOException {
         try {
             String action = request.get("action").asText();
-            System.out.println(action);
             String response = "";
 
             switch (action){
@@ -23,6 +22,9 @@ public class MessageControllers {
                     return response;
                 case "sendMessage":
                     response = new MessageActions().sendMessage(request);
+                    return response;
+                case "olderMessages":
+                    response = new MessageActions().getOlderMessages(request);
                     return response;
                 default:
                     System.out.println("Unknown action");

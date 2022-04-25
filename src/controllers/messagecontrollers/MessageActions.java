@@ -4,14 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.OnlineDbConnection;
+import models.RequestBody;
 import models.ResponseStatus;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -22,18 +21,24 @@ public class MessageActions {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getUsersQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
-        resultSet.beforeFirst();
         String usersNames = "";
         Boolean usersAvailable = false;
         while (resultSet.next()) {
             usersAvailable = true;
             if (resultSet.getRow() == 1) {
-                usersNames = resultSet.getString(3);
+                try {
+                    usersNames = Arrays.toString(resultSet.getString(3).split(" ")).split(", ")[1].split("]")[0].trim()+"~"+resultSet.getString(2).trim()+"~"+resultSet.getInt(1);
+                } catch (ArrayIndexOutOfBoundsException error) {
+                    usersNames = resultSet.getString(3).trim()+"~"+resultSet.getString(2).trim()+"~"+resultSet.getInt(1);
+                }
             } else {
-                usersNames = usersNames+" "+resultSet.getString(3);
+                try {
+                    usersNames = usersNames+" "+Arrays.toString(resultSet.getString(3).split(" ")).split(", ")[1].split("]")[0].trim()+"~"+resultSet.getString(2).trim()+"~"+resultSet.getInt(1);
+                } catch (ArrayIndexOutOfBoundsException error) {
+                    usersNames = usersNames+" "+resultSet.getString(3).trim()+"~"+resultSet.getString(2).trim()+"~"+resultSet.getInt(1);
+                }
             }
         }
-
         ResponseStatus responseStatus = new ResponseStatus();
 
         if(!usersAvailable) {
@@ -65,6 +70,63 @@ public class MessageActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
+    public String getOlderMessages(JsonNode request) throws Exception {
+        String olderMessages = "";
+        Boolean messagesAvailable = false;
+
+        try {
+            System.out.println(request);
+            JsonNode requestData = request.get("object");
+            Iterator<Map.Entry<String, JsonNode>> iterator = requestData.fields();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+
+            System.out.println(iterator.next());
+            String senderID = iterator.next().toString().split("=")[1];
+            String receiverID = iterator.next().toString().split("=")[1];
+            int senderId = Integer.parseInt(senderID);
+            int receiverId = Integer.parseInt(receiverID);
+
+            String getUsersQuery = "SELECT * FROM messages WHERE (senderID=? AND receiverID=?) OR (senderID=? AND receiverID=?)";
+            Connection connection = new OnlineDbConnection().getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(getUsersQuery);
+            preparedStatement.setInt(1, senderId);
+            preparedStatement.setInt(2, receiverId);
+            preparedStatement.setInt(4, senderId);
+            preparedStatement.setInt(3, receiverId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                messagesAvailable = true;
+                if (resultSet.getRow() == 1) {
+                    olderMessages = resultSet.getInt(6)+"~"+resultSet.getString(3);
+                } else {
+                    olderMessages = olderMessages+"!-%"+resultSet.getInt(6)+"~"+resultSet.getString(3);
+                }
+            }
+        } catch (Exception err) {
+            err.printStackTrace();
+        }
+
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        if(!messagesAvailable) {
+            responseStatus.setStatus(404);
+            responseStatus.setMessage("No older messages found");
+            responseStatus.setActionToDo("Something went wrong");
+        } else {
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Older messages found");
+            responseStatus.setObject(olderMessages);
+            responseStatus.setActionToDo("users");
+        }
+        System.out.println(new ObjectMapper().writeValueAsString(responseStatus));
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+
     public String sendMessage(JsonNode request) throws Exception {
 
         /**
@@ -92,12 +154,12 @@ public class MessageActions {
             int originalMessageID = Integer.parseInt(originalMessage);
 
             PreparedStatement preparedStatement = connection.prepareStatement(postMessageToDatabase);
-            preparedStatement.setString(1, messageType);
-            preparedStatement.setString(2, messageContent);
+            preparedStatement.setString(1, messageType.split("\"")[1]);
+            preparedStatement.setString(2, messageContent.split("\"")[1]);
             preparedStatement.setInt(3, originalMessageID);
             preparedStatement.setInt(4, senderId);
             preparedStatement.setInt(5, receiverId);
-            preparedStatement.setString(6, sentAt);
+            preparedStatement.setString(6, sentAt.split("\"")[1]);
 
             int resultSet = preparedStatement.executeUpdate();
 
@@ -122,4 +184,5 @@ public class MessageActions {
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
+
 }
