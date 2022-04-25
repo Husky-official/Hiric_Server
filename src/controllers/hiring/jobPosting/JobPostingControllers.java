@@ -20,6 +20,9 @@ public class JobPostingControllers {
             case "getJobs":
                 response = new JobPostingActions().getJobs(request);
                 return response;
+            case "getJobPosts":
+                response = new JobPostingActions().getJobPosts(request);
+                return response;
             case "get jobs":
                 String url = request.get("url").asText();
                 String[] url_parts = url.split("=");
@@ -38,9 +41,12 @@ public class JobPostingControllers {
             case "getJobPostById":
                 response = new JobPostingActions().getJobPostById(request);
                 return response;
-//            case "updateJobPost":
-//                response = new JobPostingActions().updateJobPost(request);
-//                return response;
+            case "getLocations":
+                response = new JobPostingActions().getLocations(request);
+                return response;
+            case "updateJobPost":
+                response = new JobPostingActions().updateJobPost(request);
+                return response;
         }
         return "";
     }

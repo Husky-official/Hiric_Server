@@ -1,4 +1,5 @@
 package models.hiring;
+
 import java.sql.*;
 
 public class JobPosting {
@@ -16,6 +17,7 @@ public class JobPosting {
     public Integer workers;
     public Integer paymentStatus;
     public String status;
+
     public JobPosting(Integer id,Integer jobId, Integer userId, String jobDesc, String jobRequirements, Integer location, Date startDate, Time startTime, String duration, Integer salary, String salaryType, Integer workers, Integer paymentStatus, String status) {
         this.id = id;
         this.jobId = jobId;
@@ -31,6 +33,19 @@ public class JobPosting {
         this.workers = workers;
         this.paymentStatus = paymentStatus;
         this.status = status;
+    }
+    public JobPosting(Integer id,Integer jobId, String jobDesc, String jobRequirements, Integer location, Date startDate, Time startTime, String duration, Integer salary, String salaryType, Integer workers) {
+        this.id = id;
+        this.jobId = jobId;
+        this.jobDesc = jobDesc;
+        this.jobRequirements = jobRequirements;
+        this.location = location;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.salary = salary;
+        this.salaryType = salaryType;
+        this.workers = workers;
     }
 
     public JobPosting() {

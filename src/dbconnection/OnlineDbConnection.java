@@ -20,7 +20,7 @@ public class OnlineDbConnection {
             String password = "pWgWkTztns";
 
 //            String url="jdbc:mysql://localhost:3306/hiric";
-//            String password="password@2001";
+//            String password="";
 //            String username="root";
 
             Class.forName("com.mysql.cj.jdbc.Driver");
