@@ -1,6 +1,11 @@
 <component name="libraryTable">
   <library name="jackson-annotations-2.11.2">
     <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/jackson-annotations-2.11.2.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jackson-core-2.11.2.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jackson-databind-2.11.2.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jsoup-1.14.3.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/mysql-connector-java-5.1.44.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.11.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.11.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.11.2.jar!/" />
