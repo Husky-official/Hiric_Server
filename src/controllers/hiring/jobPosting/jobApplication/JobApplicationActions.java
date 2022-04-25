@@ -206,51 +206,41 @@ public class JobApplicationActions {
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
-//    public static String updateApplication(JsonNode requestData) throws Exception {
-//         String updateApplicationQuery=Update
-//       java.sql.Connection connection = new OnlineDbConnection().getConnection();
-//        JsonNode jobApplication = requestData.get("object");
-//        Iterator<Map.Entry<String, JsonNode>> iterator = jobApplication.fields();
-//        System.out.println("iterator values: " + iterator.next().toString());
-////        String Id = iterator.next().toString().split("=")[1];
-////        int id = Integer.parseInt(Id);
-////        String userId = iterator.next().toString().split("=")[1];
-////        int userIdd = Integer.parseInt(userId);
-////        String jobId = iterator.next().toString().split("=")[1];
-////        int idJob = Integer.parseInt(jobId);
-//        String paymentMethod = iterator.next().toString().split("=")[1];
-//        String referenceName = iterator.next().toString().split("=")[1];
-//        String referencePhone = iterator.next().toString().split("=")[1];
-//        String resume = iterator.next().toString().split("=")[1];
-//        String certificate = iterator.next().toString().split("=")[1];
-//        String status=iterator.next().toString().split("=")[1];
-//        PreparedStatement preparedStatement = connection.prepareStatement(updateApplicationQuery);
-////        preparedStatement.setInt(1, idJob);
-////        preparedStatement.setInt(2, userIdd);
-////        preparedStatement.setInt(3, id);
-//        preparedStatement.setString(1, paymentMethod);
-//        preparedStatement.setString(2, referenceName);
-//        preparedStatement.setString(3, referencePhone);
-//        preparedStatement.setString(4, resume);
-//        preparedStatement.setString(5, certificate);
-//
-//
-//        int resultSet = preparedStatement.executeUpdate();
-//
-//        ResponseStatus responseStatus = new ResponseStatus();
-//
-//        if (resultSet == 0) {
-//            responseStatus.setStatus(500);
-//            responseStatus.setMessage("INTERNAL SERVER ERROR");
-//            responseStatus.setActionToDo("Something went wrong");
-//
-//        } else {
-//            responseStatus.setStatus(200);
-//            responseStatus.setMessage("Job created Successfully");
-//            responseStatus.setActionToDo("CreateApplication");
-//        }
-//
-//        return new ObjectMapper().writeValueAsString(responseStatus);
-//    }
+    public static String updateApplication(JsonNode requestData) throws Exception {
+        String updateApplicationQuery="Update jobApplication SET paymentMethod=?,referenceName=?,referencePhone=?,resume=?,certificate=?";
+       java.sql.Connection connection = new OnlineDbConnection().getConnection();
+        JsonNode jobApplication = requestData.get("object");
+        Iterator<Map.Entry<String, JsonNode>> iterator = jobApplication.fields();
+        System.out.println("iterator values: " + iterator.next().toString());
+        String paymentMethod = iterator.next().toString().split("=")[1];
+        String referenceName = iterator.next().toString().split("=")[1];
+        String referencePhone = iterator.next().toString().split("=")[1];
+        String resume = iterator.next().toString().split("=")[1];
+        String certificate = iterator.next().toString().split("=")[1];
+        PreparedStatement preparedStatement = connection.prepareStatement(updateApplicationQuery);
+        preparedStatement.setString(1, paymentMethod);
+        preparedStatement.setString(2, referenceName);
+        preparedStatement.setString(3, referencePhone);
+        preparedStatement.setString(4, resume);
+        preparedStatement.setString(5, certificate);
+
+
+        int resultSet = preparedStatement.executeUpdate();
+
+        ResponseStatus responseStatus = new ResponseStatus();
+
+        if (resultSet == 0) {
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setActionToDo("Something went wrong");
+
+        } else {
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Job updated Successfully");
+            responseStatus.setActionToDo("updateApplication");
+        }
+
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
 
 }
