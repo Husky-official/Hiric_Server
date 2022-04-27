@@ -37,6 +37,10 @@ public class JobPosting {
         this.paymentStatus = paymentStatus;
         this.status = status;
     }
+
+    public JobPosting(int id, int jobId, String jobDesc, String jobRequirements, int locationId, Date startDate, Time startTime, String duration, int salary, String salaryType, int workers) {
+    }
+
     public Integer getId() {
         return id;
     }

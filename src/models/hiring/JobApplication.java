@@ -14,6 +14,9 @@ public class JobApplication {
     private  String certificate;
     private  String status;
 
+    public JobApplication(int id, int jobPostId, int userId, String paymentMethod, int locationId, String referenceName, String referencePhone, String resume, String certificate) {
+    }
+
 //    public String getEmail() {
 //        return email;
 //    }

@@ -1,4 +1,4 @@
-package controllers.hiring.jobPosting.jobApplication;
+package controllers.hiring.jobApplication;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,6 +7,8 @@ import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
 import models.hiring.Job;
 import models.hiring.JobApplication;
+import models.hiring.JobPosting;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -17,9 +19,9 @@ public class JobApplicationActions {
     static String createApplicationQuery = "INSERT INTO jobApplication(jobPostId, userId, locationId, paymentMethod, referenceName, referencePhone, resume, certificate)" +
             "VALUES(?,?,?,?,?,?,?,?)";
 
-    public String getJobApplications(JsonNode requestData, int jobPostId) throws Exception {
-        String getJobApplicationsQuery = "SELECT * FROM jobApplication INNER JOIN users_table ON jobApplication.userId = users_table.id WHERE jobPostId = " + jobPostId;
-        Connection connection = (Connection) new OnlineDbConnection().getConnection();
+    public String getJobApplications(JsonNode requestData) throws Exception {
+        String getJobApplicationsQuery = "SELECT * FROM jobApplication";
+        java.sql.Connection connection = new OnlineDbConnection().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(getJobApplicationsQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
         ResponseStatus responseStatus = new ResponseStatus();
@@ -31,39 +33,16 @@ public class JobApplicationActions {
         }else {
             resultSet.beforeFirst();
             responseStatus.setStatus(200);
-            responseStatus.setMessage("Retrieved the job applications for the job post");
-            responseStatus.setActionToDo("getJobPosts");
-            ArrayList<JobApplication> jobApplications = new ArrayList<JobApplication>();
+            responseStatus.setMessage("Retrieved the job applications");
+            responseStatus.setActionToDo("getJobApplications");
+            ArrayList<JobApplication> jobApplications = new ArrayList<>();
             while(resultSet.next()) {
-                JobApplication jobApplication = new JobApplication(resultSet.getInt("id"), resultSet.getInt("jobPostId"), resultSet.getInt("userId"), resultSet.getString("paymentMethod"), resultSet.getInt("locationId"), resultSet.getString("referenceName"), resultSet.getString("referencePhone"), resultSet.getString("resume"), resultSet.getString("certificate"), resultSet.getString("firstName"), resultSet.getString("lastName"), resultSet.getString("email"));
+                JobApplication jobApplication = new JobApplication(resultSet.getInt("id"), resultSet.getInt("jobPostId"), resultSet.getInt("userId"), resultSet.getString("paymentMethod"), resultSet.getInt("locationId"), resultSet.getString("referenceName"), resultSet.getString("referencePhone"), resultSet.getString("resume"), resultSet.getString("certificate"),resultSet.getString("status"));
                 jobApplications.add(jobApplication);
             }
             responseStatus.setObject(jobApplications);
         }
         return new ObjectMapper().writeValueAsString(responseStatus);
-    }
-    boolean searchID;
-    public String searchById(JsonNode requestData,int jobPostId) throws Exception {
-
-        String searchQuery="Select id from jobPosts where id = "+ jobPostId;
-        Connection connection = (Connection) new OnlineDbConnection().getConnection();
-        PreparedStatement stmt=connection.prepareStatement(searchQuery);
-        ResultSet resultSet=stmt.executeQuery();
-        ResponseStatus responseStatus = new ResponseStatus();
-
-        if (!resultSet.next()) {
-            responseStatus.setStatus(500);
-            responseStatus.setMessage("INTERNAL SERVER ERROR");
-            responseStatus.setActionToDo("Something went wrong");
-            searchID=false;
-        } else {
-            responseStatus.setStatus(200);
-            responseStatus.setMessage("JOB POST ID RETRIEVED Successfully");
-            responseStatus.setActionToDo("CreateApplication");
-            searchID=true;
-        }
-        return new ObjectMapper().writeValueAsString(responseStatus);
-
     }
 //    public String getProvinces(JsonNode requestData) throws Exception {
 //        String getProvincesQuery = "SELECT * FROM Locations where levelId = 2";
@@ -178,34 +157,6 @@ public class JobApplicationActions {
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
-    public String getJobs(JsonNode requestData) throws Exception {
-        String getJobsQuery = "SELECT * FROM jobs";
-        Connection connection = (Connection) new OnlineDbConnection().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(getJobsQuery);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        ResponseStatus responseStatus = new ResponseStatus();
-
-        if(resultSet.next()) {
-            resultSet.beforeFirst();
-            responseStatus.setStatus(200);
-            responseStatus.setMessage("Retrieved Jobs successfully!");
-            responseStatus.setActionToDo("getJobs");
-            ArrayList<Job> jobs = new ArrayList<>();
-            while(resultSet.next()) {
-                jobs.add(new Job(resultSet.getInt("id"), resultSet.getString("jobTitle")));
-            }
-            System.out.println(jobs);
-            responseStatus.setObject(jobs);
-        }
-        else {
-            responseStatus.setStatus(500);
-            responseStatus.setMessage("INTERNAL SERVER ERROR");
-            responseStatus.setActionToDo("Something went wrong");
-            return "0";
-        }
-
-        return new ObjectMapper().writeValueAsString(responseStatus);
-    }
     public static String updateApplication(JsonNode requestData) throws Exception {
         String updateApplicationQuery="Update jobApplication SET paymentMethod=?,referenceName=?,referencePhone=?,resume=?,certificate=?";
        java.sql.Connection connection = new OnlineDbConnection().getConnection();
@@ -242,5 +193,33 @@ public class JobApplicationActions {
 
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
+    public String getJobPosts(JsonNode requestData) throws Exception {
+        String getJobPostsQuery = "SELECT * from jobPosts";
+        Connection connection = new OnlineDbConnection().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(getJobPostsQuery);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        System.out.println(resultSet.next());
+        ResponseStatus responseStatus = new ResponseStatus();
 
+        if (resultSet.next()) {
+            resultSet.beforeFirst();
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Retrieved Jobs successfully!");
+            responseStatus.setActionToDo("getJobPosts");
+            ArrayList<JobPosting> jobPosts = new ArrayList<JobPosting>();
+            while (resultSet.next()) {
+                jobPosts.add(new JobPosting(resultSet.getInt("id"), resultSet.getInt("jobId"), resultSet.getString("jobDesc"), resultSet.getString("jobRequirements"), resultSet.getInt("locationId"), resultSet.getDate("startDate"), resultSet.getTime("startTime"), resultSet.getString("duration"), resultSet.getInt("salary"), resultSet.getString("salaryType"), resultSet.getInt("workers")));
+            }
+            System.out.println(jobPosts);
+            responseStatus.setObject(jobPosts);
+        } else {
+            responseStatus.setStatus(500);
+            responseStatus.setMessage("INTERNAL SERVER ERROR");
+            responseStatus.setActionToDo("Something went wrong");
+            return "0";
+
+        }
+
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
 }
