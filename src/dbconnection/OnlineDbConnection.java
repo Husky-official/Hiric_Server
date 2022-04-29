@@ -22,6 +22,8 @@ public class OnlineDbConnection {
           Class.forName("com.mysql.cj.jdbc.Driver");
    //        Class.forName("com.mysql.jdbc.Driver");
 
+
+
             connection = DriverManager.getConnection(url, username, password);
 
             return connection;

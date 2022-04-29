@@ -140,14 +140,15 @@ public class Main {
                             out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                             out.flush();
                         }
+                        case "/jobPost" -> {
+                            out.flush();
+                            out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            out.flush();
+                        }
                         case "/group_messaging" -> {
                             out.flush();
                             out.writeUTF(new GroupControllers().mainMethod(jsonNode));
                             out.flush();
-                        }
-                        case "/getJobPosts" -> {
-                            out.flush();
-                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                         }
                         case "/get_job_posts" -> {
                             out.flush();
