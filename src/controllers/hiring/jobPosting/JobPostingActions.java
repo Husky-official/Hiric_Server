@@ -243,9 +243,9 @@ public class JobPostingActions {
         jobPostId = Integer.parseInt(id);
         preparedStatement.setInt(3, jobPostId);
         String jobIdd = iterator.next().toString().split("=")[1];
-        System.out.println(jobIdd);
-        System.out.println(jobIdd.equals(null) ? "null": "not null");
-        if(jobIdd == null) {
+        System.out.println("jobIdd: " + jobIdd);
+        System.out.println(!jobIdd.equals(null) ? "not null": "null");
+        if(!jobIdd.equals(null)) {
             jobId = Integer.parseInt(jobIdd);
             System.out.println(jobId);
             preparedStatement.setString(1,"jobId");
@@ -253,33 +253,33 @@ public class JobPostingActions {
         }
         iterator.next();
         jobDesc = iterator.next().toString().split("=")[1];
-        System.out.println(jobDesc);
+        System.out.println("jobDesc: " + jobDesc);
         if(jobDesc != null) {
             preparedStatement.setString(1,"jobDesc");
             preparedStatement.setString(2,jobDesc);
         }
         jobRequirements = iterator.next().toString().split("=")[1];
-        System.out.println(jobRequirements);
+        System.out.println("jobRequirements: " + jobRequirements);
         if(jobRequirements != null) {
             preparedStatement.setString(1,"jobRequirements");
             preparedStatement.setString(2,jobRequirements);
         }
         String loc = iterator.next().toString().split("=")[1];
-        System.out.println(loc);
+        System.out.println("loc: " + loc);
         if(loc != null) {
             location = Integer.parseInt(loc);
             preparedStatement.setString(1,"location");
             preparedStatement.setInt(2,location);
         }
         String starDate = iterator.next().toString().split("=")[1];
-        System.out.println(starDate);
+        System.out.println("startDate: " + starDate);
         if(starDate != null) {
             startDate = new java.sql.Date(Long.parseLong(starDate));
             preparedStatement.setString(1,"startDate");
             preparedStatement.setDate(2,startDate);
         }
         String sstime = iterator.next().toString().split("=")[1];
-        System.out.println(sstime);
+        System.out.println("sstime: " + sstime);
         if(sstime != null) {
             String stime = sstime. replaceAll("^\"|\"$", "");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
