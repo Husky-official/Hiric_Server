@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fd57713-172a-4338-ab9b-876aa8459d64" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/models/hiring/Location.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/hiring/LocationLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/hiring/jobPosting/JobPostingControllers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/interviewingController/EventSchedulingActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/interviewingController/EventSchedulingActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hiring/JobPosting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/interviewing/EventScheduling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/interviewing/EventScheduling.java" afterDir="false" />
-    </list>
+    <list default="true" id="2fd57713-172a-4338-ab9b-876aa8459d64" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
