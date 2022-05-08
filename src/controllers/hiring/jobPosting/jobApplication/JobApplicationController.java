@@ -1,6 +1,7 @@
 package controllers.jobApplication;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import controllers.hiring.jobPosting.jobApplication.JobApplicationActions;
 import models.RequestBody;
 import models.hiring.JobApplication;
 
@@ -31,12 +32,12 @@ public class JobApplicationController {
              * desc: This is a controller that handles actions including getting, creating, updating and deleting a job post.
              *
              */
-//            case "get job applications":
-//                String url = request.get("url").asText();
-//                String[] url_parts = url.split("=");
-//                int jobPostId = Integer.parseInt(url_parts[1]);
-//                response = new JobApplicationActions().getJobApplications(request, jobPostId);
-//                return response;
+            case "get job applications":
+                String url = request.get("url").asText();
+                String[] url_parts = url.split("=");
+                int jobPostId = Integer.parseInt(url_parts[1]);
+                response = new JobApplicationActions().getJobApplications(request, jobPostId);
+                return response;
             case "getJobPosts":
                 response2 = new JobApplicationActions().getJobs(request);
                 return response2;
