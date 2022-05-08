@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -25,25 +27,34 @@ public class EventSchedulingActions {
     Connection connection = new OnlineDbConnection().getConnection();
 
     public String scheduleEvent(JsonNode requestData) throws Exception{
-        String scheduleEventQuery = "INSERT INTO eventScheduling(jobPostId, eventName, eventType, eventDate, startTime, endTime, eventCreator, scheduledAt) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+        String scheduleEventQuery = "INSERT INTO eventScheduling (jobPostId, eventName, eventType, eventDate, startTime, endTime, eventCreator, scheduledAt) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
 
         JsonNode eventSchedulingData = requestData.get("object");
 
         Integer jobPostId = eventSchedulingData.get("jobPostId").asInt();
         String eventName = eventSchedulingData.get("eventName").asText("");
         String eventType = eventSchedulingData.get("eventType").asText("CALL");
-        String eventDate = eventSchedulingData.get("eventDate").asText();
-        String startTime = eventSchedulingData.get("startTime").asText();
-        String endTime = eventSchedulingData.get("endTime").asText();
+        String date = eventSchedulingData.get("eventDate").asText();
+        java.sql.Date eventDate = new java.sql.Date(Long.parseLong(date));
+        String starTime = eventSchedulingData.get("startTime").asText();
+        String starReplace = starTime.replaceAll("^\"|\"$", "");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime starrTime = LocalTime.parse(starReplace, formatter);
+        java.sql.Time startTime = java.sql.Time.valueOf(starrTime);
+        String enTime = eventSchedulingData.get("endTime").asText();
+        String endReplace = enTime.replaceAll("^\"|\"$", "");
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime endedTime = LocalTime.parse(endReplace, formatter1);
+        java.sql.Time endTime = java.sql.Time.valueOf(endedTime);
         Integer eventCreator = eventSchedulingData.get("eventCreator").asInt();
 
         PreparedStatement preparedStatement = connection.prepareStatement(scheduleEventQuery);
         preparedStatement.setInt(1, jobPostId);
         preparedStatement.setString(2, eventName);
         preparedStatement.setString(3,eventType);
-        preparedStatement.setString(4, eventDate);
-        preparedStatement.setString(5,startTime);
-        preparedStatement.setString(6,endTime);
+        preparedStatement.setDate(4, eventDate);
+        preparedStatement.setTime(5,startTime);
+        preparedStatement.setTime(6,endTime);
         preparedStatement.setInt(7, eventCreator);
 
         int resultSet = preparedStatement.executeUpdate();
