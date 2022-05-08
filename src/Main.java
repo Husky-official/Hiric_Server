@@ -7,6 +7,7 @@ import controllers.invoicecontrollers.InvoiceControllers;
 import controllers.groupmessaging.GroupControllers;
 import controllers.jobApplication.JobApplicationController;
 import controllers.hiring.jobPosting.JobPostingControllers;
+import controllers.shortListing.ShortListingController;
 import controllers.usercontrollers.UserControllers;
 import controllers.ArchiveController.ArchiveController;
 import dbconnection.DbConnectionVariables;
@@ -89,12 +90,6 @@ public class Main {
 
                 while (!requestBody.equals("exit")) {
                     requestBody = in.readUTF();
-//changing the normal user into json strings
-                    try {
-                        requestBody = in.readUTF();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                     ObjectMapper objectMapper = new ObjectMapper();
                     JsonNode jsonNode = objectMapper.readTree(requestBody);
 
@@ -139,11 +134,6 @@ public class Main {
                             out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                             out.flush();
                         }
-                        //                        case "/viewApplications" -> {
-//                            out.flush();
-//                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
-//                            out.flush();
-//                        }
                         case "/group_messaging" -> {
                             out.flush();
                             out.writeUTF(new GroupControllers().mainMethod(jsonNode));
@@ -151,14 +141,16 @@ public class Main {
                         }
 
                         case "/get_job_posts" -> {
+                            System.out.println("get job posts");
                             out.flush();
                             out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            out.flush();
                         }
-//                        case "/get_job_applications" -> {
-//                            out.flush();
-//                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
-//                            out.flush();
-//                        }
+                        case "/get_job_applications" -> {
+                            out.flush();
+                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
+                            out.flush();
+                        }
                         case "/shortList" -> {
                             out.flush();
                             out.writeUTF(new ShortListingController().mainMethod(jsonNode));
