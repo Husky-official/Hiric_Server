@@ -1,7 +1,6 @@
 package controllers.shortListing;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import controllers.jobApplication.JobApplicationActions;
 
 public class ShortListingController {
     public static String mainMethod(JsonNode request) throws Exception {
