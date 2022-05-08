@@ -19,12 +19,8 @@ public class OnlineDbConnection {
             String username = "ZKZ7qI2OW3";
             String password = "pWgWkTztns";
 
-//            String url="jdbc:mysql://localhost:3306/hiric";
-//            String password="password@2001";
-//            String username="root";
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-//            Class.forName("com.mysql.jdbc.Driver");
+          Class.forName("com.mysql.cj.jdbc.Driver");
+   //        Class.forName("com.mysql.jdbc.Driver");
 
             connection = DriverManager.getConnection(url, username, password);
 
