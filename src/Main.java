@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import controllers.confirmationAndCancelling.ConfirmationAndCancellingController;
 import controllers.messagecontrollers.MessageControllers;
 import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
@@ -101,6 +102,8 @@ public class Main {
                         url = "/get_job_applications";
                     } else if (url.contains("payment")) {
                         url = "/payment";
+                    } else if(url.contains("getShortList")) {
+                        url = "/getShortList";
                     }
                     String urlDup = url;
 
@@ -147,6 +150,7 @@ public class Main {
                             out.flush();
                         }
                         case "/get_job_applications" -> {
+                            System.out.println("get job applications");
                             out.flush();
                             out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                             out.flush();
@@ -154,6 +158,17 @@ public class Main {
                         case "/shortList" -> {
                             out.flush();
                             out.writeUTF(new ShortListingController().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/getShortList" -> {
+                            System.out.println("get shortlist");
+                            out.flush();
+                            out.writeUTF(new ShortListingController().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/confirmationAndCancelling" -> {
+                            out.flush();
+                            out.writeUTF(new ConfirmationAndCancellingController().mainMethod(jsonNode));
                             out.flush();
                         }
                         case "/messages" -> {
