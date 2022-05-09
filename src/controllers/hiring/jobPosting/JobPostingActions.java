@@ -226,8 +226,10 @@ public class JobPostingActions {
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
 
+
+
     public String updateJobPost(JsonNode requestData) throws  Exception {
-        String updateJobPostQuery = "UPDATE jobPosts SET ? = ? where id = ?";
+        String updateJobPostQuery = "UPDATE jobPosts SET jobId = ? where id = ?";
 
         Integer jobPostId, jobId, location, salary, workers;
         String jobDesc, jobRequirements, duration, salaryType;
@@ -235,51 +237,119 @@ public class JobPostingActions {
         Time startTime;
 
         Connection connection = new OnlineDbConnection().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(updateJobPostQuery);
-        JsonNode jobPostData = requestData.get("object");
 
+        JsonNode jobPostData = requestData.get("object");
+        PreparedStatement preparedStatement;
         Iterator<Map.Entry<String, JsonNode>> iterator = jobPostData.fields();
         String id = iterator.next().toString().split("=")[1];
         System.out.println(id);
         jobPostId = Integer.parseInt(id);
-        preparedStatement.setInt(3, jobPostId);
+
         String jobIdd = iterator.next().toString().split("=")[1];
         System.out.println("jobIdd: " + jobIdd);
         System.out.println(jobIdd.equals("1"));
         if(!jobIdd.equals("null")) {
             jobId = Integer.parseInt(jobIdd);
             System.out.println("jobId: " + jobId);
-            String param = "jobId";
-            String param1 = param. replaceAll("^\"|\"$", "");
-            preparedStatement.setString(1,param1);
-            preparedStatement.setInt(2,jobId);
+            preparedStatement = connection.prepareStatement("UPDATE jobPosts SET jobId = 1 where id = 8");
+//            preparedStatement.setInt(1,jobId);
+//            preparedStatement.setInt(2,jobPostId);
+            int resultSet = preparedStatement.executeUpdate();
+            ResponseStatus responseStatus = new ResponseStatus();
+            if (resultSet == 0) {
+                responseStatus.setStatus(500);
+                responseStatus.setMessage("INTERNAL SERVER ERROR");
+                responseStatus.setActionToDo("Something went wrong");
+
+            } else {
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("Updated job successfully!");
+                responseStatus.setActionToDo("UpdateJobPost");
+            }
+            return new ObjectMapper().writeValueAsString(responseStatus);
         }
         iterator.next();
         jobDesc = iterator.next().toString().split("=")[1];
         System.out.println("jobDesc: " + jobDesc);
         if(!jobDesc.equals("null")) {
-            preparedStatement.setString(1,"jobDesc");
-            preparedStatement.setString(2,jobDesc);
+            preparedStatement = connection.prepareStatement("UPDATE jobPosts SET jobDesc = ? where id = ?");
+            preparedStatement.setString(1,jobDesc);
+            preparedStatement.setInt(2,jobPostId);
+            int resultSet = preparedStatement.executeUpdate();
+            ResponseStatus responseStatus = new ResponseStatus();
+            if (resultSet == 0) {
+                responseStatus.setStatus(500);
+                responseStatus.setMessage("INTERNAL SERVER ERROR");
+                responseStatus.setActionToDo("Something went wrong");
+
+            } else {
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("Updated job successfully!");
+                responseStatus.setActionToDo("UpdateJobPost");
+            }
+            return new ObjectMapper().writeValueAsString(responseStatus);
         }
         jobRequirements = iterator.next().toString().split("=")[1];
         System.out.println("jobRequirements: " + jobRequirements);
         if(!jobRequirements.equals("null")) {
-            preparedStatement.setString(1,"jobRequirements");
-            preparedStatement.setString(2,jobRequirements);
+            preparedStatement = connection.prepareStatement("UPDATE jobPosts SET jobRequirements = ? where id = ?");
+            preparedStatement.setString(1,jobRequirements);
+            preparedStatement.setInt(2,jobPostId);
+            int resultSet = preparedStatement.executeUpdate();
+            ResponseStatus responseStatus = new ResponseStatus();
+            if (resultSet == 0) {
+                responseStatus.setStatus(500);
+                responseStatus.setMessage("INTERNAL SERVER ERROR");
+                responseStatus.setActionToDo("Something went wrong");
+
+            } else {
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("Updated job successfully!");
+                responseStatus.setActionToDo("UpdateJobPost");
+            }
+            return new ObjectMapper().writeValueAsString(responseStatus);
         }
         String loc = iterator.next().toString().split("=")[1];
         System.out.println("loc: " + loc);
         if(!loc.equals("null")) {
             location = Integer.parseInt(loc);
-            preparedStatement.setString(1,"location");
-            preparedStatement.setInt(2,location);
+            preparedStatement = connection.prepareStatement("UPDATE jobPosts SET locationId = ? where id = ?");
+            preparedStatement.setInt(1,location);
+            preparedStatement.setInt(2,jobPostId);
+            int resultSet = preparedStatement.executeUpdate();
+            ResponseStatus responseStatus = new ResponseStatus();
+            if (resultSet == 0) {
+                responseStatus.setStatus(500);
+                responseStatus.setMessage("INTERNAL SERVER ERROR");
+                responseStatus.setActionToDo("Something went wrong");
+
+            } else {
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("Updated job successfully!");
+                responseStatus.setActionToDo("UpdateJobPost");
+            }
+            return new ObjectMapper().writeValueAsString(responseStatus);
         }
         String starDate = iterator.next().toString().split("=")[1];
         System.out.println("startDate: " + starDate);
         if(!starDate.equals("null")) {
             startDate = new java.sql.Date(Long.parseLong(starDate));
-            preparedStatement.setString(1,"startDate");
-            preparedStatement.setDate(2,startDate);
+            preparedStatement = connection.prepareStatement("UPDATE jobPosts SET startDate = ? where id = ?");
+            preparedStatement.setDate(1,startDate);
+            preparedStatement.setInt(2,jobPostId);
+            int resultSet = preparedStatement.executeUpdate();
+            ResponseStatus responseStatus = new ResponseStatus();
+            if (resultSet == 0) {
+                responseStatus.setStatus(500);
+                responseStatus.setMessage("INTERNAL SERVER ERROR");
+                responseStatus.setActionToDo("Something went wrong");
+
+            } else {
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("Updated job successfully!");
+                responseStatus.setActionToDo("UpdateJobPost");
+            }
+            return new ObjectMapper().writeValueAsString(responseStatus);
         }
         String sstime = iterator.next().toString().split("=")[1];
         System.out.println("sstime: " + sstime);
@@ -288,51 +358,93 @@ public class JobPostingActions {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
             LocalTime starTime = LocalTime.parse(stime, formatter);
             startTime = java.sql.Time.valueOf(starTime);
-            preparedStatement.setString(1,"startTime");
-            preparedStatement.setTime(2,startTime);
+            preparedStatement = connection.prepareStatement("UPDATE jobPosts SET startTime = ? where id = ?");
+            preparedStatement.setTime(1,startTime);
+            preparedStatement.setInt(2,jobPostId);
+            int resultSet = preparedStatement.executeUpdate();
+            ResponseStatus responseStatus = new ResponseStatus();
+            if (resultSet == 0) {
+                responseStatus.setStatus(500);
+                responseStatus.setMessage("INTERNAL SERVER ERROR");
+                responseStatus.setActionToDo("Something went wrong");
+
+            } else {
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("Updated job successfully!");
+                responseStatus.setActionToDo("UpdateJobPost");
+            }
+            return new ObjectMapper().writeValueAsString(responseStatus);
         }
         duration = iterator.next().toString().split("=")[1];
         System.out.println(duration);
         if(!duration.equals("null")) {
-            preparedStatement.setString(1,"duration");
-            preparedStatement.setString(2,duration);
+            preparedStatement = connection.prepareStatement("UPDATE jobPosts SET duration = ? where id = ?");
+            preparedStatement.setString(1,duration);
+            preparedStatement.setInt(2,jobPostId);
+            int resultSet = preparedStatement.executeUpdate();
+            ResponseStatus responseStatus = new ResponseStatus();
+            if (resultSet == 0) {
+                responseStatus.setStatus(500);
+                responseStatus.setMessage("INTERNAL SERVER ERROR");
+                responseStatus.setActionToDo("Something went wrong");
+
+            } else {
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("Updated job successfully!");
+                responseStatus.setActionToDo("UpdateJobPost");
+            }
+            return new ObjectMapper().writeValueAsString(responseStatus);
         }
         String sal = iterator.next().toString().split("=")[1];
         System.out.println(sal);
         if(!sal.equals("null")) {
             salary = Integer.parseInt(sal);
-            preparedStatement.setString(1,"salary");
-            preparedStatement.setInt(2,salary);
+            preparedStatement = connection.prepareStatement("UPDATE jobPosts SET salary = ? where id = ?");
+            preparedStatement.setInt(1,salary);
+            preparedStatement.setInt(2,jobPostId);
         }
         salaryType = iterator.next().toString().split("=")[1];
         System.out.println(salaryType);
         if(!salaryType.equals("null")) {
-            preparedStatement.setString(1,"salaryType");
-            preparedStatement.setString(2,salaryType);
+            preparedStatement = connection.prepareStatement("UPDATE jobPosts SET salaryType = ? where id = ?");
+            preparedStatement.setString(1,salaryType);
+            preparedStatement.setInt(2,jobPostId);
+            int resultSet = preparedStatement.executeUpdate();
+            ResponseStatus responseStatus = new ResponseStatus();
+            if (resultSet == 0) {
+                responseStatus.setStatus(500);
+                responseStatus.setMessage("INTERNAL SERVER ERROR");
+                responseStatus.setActionToDo("Something went wrong");
+
+            } else {
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("Updated job successfully!");
+                responseStatus.setActionToDo("UpdateJobPost");
+            }
+            return new ObjectMapper().writeValueAsString(responseStatus);
         }
         String worker = iterator.next().toString().split("=")[1];
         System.out.println(worker);
         if(!worker.equals("null")) {
             workers = Integer.parseInt(worker);
-            preparedStatement.setString(1,"workers");
-            preparedStatement.setInt(2,workers);
+            preparedStatement = connection.prepareStatement("UPDATE jobPosts SET workers = ? where id = ?");
+            preparedStatement.setInt(1,workers);
+            preparedStatement.setInt(2,jobPostId);
+            int resultSet = preparedStatement.executeUpdate();
+            ResponseStatus responseStatus = new ResponseStatus();
+            if (resultSet == 0) {
+                responseStatus.setStatus(500);
+                responseStatus.setMessage("INTERNAL SERVER ERROR");
+                responseStatus.setActionToDo("Something went wrong");
+
+            } else {
+                responseStatus.setStatus(200);
+                responseStatus.setMessage("Updated job successfully!");
+                responseStatus.setActionToDo("UpdateJobPost");
+            }
+            return new ObjectMapper().writeValueAsString(responseStatus);
         }
-
-        preparedStatement.setInt(3,jobPostId);
-        int resultSet = preparedStatement.executeUpdate();
-        ResponseStatus responseStatus = new ResponseStatus();
-
-        if (resultSet == 0) {
-            responseStatus.setStatus(500);
-            responseStatus.setMessage("INTERNAL SERVER ERROR");
-            responseStatus.setActionToDo("Something went wrong");
-
-        } else {
-            responseStatus.setStatus(200);
-            responseStatus.setMessage("Updated job successfully!");
-            responseStatus.setActionToDo("UpdateJobPost");
-        }
-        return new ObjectMapper().writeValueAsString(responseStatus);
+        return "";
     }
 
     public String getJobPostById(JsonNode requestData) throws Exception {
