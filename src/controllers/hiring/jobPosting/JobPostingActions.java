@@ -229,8 +229,6 @@ public class JobPostingActions {
 
 
     public String updateJobPost(JsonNode requestData) throws  Exception {
-        String updateJobPostQuery = "UPDATE jobPosts SET jobId = ? where id = ?";
-
         Integer jobPostId, jobId, location, salary, workers;
         String jobDesc, jobRequirements, duration, salaryType;
         Date startDate;
@@ -251,9 +249,9 @@ public class JobPostingActions {
         if(!jobIdd.equals("null")) {
             jobId = Integer.parseInt(jobIdd);
             System.out.println("jobId: " + jobId);
-            preparedStatement = connection.prepareStatement("UPDATE jobPosts SET jobId = 1 where id = 8");
-//            preparedStatement.setInt(1,jobId);
-//            preparedStatement.setInt(2,jobPostId);
+            preparedStatement = connection.prepareStatement("UPDATE jobPosts SET jobId = ? where id = ?");
+            preparedStatement.setInt(1,jobId);
+            preparedStatement.setInt(2,jobPostId);
             int resultSet = preparedStatement.executeUpdate();
             ResponseStatus responseStatus = new ResponseStatus();
             if (resultSet == 0) {
@@ -297,15 +295,14 @@ public class JobPostingActions {
             preparedStatement.setInt(2,jobPostId);
             int resultSet = preparedStatement.executeUpdate();
             ResponseStatus responseStatus = new ResponseStatus();
-            if (resultSet == 0) {
-                responseStatus.setStatus(500);
-                responseStatus.setMessage("INTERNAL SERVER ERROR");
-                responseStatus.setActionToDo("Something went wrong");
-
-            } else {
+            if (resultSet != 0) {
                 responseStatus.setStatus(200);
                 responseStatus.setMessage("Updated job successfully!");
                 responseStatus.setActionToDo("UpdateJobPost");
+            } else {
+                responseStatus.setStatus(500);
+                responseStatus.setMessage("INTERNAL SERVER ERROR");
+                responseStatus.setActionToDo("Something went wrong");
             }
             return new ObjectMapper().writeValueAsString(responseStatus);
         }
