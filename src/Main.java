@@ -1,7 +1,11 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+<<<<<<< HEAD
 import controllers.hiring.jobPosting.jobApplication.JobApplicationController;
+=======
+import controllers.confirmationAndCancelling.ConfirmationAndCancellingController;
+>>>>>>> 83fbee0ccbb517da2352620dc40f797de49813c8
 import controllers.messagecontrollers.MessageControllers;
 import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
@@ -90,17 +94,28 @@ public class Main {
 
                 while (!requestBody.equals("exit")) {
                     requestBody = in.readUTF();
-//changing the normal user into json strings
-                    try {
-                        requestBody = in.readUTF();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                     ObjectMapper objectMapper = new ObjectMapper();
                     JsonNode jsonNode = objectMapper.readTree(requestBody);
 
                     String url = jsonNode.get("url").asText();
+<<<<<<< HEAD
                     System.out.println(url);
+=======
+
+                    if (url.contains("get_job_posts")) {
+                        url = "/get_job_posts";
+                    } else if (url.contains("get_job_applications")) {
+                        url = "/get_job_applications";
+                    } else if (url.contains("payment")) {
+                        url = "/payment";
+                    } else if(url.contains("getShortList")) {
+                        url = "/getShortList";
+                    }
+                    String urlDup = url;
+
+                    System.out.println(jsonNode);
+
+>>>>>>> 83fbee0ccbb517da2352620dc40f797de49813c8
                     switch (url) {
                         case "/users" -> {
                             out.flush();
@@ -129,11 +144,6 @@ public class Main {
                             out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                             out.flush();
                         }
-                        //                        case "/viewApplications" -> {
-//                            out.flush();
-//                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
-//                            out.flush();
-//                        }
                         case "/group_messaging" -> {
                             out.flush();
                             out.writeUTF(new GroupControllers().mainMethod(jsonNode));
@@ -141,17 +151,31 @@ public class Main {
                         }
 
                         case "/get_job_posts" -> {
+                            System.out.println("get job posts");
                             out.flush();
                             out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            out.flush();
                         }
-//                        case "/get_job_applications" -> {
-//                            out.flush();
-//                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
-//                            out.flush();
-//                        }
+                        case "/get_job_applications" -> {
+                            System.out.println("get job applications");
+                            out.flush();
+                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
+                            out.flush();
+                        }
                         case "/shortList" -> {
                             out.flush();
                             out.writeUTF(new ShortListingController().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/getShortList" -> {
+                            System.out.println("get shortlist");
+                            out.flush();
+                            out.writeUTF(new ShortListingController().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/confirmationAndCancelling" -> {
+                            out.flush();
+                            out.writeUTF(new ConfirmationAndCancellingController().mainMethod(jsonNode));
                             out.flush();
                         }
                         case "/messages" -> {

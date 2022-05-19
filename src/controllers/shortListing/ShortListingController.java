@@ -1,7 +1,11 @@
 package controllers.shortListing;
 
 import com.fasterxml.jackson.databind.JsonNode;
+<<<<<<< HEAD
 
+=======
+import controllers.hiring.jobPosting.JobPostingActions;
+>>>>>>> 83fbee0ccbb517da2352620dc40f797de49813c8
 
 public class ShortListingController {
     public static String mainMethod(JsonNode request) throws Exception {
@@ -10,6 +14,14 @@ public class ShortListingController {
         switch (action) {
             case "add to shortlist":
                 response = new ShortListingActions().addToShortList(request);
+                return response;
+
+            case "get shortlist":
+                String url = request.get("url").asText();
+                String[] url_parts = url.split("=");
+                int postId = Integer.parseInt(url_parts[1]);
+
+                response = new ShortListingActions().getShortList(request, postId);
                 return response;
         }
         return response;

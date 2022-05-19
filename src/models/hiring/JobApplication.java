@@ -14,7 +14,39 @@ public class JobApplication {
     private  String certificate;
     private  String status;
 
-//    public String getEmail() {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    //    public String getEmail() {
 //        return email;
 //    }
 //
@@ -22,9 +54,9 @@ public class JobApplication {
 //        this.email = email;
 //    }
 //
-//    private String firstName;
-//    private String lastName;
-//    private String email;
+    private String firstName;
+    private String lastName;
+    private String email;
 
     public void JobApplication(){};
     public JobApplication(int id,int jobId,int userId, String paymentMethod, int locationId, String referenceName, String referencePhone, String resume, String certificate,String status){
@@ -50,9 +82,28 @@ public class JobApplication {
         this.locationId =locationId;
         this.resume=resume;
         this.certificate=certificate;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public JobApplication(int id,int jobId,int userId, String paymentMethod, int locationId, String referenceName, String referencePhone, String resume, String certificate){
+        this.userId=userId;
+        this.id=id;
+        this.jobPostId =jobId;
+        this.paymentMethod=paymentMethod;
+        this.referencePhone=referencePhone;
+        this.referenceName=referenceName;
+        this.locationId =locationId;
+        this.resume=resume;
+        this.certificate=certificate;
+    }
+
+    public JobApplication(int id, String firstName, String lastName, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     public Integer getId() {
