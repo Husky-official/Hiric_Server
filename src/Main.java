@@ -9,6 +9,7 @@ import controllers.groupmessaging.GroupControllers;
 import controllers.jobApplication.JobApplicationController;
 import controllers.hiring.jobPosting.JobPostingControllers;
 import controllers.shortListing.ShortListingController;
+import controllers.surveys.SurveyController;
 import controllers.usercontrollers.UserControllers;
 import controllers.ArchiveController.ArchiveController;
 import dbconnection.DbConnectionVariables;
@@ -174,6 +175,11 @@ public class Main {
                         case "/messages" -> {
                             out.flush();
                             out.writeUTF(new MessageControllers().mainMethod(jsonNode));
+                            out.flush();
+                        }
+                        case "/surveys" ->{
+                            out.flush();
+                            out.writeUTF(new SurveyController().mainMethod(jsonNode));
                             out.flush();
                         }
                         default -> System.out.println("something went wrong");
