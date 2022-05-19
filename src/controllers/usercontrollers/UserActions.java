@@ -6,12 +6,16 @@ import dbconnection.OnlineDbConnection;
 import models.ResponseStatus;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Scanner;
 
 import static utils.ComparingPassword.checkPassword;
 
@@ -27,7 +31,8 @@ public class UserActions {
      */
 
     public String login(JsonNode requestData) throws Exception{
-
+//       Token token=new Token();
+//        System.out.println(token.getToken().getFname());
         try {
             //initialise  db connection
             Connection connection = new OnlineDbConnection().getConnection();
@@ -73,6 +78,23 @@ public class UserActions {
                         responseStatus.setMessage("Invalid email or password");
                         responseStatus.setActionToDo("Login");
                         return new ObjectMapper().writeValueAsString(responseStatus);
+                    }
+                    //creating file
+                    File myFile=new File("token.txt");
+                    if (myFile.createNewFile()){
+                        System.out.println("file created "+myFile.getName());
+                        FileWriter myWriter=new FileWriter("token.txt");
+                        myWriter.write(resultSet.getString("id")+"\n");
+//                        myWriter.write("fname:"+resultSet.getString("firstName")+"\n");
+//                        myWriter.write("lname:"+resultSet.getString("lastName")+"\n");
+//                        myWriter.write("gender:"+resultSet.getString("gender")+"\n");
+//                        myWriter.write("role:"+resultSet.getString("role")+"\n");
+//                        myWriter.write("status:"+resultSet.getString("user_status")+"\n");
+                        myWriter.close();
+                        System.out.println("wrote to file");
+                    }
+                    else {
+                        System.out.println("File already exists.");
                     }
                     //adding user in token's table
                     PreparedStatement preparedstatement3 = connection.prepareStatement(tokenQuery);
@@ -126,6 +148,9 @@ public class UserActions {
 //            System.out.println(result);
 
             if(result==1) {
+                //deleting token.txt
+                File myFile=new File("token.txt");
+                myFile.delete();
                 responseStatus.setStatus(200);
                 responseStatus.setMessage("Logged out.");
                 responseStatus.setActionToDo("Logged out successfully.");
@@ -139,6 +164,42 @@ public class UserActions {
             responseStatus.setStatus(404);
             responseStatus.setMessage("User not found.");
             responseStatus.setActionToDo("Something went wrong");
+        }
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+    public String getToken() throws Exception{
+        try {
+            File myFile = new File("token.txt");
+            Scanner myReader = new Scanner(myFile);
+            if (myFile.exists()) {
+                while(myReader.hasNextLine()){
+                    String data = myReader.nextLine();
+                    System.out.println(data);
+                }
+            }
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("You are not logged in.");
+        }
+        return "";
+    }
+    public String tokenExist(JsonNode requestData) throws Exception{
+        //initialise  db connection
+        Connection connection = new OnlineDbConnection().getConnection();
+        JsonNode userData = requestData.get("object");
+        Iterator<Map.Entry<String, JsonNode>> iterator = userData.fields();
+        ResponseStatus responseStatus = new ResponseStatus();
+        //if  file exist
+        File myFile=new File("token.txt");
+        if (myFile.exists()) {
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("Token exists");
+            responseStatus.setActionToDo("Checking token.");
+        }
+        else {
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("No token found");
+            responseStatus.setActionToDo("Checking token.");
         }
         return new ObjectMapper().writeValueAsString(responseStatus);
     }

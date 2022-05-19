@@ -1,11 +1,8 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-<<<<<<< HEAD
 import controllers.hiring.jobPosting.jobApplication.JobApplicationController;
-=======
 import controllers.confirmationAndCancelling.ConfirmationAndCancellingController;
->>>>>>> 83fbee0ccbb517da2352620dc40f797de49813c8
 import controllers.messagecontrollers.MessageControllers;
 import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
@@ -39,7 +36,7 @@ public class Main {
         ServerSocket server = null;
 
         try{
-            server = new ServerSocket(8888);
+            server = new ServerSocket(9000);
             server.setReuseAddress(true);
 
             //running infinite loop to accept
@@ -98,10 +95,7 @@ public class Main {
                     JsonNode jsonNode = objectMapper.readTree(requestBody);
 
                     String url = jsonNode.get("url").asText();
-<<<<<<< HEAD
                     System.out.println(url);
-=======
-
                     if (url.contains("get_job_posts")) {
                         url = "/get_job_posts";
                     } else if (url.contains("get_job_applications")) {
@@ -114,8 +108,6 @@ public class Main {
                     String urlDup = url;
 
                     System.out.println(jsonNode);
-
->>>>>>> 83fbee0ccbb517da2352620dc40f797de49813c8
                     switch (url) {
                         case "/users" -> {
                             out.flush();
