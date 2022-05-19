@@ -35,7 +35,7 @@ public class Main {
         ServerSocket server = null;
 
         try{
-            server = new ServerSocket(9000);
+            server = new ServerSocket(9900);
             server.setReuseAddress(true);
 
             //running infinite loop to accept
@@ -135,14 +135,13 @@ public class Main {
                             out.writeUTF(new BillingMain().mainMethod(jsonNode));
                             out.flush();
                         }
-                        case "/createApplication", "/getJobApplications" ->{
+                        case "/deleteApplication"->{
                             out.flush();
                             out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
-                            out.flush();
                         }
-                        case "/jobPost" -> {
+                        case "/createApplication", "/getJobApplications", "/jobPost" ->{
                             out.flush();
-                            out.writeUTF(new JobPostingControllers().mainMethod(jsonNode));
+                            out.writeUTF(new JobApplicationController().mainMethod(jsonNode));
                             out.flush();
                         }
                         case "/group_messaging" -> {

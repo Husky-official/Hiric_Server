@@ -37,9 +37,12 @@ public class JobApplicationController {
             case "getNextLocation":
                 response = new JobApplicationActions().getNextLocation(request);
                 return response;
-            case "getLocations":
+            case "getLocation":
                 response = new JobApplicationActions().getLocations(request);
                 return response;
+//            case "deleteJobApplication":
+//                response=new JobApplicationActions().deleteJobApplication(request);
+//                return response;
         }
         return "";
     }
