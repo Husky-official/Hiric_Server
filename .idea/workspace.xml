@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c658922-3433-4f7d-ba17-baa2493930b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controllers/confirmationAndCancelling/ConfirmationAndCancellingActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/confirmationAndCancelling/ConfirmationAndCancellingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/hiring/ShortListApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/shortListing/ShortListingActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/shortListing/ShortListingActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/shortListing/ShortListingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/shortListing/ShortListingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/hiring/JobApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hiring/JobApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +31,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="28Gwq0Hj0bX57JEQWV2Iq7IFPmu" />
   <component name="ProjectLevelVcsManager">
@@ -121,7 +119,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Hiric_Server$Main.ic" NAME="Main Coverage Results" MODIFIED="1646026779816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
