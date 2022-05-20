@@ -46,7 +46,7 @@ public class Main {
         ServerSocket server = null;
 
         try{
-            server = new ServerSocket(8888);
+            server = new ServerSocket(9000);
             server.setReuseAddress(true);
 
             //running infinite loop to accept
@@ -124,6 +124,12 @@ public class Main {
                     System.out.println(jsonNode);
 
                     switch (url) {
+
+                        case "/welcome" ->{
+                            out.flush();
+                            out.writeUTF("Hello this is Add");
+                            out.flush();
+                        }
                         case "/users" -> {
                             out.flush();
                             out.writeUTF(new UserControllers().mainMethod(jsonNode));
