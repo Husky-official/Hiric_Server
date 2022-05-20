@@ -22,5 +22,16 @@
     <orderEntry type="library" name="mysql-connector-java-8.0.13" level="project" />
     <orderEntry type="library" name="mysql-connector" level="project" />
     <orderEntry type="library" name="jackson-annotations-2.11.2" level="project" />
+    <orderEntry type="library" name="libs" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../Client_ui/src/libs/jar_files/swingx-all-1.6.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="mysql.connector.java" level="project" />
   </component>
 </module>
