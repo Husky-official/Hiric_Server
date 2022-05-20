@@ -2,7 +2,6 @@ package controllers.shortListing;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import controllers.hiring.jobPosting.JobPostingActions;
-
 public class ShortListingController {
     public static String mainMethod(JsonNode request) throws Exception {
         String action = request.get("action").asText();
