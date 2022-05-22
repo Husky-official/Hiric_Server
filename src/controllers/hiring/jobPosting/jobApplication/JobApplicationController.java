@@ -1,4 +1,4 @@
-package controllers.jobApplication;
+package controllers.hiring.jobPosting.jobApplication;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import controllers.hiring.jobPosting.jobApplication.JobApplicationActions;
@@ -19,7 +19,7 @@ public class JobApplicationController {
         String response3 = "";
         switch (action) {
             case "createApplication":
-                response1 = new JobApplicationActions().createApplication(request);
+                response1 = new controllers.hiring.jobPosting.jobApplication.JobApplicationActions().createApplication(request);
                 return response1;
 //            case "searchId":
 //                String url = request.get("url").asText();
@@ -39,7 +39,7 @@ public class JobApplicationController {
                 response = new JobApplicationActions().getJobApplications(request, jobPostId);
                 return response;
             case "getJobPosts":
-                response2 = new JobApplicationActions().getJobs(request);
+                response2 = new controllers.hiring.jobPosting.jobApplication.JobApplicationActions().getJobs(request);
                 return response2;
 //          case "deleteApplication":
 //                response3 =new JobApplicationActions().deleteApplication((JobApplication) request)

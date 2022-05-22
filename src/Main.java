@@ -1,12 +1,12 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import controllers.hiring.jobPosting.jobApplication.JobApplicationController;
 import controllers.confirmationAndCancelling.ConfirmationAndCancellingController;
 import controllers.messagecontrollers.MessageControllers;
 import controllers.billing.BillingMain;
 import controllers.invoicecontrollers.InvoiceControllers;
 import controllers.groupmessaging.GroupControllers;
-import controllers.jobApplication.JobApplicationController;
 import controllers.hiring.jobPosting.JobPostingControllers;
 import controllers.shortListing.ShortListingController;
 import controllers.usercontrollers.UserControllers;
@@ -95,7 +95,7 @@ public class Main {
                     JsonNode jsonNode = objectMapper.readTree(requestBody);
 
                     String url = jsonNode.get("url").asText();
-
+                    System.out.println(url);
                     if (url.contains("get_job_posts")) {
                         url = "/get_job_posts";
                     } else if (url.contains("get_job_applications")) {
@@ -108,7 +108,6 @@ public class Main {
                     String urlDup = url;
 
                     System.out.println(jsonNode);
-
                     switch (url) {
                         case "/users" -> {
                             out.flush();
