@@ -70,7 +70,7 @@ public class PaymentActions {
 
             preparedStatement.executeUpdate();
             updateEmployerWallet.execute("UPDATE `Wallet` SET amount_money = amount_money - " + originalAmount +" WHERE ownerId = " + employerId + ";");
-            updateEmployeeWallet.execute("UPDATE `Wallet` SET amount_money = amount_money + " + originalAmount +" WHERE ownerId = " + employeeId + ";");
+            updateEmployeeWallet.execute("INSERT INTO Wallet (ownerId, amount_money) VALUES(employeeId, originalAmount) ON DUPLICATE KEY UPDATE `Wallet` SET amount_money = amount_money + " + originalAmount +" WHERE ownerId = " + employeeId + ";");
             transactionRecording.execute("INSERT INTO Transactions (Employer, Employee, PaymentMethod, transactionType, Amount) VALUES("+employerId +", "+ employeeId +", "+paymentMethod+", 1, "+originalAmount+");");
             ResultSet rs = statement.executeQuery("select * from Transactions where Employee='" + employeeId + "' AND Employer='" +employerId + "'");
 
