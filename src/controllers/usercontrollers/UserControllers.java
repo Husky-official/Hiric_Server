@@ -17,6 +17,12 @@ public class UserControllers {
         case "register":
                 response = register(request);
                 return response;
+            case "deleteUser":
+                response = new UserActions().deleteUser(request);
+                return response;
+            case "updateUser":
+                response = new UserActions().updateUser(request);
+                return response;
         default:
             System.out.println("Unknown action");
         }

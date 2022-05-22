@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -167,6 +168,75 @@ public class UserActions {
         }
         return new ObjectMapper().writeValueAsString(responseStatus);
     }
+ /**
+  * @author: KAYIGIRE NGABIRE Kethia
+  * @description Updating the user and deleting a user
+ */
+
+    public static String deleteUser(JsonNode requestData) throws Exception{
+        Connection connection = new OnlineDbConnection().getConnection();
+
+        JsonNode userToDelete = requestData.get("object");
+        //getting user email
+        String email = userToDelete.get("email").asText();
+//            System.out.println("This email is from client to delete: "+email);
+
+        String deleteUserQuery = "Update users_table set user_status = ? where email = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(deleteUserQuery);
+        preparedStatement.setString(1, "Inactive");
+        preparedStatement.setString(2, email);
+        int res = preparedStatement.executeUpdate();
+        ResponseStatus responseStatus = new ResponseStatus();
+        if (res == 1) {
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("User Deleted Successfully.");
+            responseStatus.setActionToDo("deleteUser");
+        } else {
+            responseStatus.setStatus(400);
+            responseStatus.setMessage("Something went wrong!");
+            responseStatus.setActionToDo("Unable to delete the user.");
+        }
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+    public static String updateUser(JsonNode request) throws Exception {
+        Connection connection = new OnlineDbConnection().getConnection();
+
+        JsonNode userUpdate = request.get("object");
+        // getting the email to be updated;
+        String email = userUpdate.get("id").asText();
+
+        //getting the user information that is to be updated
+        String firstName = userUpdate.get("firstName").asText();
+        String lastName = userUpdate.get("lastName").asText();
+        String newEmail = userUpdate.get("email").asText();
+        String gender = userUpdate.get("gender").asText();
+        String role = userUpdate.get("role").asText();
+        String DOB = new SimpleDateFormat("yyyy-MM-dd").format(userUpdate.get("dob").asLong());
+
+        String updateUserQuery = "Update users_table set firstName = ?, lastName = ?, gender = ?, email = ?, role = ? and DOB = ? where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(updateUserQuery);
+        preparedStatement.setString(1, firstName);
+        preparedStatement.setString(2, lastName);
+        preparedStatement.setString(3, gender);
+        preparedStatement.setString(4, newEmail);
+        preparedStatement.setString(5, role);
+        preparedStatement.setString(6, DOB);
+        preparedStatement.setString(7, email);
+
+        int result = preparedStatement.executeUpdate();
+        ResponseStatus responseStatus = new ResponseStatus();
+        if (result == 1) {
+            responseStatus.setStatus(200);
+            responseStatus.setMessage("User information is updated!");
+            responseStatus.setActionToDo("updateUser");
+        } else {
+            responseStatus.setStatus(400);
+            responseStatus.setMessage("User information not updated!");
+            responseStatus.setActionToDo("Something went wrong.");
+        }
+        return new ObjectMapper().writeValueAsString(responseStatus);
+    }
+
     public String getToken() throws Exception{
         try {
             File myFile = new File("token.txt");
